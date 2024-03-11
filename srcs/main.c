@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/11 21:06:43 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:16:25 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,22 @@ char	*spaces_skip(char *str)
 	return (str0);
 }
 
-void	skip_letter(char **line)
+char	*word_extractor(char **line)
 {
-	char	*str;
 	char	*str0;
-	int		len;
+	char	*str;
+	bool	quote;
+	size_t	len;
 
-	str0 = *line;
-	str = str0;
-	while (*str != ' ')
+	str = *line;
+	str0 = str;
+	quote = false;
+	while (*str != ' ' && !is_char_operator(*str))
 		str++;
 	len = str - str0;
-	*line += len;
+	line += len;
+	return (wati_substr(str0, 0, len));
+	
 }
 
 char	*get_next_word(char **str)
@@ -96,7 +100,8 @@ char	*get_next_word(char **str)
 	char	*word;
 	
 	word = is_operator(str);
-	skip_letter(str);
+	if (!word)
+		word = word_extractor(str);
 	if (!word)
 		return (NULL);
 	*str = spaces_skip(*str);
@@ -111,10 +116,10 @@ int	main(int argc, char **argv)
 	(void)argc;
 	lst = NULL;
 	str = ft_join_args(argv);
-	wati_printf("%s\n", str);
-	// while (*str)
-	// 	wati_lstadd_back(&lst, wati_lstnew(get_next_word(&str)));
-	// wati_lstiter(lst, print);
-	// free(str);
+	// wati_printf("%s\n", str);
+	while (*str)
+		wati_lstadd_back(&lst, wati_lstnew(get_next_word(&str)));
+	wati_lstiter(lst, print);
+	free(str);
 	return (0);
 }
