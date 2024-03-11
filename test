@@ -1,3 +1,10 @@
 echo -e 'test' la team
 echo -e 'test' la team
 echo -e 'test' la team
+|
+testte
+||
+test
+>>
+test
+test
