@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/11 20:35:33 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/11 20:44:36 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,31 @@ void print(void *str)
 	wati_putendl_fd(str, 1);
 }
 
+int is_char_operator(char c)
+{
+	return (c == '|' || c == '&' || c == '<' || c == '>');
+}
+
+char	*is_operator(char **str)
+{
+	char	*str0;
+	char	*str;
+	int		len;
+	if (is_char_operator(*str))
+	{
+		str0 = str;
+		while (str == str0)
+			len++;
+	}
+	return (NULL);
+}
+
 char	*get_next_word(char **str)
 {
-	int		i;
-	int		len;
-	char	*str0;
+	char	*word
 	
-	i = 0;
-	len = 0;
-	str0 = *str;
-	while (**str)
-	{
-		if (**str != ' ')
-			len++;
-		else 
-			break;
-		*str += len;
-	}
-	return (wati_substr(str0, 0, len));
+	word = is_operator(str);
+	return (word);
 }
 
 int	main(int argc, char **argv)
