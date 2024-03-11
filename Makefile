@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 15:48:47 by bedarenn          #+#    #+#              #
-#    Updated: 2024/03/11 17:20:54 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/03/11 17:32:07 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,12 +54,12 @@ all:
 debug:
 
 $(NAME): $(OBJS)
-	@printf "$(GREEN)compile $@$(NC)\n"
+	@printf "$(GREEN)compile $@                                         $(NC)\n"
 	@$(CC) $^ $(LFLAGS) -o $@
 
 $(DIR_OBJS)%.o: $(DIR_SRCS)%.c
+	@printf "$(BROWN)compile $(notdir $<)                              $(NC) \r"
 	@mkdir -p $(@D)
-	@printf "$(BROWN)compile $(notdir $<)$(NC) \n"
 	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 clean: $(WATI_RULES)clean
@@ -67,11 +67,9 @@ clean: $(WATI_RULES)clean
 	@rm -rf $(DIR_OBJS)
 
 fclean: $(WATI_RULES)fclean
-	@printf "$(RED)clean objs$(NC)\n"
+	@printf "$(RED)clean $(NAME)$(NC)\n"
 	@rm -rf $(DIR_OBJS)
-	@printf "$(RED)clean $(NAME)$(NC)"
 	@rm -f $(NAME)
-	@printf "$(RED) | clean $(WATI_NAME)$(NC)\n"
 	@rm -f $(DIR_LIBS)$(WATI_NAME)
 
 re: fclean all

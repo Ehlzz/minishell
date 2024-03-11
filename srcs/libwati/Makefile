@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 07:12:45 by bedarenn          #+#    #+#              #
-#    Updated: 2024/03/11 13:30:39 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/03/11 17:32:32 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,20 +61,21 @@ all:
 debug:
 
 $(NAME): $(OBJS)
-	@printf "\n$(GREEN)wati_compile $@$(NC)\n"
+	@printf "$(GREEN)wati_compile $@                                    $(NC)\n"
 	@ar rcs $@ $^
 
 $(DIR_OBJS)%.o: %.c
+	@printf "$(PURPLE)wati_compile $(notdir $<)                        $(NC) \r"
 	@mkdir -p $(@D)
-	@printf "$(PURPLE)wati_compile $(notdir $<)$(NC) \r"
 	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 clean:
 	@printf "$(RED)wati_clean objs$(NC)\n"
 	@rm -rf $(DIR_OBJS)
 
-fclean: clean
-	@printf "$(RED)wati_clean $(NAME)$(NC)\n"
+fclean:
+	@printf "$(RED)wati_clean$(NC)\n"
+	@rm -rf $(DIR_OBJS)
 	@rm -f $(NAME)
 
 re: fclean all
