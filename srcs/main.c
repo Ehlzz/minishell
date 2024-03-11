@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/11 20:54:43 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:06:43 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,31 @@ char	*spaces_skip(char *str)
 	return (str0);
 }
 
+void	skip_letter(char **line)
+{
+	char	*str;
+	char	*str0;
+	int		len;
+
+	str0 = *line;
+	str = str0;
+	while (*str != ' ')
+		str++;
+	len = str - str0;
+	*line += len;
+}
+
 char	*get_next_word(char **str)
 {
 	char	*word;
 	
 	word = is_operator(str);
+	skip_letter(str);
+	if (!word)
+		return (NULL);
 	*str = spaces_skip(*str);
 	return (word);
-}
+}	
 
 int	main(int argc, char **argv)
 {
@@ -94,9 +111,10 @@ int	main(int argc, char **argv)
 	(void)argc;
 	lst = NULL;
 	str = ft_join_args(argv);
-	while (*str)
-		wati_lstadd_back(&lst, wati_lstnew(get_next_word(&str)));
-	wati_lstiter(lst, print);
-	free(str);
+	wati_printf("%s\n", str);
+	// while (*str)
+	// 	wati_lstadd_back(&lst, wati_lstnew(get_next_word(&str)));
+	// wati_lstiter(lst, print);
+	// free(str);
 	return (0);
 }
