@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 07:12:45 by bedarenn          #+#    #+#              #
-#    Updated: 2024/03/10 17:17:23 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/03/11 13:30:39 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,18 +38,15 @@ SRCS = \
 	wati_free_tab.c \
 	wati_strmapi.c wati_striteri.c \
 	wati_putchar_fd.c wati_putstr_fd.c wati_putendl_fd.c wati_putnbr_fd.c wati_putstrs_fd.c \
-	wati_lstnew.c \
-	wati_lstadd_front.c \
-	wati_lstsize.c \
-	wati_lstlast.c \
-	wati_lstadd_back.c \
-	wati_lstdelone.c \
-	wati_lstclear.c \
-	wati_lstiter.c \
-	wati_lstmap.c \
-	wati_lstjoin.c \
-	wati_lstclean.c \
-	wati_lstsplit.c \
+	wati_lstnew.c wati_lstlast.c wati_lstsize.c \
+	wati_lstadd_front.c wati_lstadd_back.c \
+	wati_lstdelone.c wati_lstclear.c wati_lstclean.c \
+	wati_lstiter.c wati_lstmap.c \
+	wati_lstjoin.c wati_lstsplit.c \
+	btree_create_node.c \
+	btree_apply_prefix.c btree_apply_infix.c btree_apply_suffix.c \
+	btree_insert_data.c btree_search_item.c \
+	btree_level_count.c btree_apply_by_level.c \
 	wati_printf.c wati_printf_arg.c wati_printf_utils_nbr.c wati_printf_utils_str.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
