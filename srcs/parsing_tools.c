@@ -1,30 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/11 17:23:18 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/03/11 17:00:11 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/03/11 17:01:29 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
-#include <readline/readline.h>
-
-void	print(void *str)
+int	is_operator_char(char c)
 {
-	wati_putendl_fd(str, 1);
-}
-
-int	main(void)
-{
-	t_list	*list;
-	char	*str;
-
-	str = readline("test$ ");
-	list = parsing(str);
-	wati_lstiter(list, print);
-	return (0);
+	return (c == '<' || c == '>' || c == '&' || c == '|');
 }

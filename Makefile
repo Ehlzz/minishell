@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 15:48:47 by bedarenn          #+#    #+#              #
-#    Updated: 2024/03/11 12:23:51 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/03/11 17:20:54 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,14 +33,16 @@ DIR := \
 #################################### FILES #####################################
 
 SRCS = \
-	print.c \
+	parsing.c \
+	parsing_quote.c \
+	parsing_tools.c \
 	main.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 
 #################################### FLAGS #####################################
 CFLAGS := -Wall -Wextra -Werror
-LFLAGS := -L$(DIR_LIBS) -lwati
+LFLAGS := -L$(DIR_LIBS) -lreadline -lwati
 IFLAGS := -I$(DIR_HDRS)
 
 ##################################### MAKE #####################################
@@ -53,7 +55,7 @@ debug:
 
 $(NAME): $(OBJS)
 	@printf "$(GREEN)compile $@$(NC)\n"
-	@$(CC) $(LFLAGS) $^ -o $@
+	@$(CC) $^ $(LFLAGS) -o $@
 
 $(DIR_OBJS)%.o: $(DIR_SRCS)%.c
 	@mkdir -p $(@D)
