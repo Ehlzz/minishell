@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/11 20:31:04 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/11 20:33:02 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,24 @@ void print(void *str)
 	wati_putendl_fd(str, 1);
 }
 
-char	*get_next_word(char *str)
+char	*get_next_word(char **str)
 {
 	int		i;
 	int		len;
+	char	*str0;
 	
 	i = 0;
 	len = 0;
-	while (*str)
+	str0 = *str;
+	while (**str)
 	{
-		if (*str != ' ')
+		if (**str != ' ')
 			len++;
 		else 
 			break;
 		str++;
 	}
-	return (wati_substr(str, 0, len));
+	return (wati_substr(str0, 0, len));
 }
 
 int	main(int argc, char **argv)
@@ -70,7 +72,7 @@ int	main(int argc, char **argv)
 	lst = NULL;
 	str = ft_join_args(argv);
 	while (*str)
-		wati_lstadd_back(&lst, wati_lstnew(get_next_word(&*str)));
+		wati_lstadd_back(&lst, wati_lstnew(get_next_word(&str)));
 	wati_lstiter(lst, print);
 	free(str);
 	return (0);
