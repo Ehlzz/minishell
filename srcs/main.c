@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/11 20:20:39 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/11 20:23:56 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*get_next_word(char *str)
 {
 	char	*word;
 
+	word = str;
 	while(*str)
 	{
 		if (*str == ' ')
