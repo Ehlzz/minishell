@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/11 19:11:25 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/11 19:20:13 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void print(void *str)
 {
-	wati_putendl_fd(str, 0);
+	wati_putendl_fd(str, 1);
 }
 
 int	main(int argc, char **argv)
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 	t_list *lst;
 	
 	(void)argc;
-	lst = malloc(sizeof(lst));
+	lst = NULL;	
 	wati_lstadd_back(&lst, wati_lstnew(argv[1]));
 	wati_lstiter(lst, print);
 	return (0);
