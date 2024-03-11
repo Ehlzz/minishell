@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/11 21:16:25 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:17:17 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*word_extractor(char **line)
 	str = *line;
 	str0 = str;
 	quote = false;
-	while (*str != ' ' && !is_char_operator(*str))
+	while (*str && *str != ' ' && !is_char_operator(*str))
 		str++;
 	len = str - str0;
 	line += len;
