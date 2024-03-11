@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 15:48:47 by bedarenn          #+#    #+#              #
-#    Updated: 2024/03/10 17:41:17 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/03/11 12:23:51 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,12 @@ CC := clang
 
 DIR_OBJS := objs/
 DIR_WATI := libwati/
+DIR_LIBS := libs/
 
 DIR_SRCS := srcs/
-DIR_LIBS := libs/
 DIR_HDRS := hdrs/
 DIR := \
 	$(DIR_SRCS) \
-	$(DIR_LIBS) \
 	$(DIR_HDRS)
 
 #################################### FILES #####################################
@@ -86,11 +85,13 @@ dir: $(DIR)
 
 $(WATI_RULES)all:
 	@$(MAKE) $(DIR_SRCS)$(DIR_WATI) -j
-	@cp $(DIR_SRCS)$(DIR_WATI)$(WATI_NAME) $(DIR_LIBS)$(WATI_NAME)
+	@mkdir -p $(DIR_LIBS)
+	@cp $(DIR_SRCS)$(DIR_WATI)$(WATI_NAME) $(DIR_LIBS)
 	@cp $(DIR_SRCS)$(DIR_WATI)libwati.h $(DIR_HDRS)libwati.h
 $(WATI_RULES)debug:
 	@$(MAKE) $(DIR_SRCS)$(DIR_WATI) debug
-	@cp $(DIR_SRCS)$(DIR_WATI)$(WATI_NAME) $(DIR_LIBS)$(WATI_NAME)
+	@mkdir -p $(DIR_LIBS)
+	@cp $(DIR_SRCS)$(DIR_WATI)$(WATI_NAME) $(DIR_LIBS)
 	@cp $(DIR_SRCS)$(DIR_WATI)libwati.h $(DIR_HDRS)libwati.h
 $(WATI_RULES)clean:
 	@$(MAKE) $(DIR_SRCS)$(DIR_WATI) clean
