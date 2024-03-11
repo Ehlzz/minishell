@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/11 20:44:36 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/11 20:54:43 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,41 @@ int is_char_operator(char c)
 	return (c == '|' || c == '&' || c == '<' || c == '>');
 }
 
-char	*is_operator(char **str)
+char	*is_operator(char **line)
 {
 	char	*str0;
 	char	*str;
 	int		len;
+
+	str = *line;
 	if (is_char_operator(*str))
 	{
 		str0 = str;
-		while (str == str0)
-			len++;
+		while (*str == *str0)
+			str++;
+		len = str - str0;
+		*line += len;
+		return (wati_substr(str0, 0, len));
 	}
 	return (NULL);
 }
 
+char	*spaces_skip(char *str)
+{
+	char	*str0;
+	
+	str0 = str;
+	while (*str && *str0 == ' ')
+		str0++;
+	return (str0);
+}
+
 char	*get_next_word(char **str)
 {
-	char	*word
+	char	*word;
 	
 	word = is_operator(str);
+	*str = spaces_skip(*str);
 	return (word);
 }
 
