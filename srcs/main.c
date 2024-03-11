@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/11 20:33:02 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/11 20:34:14 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*get_next_word(char **str)
 			len++;
 		else 
 			break;
-		str++;
+		*str++;
 	}
 	return (wati_substr(str0, 0, len));
 }
