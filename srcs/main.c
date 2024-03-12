@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/11 21:46:36 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:12:54 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,33 +80,39 @@ char	*skip_space(char **line)
 	return (str0);
 }
 
-char	*get_word(char **line)
+char	*get_word(char **line, t_test *test)
 {
 	char	*str0;
 	char	*str;
 	char	quote_c;
-	bool	quote;
 	size_t	len;
 
 	str = *line;
 	str0 = str;
-	quote = false;
 	while (*str && *str != ' ' && !is_char_operator(*str))
 	{
 		if (*str == '"' || *str == 39)
 		{
 			quote_c = *str;
-			quote = !quote;
+			test->quote = !test->quote;
 		}
 		str++;
 	}
-	while (quote && *str)
+	while (test->quote && *str)
 	{
 		if (*str == quote_c)
 		{
+			test->quote = !test->quote;
 			str++;
 			break ;
 		}
+		str++;
+	}
+
+	while (*str && *str != ' ')
+	{
+		if (*str == quote_c)
+			test->quote = !test->quote;
 		str++;
 	}
 	len = str - str0;
@@ -115,34 +121,46 @@ char	*get_word(char **line)
 	
 }
 
-char	*get_next_token(char **str)
+char	*get_next_token(char **str, t_test *test)
 {
 	char	*token;
 	
 	token = get_operator(str);
+	test->quote = false;
 	if (!token)
-		token = get_word(str);
+		token = get_word(str, test);
+	if (test->quote)
+		return (NULL);
 	if (!token)
 		return (NULL);
 	skip_space(str);
 	return (token);
 }	
 
-int	main(int argc, char **argv)
+int	main(void)
 {
 	char	*str;
 	char	*str0;
-	t_list *lst;
+	char	*token;
+	t_list	*lst;
+	t_test	test;
 	
-	(void)argc;
 	lst = NULL;
-	str = ft_join_args(argv);
+	// str = ft_join_args(argv);
+	str = readline("Minish$ ");
 	str0 = str;
 	while (*str)
-		wati_lstadd_back(&lst, wati_lstnew(get_next_token(&str)));
+	{
+		token = get_next_token(&str, &test);
+		if (!token)
+			break;
+		wati_lstadd_back(&lst, wati_lstnew(token));
+	}
 	wati_lstiter(lst, print);
 	wati_lstiter(lst, free);
 	wati_lstclean(&lst);
+	if (test.quote)
+		return (wati_putstr_fd("error: quote (test)\n", 2));
 	free(str0);
 	return (0);
 }
