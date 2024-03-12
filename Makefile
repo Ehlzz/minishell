@@ -6,7 +6,7 @@
 #    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 15:48:47 by bedarenn          #+#    #+#              #
-#    Updated: 2024/03/11 19:06:32 by ehalliez         ###   ########.fr        #
+#    Updated: 2024/03/12 20:41:41 by ehalliez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,9 @@ DIR := \
 #################################### FILES #####################################
 
 SRCS = \
-	main.c
+	main.c \
+	parse/parsing.c \
+	parse/parsing_utils.c \
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 
