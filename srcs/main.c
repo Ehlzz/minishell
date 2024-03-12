@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/12 13:12:54 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:06:22 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,46 +121,65 @@ char	*get_word(char **line, t_test *test)
 	
 }
 
-char	*get_next_token(char **str, t_test *test)
+char	*get_next_token(char **line, t_test *test)
 {
 	char	*token;
 	
-	token = get_operator(str);
-	test->quote = false;
+	token = get_operator(line);
 	if (!token)
-		token = get_word(str, test);
+		token = get_word(line, test);
 	if (test->quote)
 		return (NULL);
 	if (!token)
 		return (NULL);
-	skip_space(str);
+	skip_space(line);
 	return (token);
-}	
+}
 
-int	main(void)
+int	clean_lst(t_list *lst)
 {
-	char	*str;
-	char	*str0;
+	wati_lstiter(lst, print);
+	wati_lstiter(lst, free);
+	wati_lstclean(&lst);
+	return (0);
+}
+
+t_list	*init_parsing(char *line)
+{
 	char	*token;
+	char	*str;
 	t_list	*lst;
 	t_test	test;
 	
 	lst = NULL;
-	// str = ft_join_args(argv);
-	str = readline("Minish$ ");
-	str0 = str;
-	while (*str)
+	test.quote = false;
+	str = line;
+	while (*line)
 	{
-		token = get_next_token(&str, &test);
+		token = get_next_token(&line, &test);
 		if (!token)
 			break;
 		wati_lstadd_back(&lst, wati_lstnew(token));
 	}
-	wati_lstiter(lst, print);
-	wati_lstiter(lst, free);
-	wati_lstclean(&lst);
+	free(str);
 	if (test.quote)
-		return (wati_putstr_fd("error: quote (test)\n", 2));
-	free(str0);
+	{
+		clean_lst(lst);
+		wati_putstr_fd("error: quote (test)\n", 2);
+		return (NULL);
+	}
+	return (lst);
+}
+
+int	main(void)
+{
+	char	*str;
+	t_list	*lst;
+
+	str = readline("Minish$ ");
+	lst = init_parsing(str);
+	if (!lst)
+		return (1);
+	clean_lst(lst);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:57:14 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/12 13:12:22 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:04:47 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*wati_strmapi(const char *s, char (*f)(unsigned int, char));
 void	wati_striteri(char *s, void (*f)(unsigned int, char*));
 
 void	wati_putchar_fd(char c, int fd);
-int		wati_putstr_fd(char *s, int fd);
+void	wati_putstr_fd(char *s, int fd);
 void	wati_putendl_fd(char *s, int fd);
 void	wati_putnbr_fd(int n, int fd);
 void	wati_putstrs_fd(char **s, int fd);
