@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:39:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/12 20:43:13 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:44:34 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,31 @@ char	*get_next_token(char **line, t_test *test)
 	return (token);
 }
 
+char	*verify_token(char *line)
+{
+	char	*str0;
+	char	*str;
+	bool	simple_quote;
+	bool	double_quote;
+
+	str0 = line;
+	str = str0;
+	while (*str)
+	{
+		if ((*str == '\'' || *str == '"') && (!simple_quote && !double_quote))
+		{
+			if (*str == '\'')
+				simple_quote = true;
+			if (*str == '"')
+				double_quote = true;
+		}
+		str++;
+	}
+	wati_printf("simple quote = %d\n", simple_quote);
+	wati_printf("double quote = %d\n", double_quote);
+	return (line);
+}
+
 t_list	*init_parsing(char *line)
 {
 	char	*token;
@@ -130,6 +155,7 @@ t_list	*init_parsing(char *line)
 	while (*line)
 	{
 		token = get_next_token(&line, &test);
+		token = verify_token(token);
 		if (!token)
 			break ;
 		wati_lstadd_back(&lst, wati_lstnew(token));

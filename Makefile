@@ -6,7 +6,7 @@
 #    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 15:48:47 by bedarenn          #+#    #+#              #
-#    Updated: 2024/03/12 20:41:41 by ehalliez         ###   ########.fr        #
+#    Updated: 2024/03/13 15:56:36 by ehalliez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,11 +36,13 @@ SRCS = \
 	main.c \
 	parse/parsing.c \
 	parse/parsing_utils.c \
+	testenvironnement/variable.c \
+	testenvironnement/create_env_list.c \
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 
 #################################### FLAGS #####################################
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -g
 LFLAGS := -L$(DIR_LIBS) -lreadline -lwati
 IFLAGS := -I$(DIR_HDRS)
 
