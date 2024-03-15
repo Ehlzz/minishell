@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:39:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/13 17:44:34 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/15 19:25:17 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,100 @@ char	*get_next_token(char **line, t_test *test)
 	return (token);
 }
 
-char	*verify_token(char *line)
+int		is_dollar_operator(char *line)
+{
+	while (*line)
+	{
+		if (*line == '$')
+			return (1);
+		line++;
+	}
+	return (0);
+}
+
+char	*start_to_dollar(char *line)
+{
+	char	*str;
+	int		len;
+
+	str = line;
+	while (str && *str && *str != '$')
+		str++;
+	len = str - line;
+	return (wati_substr(line, 0, len));
+}
+
+char	*dollar_to_dollar(char *line)
+{
+	char	*str;
+	int		len_start;
+	int		len_end;
+
+	str = line;
+	while (str && *str && *str != '$')
+		str++;
+	len_start = str - line;
+	wati_printf("start dollar = %s\n", str);
+	while (*str)
+	{
+		if (*str == ' ' || *str == '$')
+			break ;
+		str++;
+	}
+	wati_printf("end dollar = %s\n", str);
+	len_end = str - line;
+	return (wati_substr(line, len_start, len_end - 1));
+}
+
+char	*dollar_to_end(char *line)
+{
+	char	*str;
+	int		len;
+
+	str = line;
+	while (*str)
+	{
+		if (*str == '$')
+		{
+			str++;
+			break ;
+		}
+		str++;
+	}
+	while (*str)
+	{
+		if (*str == ' ' || *str == '$')
+			break ;
+		str++;
+	}
+	len = str - line;
+	return (wati_substr(line, len, wati_strlen(line)));
+}
+
+char	*modify_token(char *line, t_list *env_lst)
+{
+	char	*start;
+	char	*variable;
+	char	*end;
+	char	*tmp;
+	
+	if (is_dollar_operator(line))
+	{
+		start = start_to_dollar(line);
+		wati_printf("variable = %s\n", start);
+		variable = find_environment_variable(env_lst, dollar_to_dollar(line) + 1);
+		wati_printf("variable = %s\n", dollar_to_dollar(line));
+		tmp = wati_strjoin(start, variable);
+		start = tmp;
+		end = dollar_to_end(line);
+		tmp = wati_strjoin(tmp, end);
+		free(start);
+		line = tmp;
+	}
+	return (line);
+}
+
+char	*verify_token(char *line, t_list *env_lst)
 {
 	char	*str0;
 	char	*str;
@@ -137,12 +230,12 @@ char	*verify_token(char *line)
 		}
 		str++;
 	}
-	wati_printf("simple quote = %d\n", simple_quote);
-	wati_printf("double quote = %d\n", double_quote);
+	if (double_quote)
+		return (modify_token(line, env_lst));
 	return (line);
 }
 
-t_list	*init_parsing(char *line)
+t_list	*init_parsing(char *line, t_list *env_lst)
 {
 	char	*token;
 	char	*str;
@@ -155,7 +248,8 @@ t_list	*init_parsing(char *line)
 	while (*line)
 	{
 		token = get_next_token(&line, &test);
-		token = verify_token(token);
+		token = verify_token(token, env_lst);
+		wati_printf("line = %s\n", token);
 		if (!token)
 			break ;
 		wati_lstadd_back(&lst, wati_lstnew(token));

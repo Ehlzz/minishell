@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:56:35 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/13 16:17:30 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:56:56 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ char	*find_environment_variable(t_list *env_lst, char *to_find)
 		free(variable);
 		env_lst = env_lst->next;
 	}
-	return (NULL);
+	return (to_find);
 }

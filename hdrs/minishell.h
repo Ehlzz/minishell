@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/13 16:01:06 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:48:52 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	print(void *str);
 
 int		is_char_operator(char c);
 
-t_list	*init_parsing(char *line);
+t_list	*init_parsing(char *line, t_list *env_lst);
 t_list	*create_env_list(char **env);
 
 #endif

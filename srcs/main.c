@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/13 17:36:15 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/15 19:23:13 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	env_lst = create_env_list(env);
-	wati_lstiter(env_lst, print);
+	// wati_lstiter(env_lst, print);
 	while (1)
 	{
 		str = readline("minish> ");
-		lst = init_parsing(str);
+		lst = init_parsing(str, env_lst);
 		if (lst)
 		{
 			wati_lstiter(lst, print);
