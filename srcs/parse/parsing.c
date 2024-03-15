@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:39:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/15 20:10:42 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/15 20:16:38 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ char	*modify_token(char *line, t_list *env_lst)
 	char	*end;
 	char	*tmp;
 	
-	if (is_dollar_operator(line))
+	while (is_dollar_operator(line))
 	{
 		start = start_to_dollar(line);
 		if (*line == '"')
