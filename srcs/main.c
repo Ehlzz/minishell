@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/15 19:23:13 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/15 19:43:17 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv, char **env)
 		lst = init_parsing(str, env_lst);
 		if (lst)
 		{
-			wati_lstiter(lst, print);
+			// wati_lstiter(lst, print);
 			wati_lstiter(lst, free);
 			wati_lstclean(&lst);
 			if (!wati_strncmp(str, "exit", 4) && wati_strlen(str) == 4)

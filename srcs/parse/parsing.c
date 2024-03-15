@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:39:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/15 19:26:17 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/15 20:10:42 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,16 +150,17 @@ char	*dollar_to_dollar(char *line)
 	while (str && *str && *str != '$')
 		str++;
 	len_start = str - line;
-	wati_printf("start dollar = %s\n", str);
+	str++;
 	while (*str)
 	{
 		if (*str == ' ' || *str == '$')
 			break ;
 		str++;
 	}
-	wati_printf("end dollar = %s\n", str);
 	len_end = str - line;
-	return (wati_substr(line, len_start, len_end - 1));
+	if (!*str)
+		len_end--;
+	return (wati_substr(line, len_start, len_end - len_start));
 }
 
 char	*dollar_to_end(char *line)
@@ -172,11 +173,19 @@ char	*dollar_to_end(char *line)
 		str++;
 	while (*str)
 	{
-		if (*str == ' ' || *str == '$')
-			break ;
 		str++;
+		if (*str == ' ' || *str == '$' 	)
+			break ;
 	}
-	len = str - line;
+	if (*line == '"')
+	{
+		if (*str)
+			len = str - line;
+		else
+			len = str - line - 1;
+	}
+	else
+		len = str - line;
 	return (wati_substr(line, len, wati_strlen(line)));
 }
 
@@ -190,9 +199,10 @@ char	*modify_token(char *line, t_list *env_lst)
 	if (is_dollar_operator(line))
 	{
 		start = start_to_dollar(line);
-		wati_printf("variable = %s\n", start);
-		variable = find_environment_variable(env_lst, dollar_to_dollar(line) + 1);
-		wati_printf("variable = %s\n", dollar_to_dollar(line));
+		if (*line == '"')
+			variable = find_environment_variable(env_lst, dollar_to_dollar(line));
+		else
+			variable = find_environment_variable(env_lst, line);
 		tmp = wati_strjoin(start, variable);
 		start = tmp;
 		end = dollar_to_end(line);
@@ -223,7 +233,7 @@ char	*verify_token(char *line, t_list *env_lst)
 		}
 		str++;
 	}
-	if (double_quote)
+	if (!simple_quote)
 		return (modify_token(line, env_lst));
 	return (line);
 }
