@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:39:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/15 19:25:17 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/15 19:26:17 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,15 +168,8 @@ char	*dollar_to_end(char *line)
 	int		len;
 
 	str = line;
-	while (*str)
-	{
-		if (*str == '$')
-		{
-			str++;
-			break ;
-		}
+	while (*str != '$')
 		str++;
-	}
 	while (*str)
 	{
 		if (*str == ' ' || *str == '$')
