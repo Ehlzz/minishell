@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_typedef.h                                     :+:      :+:    :+:   */
+/*   wati_chdir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 13:28:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/16 19:19:23 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/03/15 15:43:19 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/03/15 16:25:24 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WATI_TYPEDEF_H
-# define WATI_TYPEDEF_H
+#include <libwati.h>
+#include <minishell.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
 
-# include <sys/stat.h>
-
-typedef struct stat	t_stat;
-
-typedef enum s_bool
+void	wati_chdir(void)
 {
-	ERROR = -1,
-	FALSE,
-	TRUE,
-}	t_bool;
-
-#endif
+	chdir("/nfs/homes/bedarenn/Documents/Minish/srcs");
+	printf("%s\n", getenv("PWD"));
+}

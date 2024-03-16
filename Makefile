@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 15:48:47 by bedarenn          #+#    #+#              #
-#    Updated: 2024/03/11 17:32:07 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/03/16 19:25:27 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,15 +33,20 @@ DIR := \
 #################################### FILES #####################################
 
 SRCS = \
+	prompt.c \
+	env_manage.c \
+	env_tools.c \
+	dir_manage.c \
 	parsing.c \
 	parsing_quote.c \
 	parsing_tools.c \
+	signal_new.c \
 	main.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 
 #################################### FLAGS #####################################
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra #-Werror
 LFLAGS := -L$(DIR_LIBS) -lreadline -lwati
 IFLAGS := -I$(DIR_HDRS)
 

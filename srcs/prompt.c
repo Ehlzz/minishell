@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_typedef.h                                     :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 13:28:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/16 19:19:23 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/03/15 13:25:38 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/03/15 16:04:25 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WATI_TYPEDEF_H
-# define WATI_TYPEDEF_H
+#include <libwati.h>
+#include <minishell.h>
+#include <unistd.h>
 
-# include <sys/stat.h>
-
-typedef struct stat	t_stat;
-
-typedef enum s_bool
+char	*get_prompt(void)
 {
-	ERROR = -1,
-	FALSE,
-	TRUE,
-}	t_bool;
+	static char	*prompt;
 
-#endif
+	prompt = getcwd(NULL, 0);
+	return (prompt);
+}

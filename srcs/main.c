@@ -6,37 +6,47 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/12 17:25:28 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/16 19:52:49 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <stdlib.h>
-#include <signal.h>
 #include <stdio.h>
 #include <readline/readline.h>
 
-void	print(void *ptr)
+void	wati_exit(void)
 {
-	char	*str;
-
-	str = ptr;
-	printf("%s ", str);
+	printf("exit\n");
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
-	char	*str;
-	t_list	*list;
+	t_list	*env;
+	char	*exp;
+	char	*name;
+	char	*content;
 
-	while (1)
+	if (argc != 1 && argc != 2)
+		return (1);
+	(void)argv;
+	//atexit(&wati_exit);
+	env = env_getlist(envp);
+	if (argc == 2)
 	{
-		str = readline("minishell> ");
-		list = parsing(str);
-		wati_lstiter(list, print);
-		printf("\n");
-		wati_lstclear(&list, free);
-		free(str);
+		exp = wati_strdup(argv[1]);
+		env_add(&env, exp);
+		name = get_name(exp);
+		content = env_search(env, name);
+		printf("%s = %s\n", name, content);
+		env_delete(&env, name);
+		printf("%s\n", env_search(env, name));
+		free(name);
+		free(content);
 	}
+	wati_chdir(&env, "srcs");
+	wati_chdir(&env, "srcs");
+	print_pwd();
+	wati_lstclear(&env, free);
 	return (0);
 }
