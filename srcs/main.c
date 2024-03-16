@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/16 19:52:49 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/16 19:57:34 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	main(int argc, char **argv, char **envp)
 		free(name);
 		free(content);
 	}
+	else
+		env_print(&env);
 	wati_chdir(&env, "srcs");
 	wati_chdir(&env, "srcs");
 	print_pwd();
