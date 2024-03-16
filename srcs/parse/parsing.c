@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:39:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/15 20:16:38 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/15 23:47:02 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,13 +189,15 @@ char	*dollar_to_end(char *line)
 	return (wati_substr(line, len, wati_strlen(line)));
 }
 
+// boucle infini si la variable d'environnement n'existe pas 201
+
 char	*modify_token(char *line, t_list *env_lst)
 {
 	char	*start;
 	char	*variable;
 	char	*end;
 	char	*tmp;
-	
+
 	while (is_dollar_operator(line))
 	{
 		start = start_to_dollar(line);
