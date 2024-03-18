@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 15:48:47 by bedarenn          #+#    #+#              #
-#    Updated: 2024/03/16 19:25:27 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/03/17 13:05:05 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,12 @@ DIR := \
 #################################### FILES #####################################
 
 SRCS = \
-	prompt.c \
+	wati_readline.c \
+	wati_prompt.c \
 	env_manage.c \
 	env_tools.c \
 	dir_manage.c \
+	wati_echo.c \
 	parsing.c \
 	parsing_quote.c \
 	parsing_tools.c \

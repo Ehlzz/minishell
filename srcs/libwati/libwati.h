@@ -6,12 +6,14 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:57:14 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/11 13:32:08 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:01:14 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBWATI_H
 # define LIBWATI_H
+
+# define NC "\033[0m"
 
 # include <stddef.h>
 # include <stdarg.h>
@@ -66,6 +68,7 @@ size_t	wati_atou_base(const char *nptr, char *base, size_t size);
 void	*wati_calloc(size_t nmemb, size_t size);
 char	*wati_strdup(const char *s);
 char	*wati_substr(char const *s, unsigned int start, size_t len);
+char	*wati_chcolor(char *str, char *color);
 char	*wati_strjoin(char const *s1, char const *s2);
 char	**wati_split(char const *s, char c);
 char	*wati_join(char **strs);
@@ -136,5 +139,9 @@ int		wati_printf_unbr_base_fd(unsigned int n, char *base,
 int		wati_printf_snbr_base_fd(int n, char *base, size_t size, int fd);
 int		wati_printf_ptr_fd(void *ptr, int fd);
 int		wati_printf_usnbr_base_fd(size_t n, char *base, size_t size, int fd);
+
+char	*wati_vjoinf(size_t nb, va_list arg);
+char	*wati_joinf(size_t nb, ...);
+size_t	wati_arglen(char c, va_list arg);
 
 #endif

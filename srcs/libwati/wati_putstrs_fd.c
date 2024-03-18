@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_putstrs_fd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:14:29 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 15:40:50 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/17 11:31:10 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

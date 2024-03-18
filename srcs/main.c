@@ -6,18 +6,25 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/16 19:57:34 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:27:40 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <readline/readline.h>
+#include <signal.h>
+
+int	test_parsing(t_list *env, char *exec);
 
 void	wati_exit(void)
 {
 	printf("exit\n");
+}
+
+void	print(void *str)
+{
+	wati_putendl_fd((char *)str, 1);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -27,10 +34,6 @@ int	main(int argc, char **argv, char **envp)
 	char	*name;
 	char	*content;
 
-	if (argc != 1 && argc != 2)
-		return (1);
-	(void)argv;
-	//atexit(&wati_exit);
 	env = env_getlist(envp);
 	if (argc == 2)
 	{
@@ -44,11 +47,38 @@ int	main(int argc, char **argv, char **envp)
 		free(name);
 		free(content);
 	}
-	else
-		env_print(&env);
+	else if (argc > 0)
+		return (test_parsing(env, *argv));
 	wati_chdir(&env, "srcs");
 	wati_chdir(&env, "srcs");
 	print_pwd();
 	wati_lstclear(&env, free);
 	return (0);
+}
+
+int	test_parsing(t_list *env, char *exec)
+{
+	char	*input;
+	t_list	*list;
+
+	set_readline_signal();
+	while (1)
+	{
+		input = wati_readline(env, exec);
+		if (!input)
+			break ;
+		if (!wati_strncmp(input, "exit", 5))
+			break ;
+		list = parsing(input);
+		if (list)
+		{
+			wati_lstiter(list, print);
+			wati_lstclear(&list, free);
+		}
+		free(input);
+	}
+	if (input)
+		free(input);
+	wati_lstclear(&env, free);
+	return (1);
 }
