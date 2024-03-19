@@ -6,22 +6,16 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/03/18 14:39:34 by bedarenn         ###   ########.fr       */
-=======
-/*   Updated: 2024/03/15 18:48:52 by ehalliez         ###   ########.fr       */
->>>>>>> ehalliez
+/*   Updated: 2024/03/19 17:56:32 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-<<<<<<< HEAD
 # include <wati_typedef.h>
 # include <wati_const.h>
 # include <libwati.h>
-=======
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -47,7 +41,6 @@ int		is_char_operator(char c);
 
 t_list	*init_parsing(char *line, t_list *env_lst);
 t_list	*create_env_list(char **env);
->>>>>>> ehalliez
 
 /*    Manage env    */
 t_list	*env_getlist(char **envp);
