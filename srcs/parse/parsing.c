@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:39:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/15 23:47:02 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:17:08 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char	*get_word(char **line, t_test *test)
 
 	str = *line;
 	str0 = str;
+	quote_c = 0;
 	while (*str && !is_char_operator(*str))
 	{
 		if ((*str == '"' || *str == 39) && !quote_c)
@@ -224,6 +225,8 @@ char	*verify_token(char *line, t_list *env_lst)
 
 	str0 = line;
 	str = str0;
+	simple_quote = false;
+	double_quote = false;
 	while (*str)
 	{
 		if ((*str == '\'' || *str == '"') && (!simple_quote && !double_quote))
