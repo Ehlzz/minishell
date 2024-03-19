@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:28:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/16 19:19:23 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:50:59 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include <sys/stat.h>
 
-typedef struct stat	t_stat;
+typedef struct stat		t_stat;
+typedef struct dirent	t_dir;
 
 typedef enum s_bool
 {

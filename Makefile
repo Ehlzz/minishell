@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
+#    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 15:48:47 by bedarenn          #+#    #+#              #
-#    Updated: 2024/03/19 17:54:07 by ehalliez         ###   ########.fr        #
+#    Updated: 2024/03/19 18:02:10 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,15 +39,12 @@ SRCS = \
 	env_tools.c \
 	dir_manage.c \
 	wati_echo.c \
-	parsing.c \
-	parsing_quote.c \
-	parsing_tools.c \
 	signal_new.c \
-	main.c \
+	main_ehlz.c \
 	parse/parsing.c \
 	parse/parsing_utils.c \
-	testenvironnement/variable.c \
-	testenvironnement/create_env_list.c \
+	environnement/variable.c \
+	environnement/create_env_list.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 
