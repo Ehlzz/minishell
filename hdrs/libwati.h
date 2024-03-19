@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   libwati.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:57:14 by bedarenn          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/18 16:01:14 by bedarenn         ###   ########.fr       */
+=======
+/*   Updated: 2024/03/12 14:04:47 by ehalliez         ###   ########.fr       */
+>>>>>>> ehalliez
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +21,7 @@
 
 # include <stddef.h>
 # include <stdarg.h>
+# include <stdlib.h>
 
 int		wati_isalpha(int c);
 int		wati_isdigit(int c);

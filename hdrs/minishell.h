@@ -3,19 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/18 14:39:34 by bedarenn         ###   ########.fr       */
+=======
+/*   Updated: 2024/03/15 18:48:52 by ehalliez         ###   ########.fr       */
+>>>>>>> ehalliez
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+<<<<<<< HEAD
 # include <wati_typedef.h>
 # include <wati_const.h>
 # include <libwati.h>
+=======
+# include <stdbool.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <libwati.h>
+
+typedef struct s_test
+{
+	bool	quote;
+}	t_test;
+
+// #### PARSING ### // 
+
+char	*ft_join_args(char **argv);
+char	*get_operator(char **line);
+char	*skip_space(char **line);
+char	*get_word(char **line, t_test *test);
+char	*get_next_token(char **line, t_test *test);
+char	*find_environment_variable(t_list *env_lst, char *to_find);
+
+void	print(void *str);
+
+int		is_char_operator(char c);
+
+t_list	*init_parsing(char *line, t_list *env_lst);
+t_list	*create_env_list(char **env);
+>>>>>>> ehalliez
 
 /*    Manage env    */
 t_list	*env_getlist(char **envp);
