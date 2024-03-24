@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/19 18:30:06 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:37:53 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = wati_readline(env, argv[0]);
-		if (!str)
+		if (str == NULL)
 			break ;
 		if (wati_strlen(str) == 4 && !wati_strncmp(str, "exit", 4))
 			break ;
