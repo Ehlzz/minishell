@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 15:52:22 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:02:51 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ int	main(int argc, char **argv, char **envp)
 			if (!wati_strncmp(str, "exit", 4) && wati_strlen(str) == 4)
 				break ;
 		}
-		free(str);
-			wati_lstclear(&lst, free);
+		wati_lstclear(&lst, free);
 	}
 	if (str)
 		free(str);

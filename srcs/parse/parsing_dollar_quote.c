@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:32:55 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 15:49:54 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:02:19 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,22 @@ char	*dollar_to_end(char *line)
 	return (wati_substr(line, len, wati_strlen(line)));
 }
 
+int count_dollars(char *line)
+{
+	char	*str0;
+	int		count;
+
+	str0 = line;
+	count = 0;
+	while (*line)
+	{
+		if (*line == '$')
+			count++;
+		line++;
+	}
+	return (count);
+}
+
 // boucle infini si la variable d'environnement n'existe pas 201
 
 char	*modify_token(char *line, t_list *env_lst)
@@ -81,8 +97,10 @@ char	*modify_token(char *line, t_list *env_lst)
 	char	*variable;
 	char	*end;
 	char	*tmp;
+	int		dollar_count;
 
-	while (is_dollar_operator(line))
+	dollar_count = count_dollars(line);
+	while (dollar_count)
 	{
 		start = start_to_dollar(line);
 		if (*line == '"')
@@ -95,6 +113,7 @@ char	*modify_token(char *line, t_list *env_lst)
 		tmp = wati_strjoin(tmp, end);
 		free(start);
 		line = tmp;
+		dollar_count--;
 	}
 	return (line);
 }
