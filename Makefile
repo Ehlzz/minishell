@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/03/10 15:48:47 by bedarenn          #+#    #+#              #
-#    Updated: 2024/03/26 15:42:12 by ehalliez         ###   ########.fr        #
+#    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
+#    Updated: 2024/03/26 15:52:45 by ehalliez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,8 @@ DIR := \
 SRCS = \
 	wati_readline.c \
 	wati_prompt.c \
-	env_manage.c \
-	env_tools.c \
-	dir_manage.c \
+	env/env_manage.c env/env_tools.c \
+	dir/dir_manage.c \
 	wati_echo.c \
 	signal_new.c \
 	main_ehlz.c \

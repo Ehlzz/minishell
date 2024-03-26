@@ -5,28 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/26 15:50:15 by ehalliez         ###   ########.fr       */
+/*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
+/*   Updated: 2024/03/26 15:52:22 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
-int	main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
 	t_list	*lst;
-	t_list	*env_lst;
+	t_list	*env;
 
 	(void)argc;
-	env_lst = create_env_list(env);
+	env = env_getlist(envp);
 	set_readline_signal();
 	while (1)
 	{
-		str = readline("minish> ");
-		if (!str)
+		str = wati_readline(env, argv[0]);
+		if (str == NULL)
 			break ;
-		lst = init_parsing(str, env_lst);
+		if (wati_strlen(str) == 4 && !wati_strncmp(str, "exit", 4))
+			break ;
+		lst = init_parsing(str, env);
 		if (lst)
 		{
 			wati_lstiter(lst, free);
@@ -34,11 +37,11 @@ int	main(int argc, char **argv, char **env)
 			if (!wati_strncmp(str, "exit", 4) && wati_strlen(str) == 4)
 				break ;
 		}
+		free(str);
+			wati_lstclear(&lst, free);
 	}
 	if (str)
 		free(str);
-	argv++;
-	wati_putstr_fd(find_variable(env_lst, *argv + 1), 1);
-	wati_lstclean(&env_lst);
+	wati_lstclear(&env, free);
 	return (0);
 }
