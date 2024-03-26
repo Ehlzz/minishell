@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/19 17:56:32 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:50:15 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ char	*get_operator(char **line);
 char	*skip_space(char **line);
 char	*get_word(char **line, t_test *test);
 char	*get_next_token(char **line, t_test *test);
-char	*find_environment_variable(t_list *env_lst, char *to_find);
+char	*find_variable(t_list *env_lst, char *to_find);
 
 void	print(void *str);
 
 int		is_char_operator(char c);
+int		is_dollar_operator(char *line);
+char	*verify_token(char *line, t_list *env_lst);
 
 t_list	*init_parsing(char *line, t_list *env_lst);
 t_list	*create_env_list(char **env);

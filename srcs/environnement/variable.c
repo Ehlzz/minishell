@@ -6,13 +6,13 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:56:35 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 15:35:30 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:50:15 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*find_environment_variable(t_list *env_lst, char *to_find)
+char	*find_variable(t_list *env_lst, char *to_find)
 {
 	int		len;
 	char	*line;

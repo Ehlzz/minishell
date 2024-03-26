@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:32:55 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 15:34:45 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:49:54 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,9 @@ char	*modify_token(char *line, t_list *env_lst)
 	{
 		start = start_to_dollar(line);
 		if (*line == '"')
-			variable = find_environment_variable(env_lst, \
-			dollar_to_dollar(line));
+			variable = find_variable(env_lst, dollar_to_dollar(line));
 		else
-			variable = find_environment_variable(env_lst, line);
+			variable = find_variable(env_lst, line);
 		tmp = wati_strjoin(start, variable);
 		start = tmp;
 		end = dollar_to_end(line);

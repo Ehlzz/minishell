@@ -6,7 +6,7 @@
 #    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 15:48:47 by bedarenn          #+#    #+#              #
-#    Updated: 2024/03/26 15:33:49 by ehalliez         ###   ########.fr        #
+#    Updated: 2024/03/26 15:42:12 by ehalliez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ SRCS = \
 	parse/parsing.c \
 	parse/parsing_utils.c \
 	parse/parsing_dollar_quote.c \
-	parse/parsing_get_word.c \
+	parse/parsing_get_words.c \
 	environnement/variable.c \
 	environnement/create_env_list.c
 

@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/26 15:29:53 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:50:15 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,11 @@ int	main(int argc, char **argv, char **env)
 			if (!wati_strncmp(str, "exit", 4) && wati_strlen(str) == 4)
 				break ;
 		}
-		free(str);
 	}
 	if (str)
 		free(str);
 	argv++;
-	wati_putstr_fd(find_environment_variable(env_lst, *argv + 1), 1);
+	wati_putstr_fd(find_variable(env_lst, *argv + 1), 1);
 	wati_lstclean(&env_lst);
 	return (0);
 }
