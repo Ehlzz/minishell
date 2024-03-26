@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:28:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/19 17:50:59 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:38:10 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,17 @@ typedef enum s_bool
 	FALSE,
 	TRUE,
 }	t_bool;
+
+typedef enum s_oper
+{
+	NO,
+	PIPE,
+	AND,
+	OR,
+	R_IN,
+	R_OUT,
+	H_IN,
+	H_OUT,
+}	t_oper;
 
 #endif

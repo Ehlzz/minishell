@@ -3,29 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   create_env_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:49:20 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 15:35:24 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:39:51 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	is_char_operator(char c)
+char	*get_operator(char *s)
 {
-	return (c == '|' || c == '&' || c == '<' || c == '>');
+	if (!wati_memcmp(s, "&&", 2))
+		return (wati_strdup("&&"));
+	else if (!wati_memcmp(s, "||", 2))
+		return (wati_strdup("||"));
+	else if (!wati_memcmp(s, "<<", 2))
+		return (wati_strdup("<<"));
+	else if (!wati_memcmp(s, ">>", 2))
+		return (wati_strdup(">>"));
+	else if (*s == '|')
+		return (wati_strdup("|"));
+	else if (*s == '<')
+		return (wati_strdup("<"));
+	else if (*s == '>')
+		return (wati_strdup(">"));
+	return (NULL);
 }
 
-t_list	*create_env_list(char **env)
+t_oper	is_operator(char *s)
 {
-	t_list	*lst;
-
-	lst = NULL;
-	while (*env)
-	{
-		wati_lstadd_back(&lst, wati_lstnew(*env));
-		env++;
-	}
-	return (lst);
+	if (!wati_memcmp(s, "&&", 2))
+		return (AND);
+	else if (!wati_memcmp(s, "||", 2))
+		return (OR);
+	else if (!wati_memcmp(s, "<<", 2))
+		return (H_IN);
+	else if (!wati_memcmp(s, ">>", 2))
+		return (H_OUT);
+	else if (*s == '|')
+		return (PIPE);
+	else if (*s == '<')
+		return (R_IN);
+	else if (*s == '>')
+		return (R_OUT);
+	return (NO);
 }
