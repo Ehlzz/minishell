@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 13:25:38 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/18 17:31:07 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:11:34 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ static char	*get_format_pwd(t_list *env)
 	size_t	len;
 
 	pwd = env_search(env, "PWD");
+	if (!pwd)
+		pwd = getcwd(NULL, 0);
 	home = env_search(env, "HOME");
+	if (!home)
+		return (pwd);
 	len = wati_strlen(home);
 	if (wati_strncmp(home, pwd, len))
 		return (pwd);
