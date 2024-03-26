@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_dollar_quote.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:32:55 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 16:05:57 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:14:51 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ char	*verify_token(char *line, t_list *env_lst)
 
 	str0 = line;
 	str = str0;
+	simple_quote = false;
+	double_quote = false;
 	while (*str)
 	{
 		if ((*str == '\'' || *str == '"') && (!simple_quote && !double_quote))

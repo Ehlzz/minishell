@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
+#    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/03/26 15:54:17 by ehalliez         ###   ########.fr        #
+#    Updated: 2024/03/26 17:09:07 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,8 +59,8 @@ MAKE := make --no-print-directory -C
 
 #################################### RULES #####################################
 
-all:
 debug:
+all:
 
 $(NAME): $(OBJS)
 	@printf "$(GREEN)compile $@                                         $(NC)\n"
@@ -98,7 +98,7 @@ $(WATI_RULES)all:
 	@cp $(DIR_SRCS)$(DIR_WATI)$(WATI_NAME) $(DIR_LIBS)
 	@cp $(DIR_SRCS)$(DIR_WATI)libwati.h $(DIR_HDRS)libwati.h
 $(WATI_RULES)debug:
-	@$(MAKE) $(DIR_SRCS)$(DIR_WATI) debug
+	@$(MAKE) $(DIR_SRCS)$(DIR_WATI) debug -j
 	@mkdir -p $(DIR_LIBS)
 	@cp $(DIR_SRCS)$(DIR_WATI)$(WATI_NAME) $(DIR_LIBS)
 	@cp $(DIR_SRCS)$(DIR_WATI)libwati.h $(DIR_HDRS)libwati.h

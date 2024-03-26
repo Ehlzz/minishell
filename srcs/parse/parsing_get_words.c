@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 16:41:40 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:11:11 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	*get_word(char **line, t_test *test)
 
 	str = *line;
 	str0 = str;
+	quote_c = 0;
 	while (*str && is_operator(str) == NO)
 	{
 		if ((*str == '"' || *str == 39) && !quote_c)
@@ -61,6 +62,8 @@ char	*get_next_token(char **line, t_test *test)
 	token = get_operator(*line);
 	if (!token)
 		token = get_word(line, test);
+	else
+		*line += wati_strlen(token);
 	if (test->quote)
 		return (NULL);
 	if (!token)
