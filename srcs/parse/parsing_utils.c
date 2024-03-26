@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:40:47 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 15:41:29 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:06:03 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,20 @@ int	is_dollar_operator(char *line)
 		line++;
 	}
 	return (0);
+}
+
+int	count_dollars(char *line)
+{
+	char	*str0;
+	int		count;
+
+	str0 = line;
+	count = 0;
+	while (*line)
+	{
+		if (*line == '$')
+			count++;
+		line++;
+	}
+	return (count);
 }

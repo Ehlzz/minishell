@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:32:55 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 16:02:19 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:05:57 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,24 +72,6 @@ char	*dollar_to_end(char *line)
 		len = str - line;
 	return (wati_substr(line, len, wati_strlen(line)));
 }
-
-int count_dollars(char *line)
-{
-	char	*str0;
-	int		count;
-
-	str0 = line;
-	count = 0;
-	while (*line)
-	{
-		if (*line == '$')
-			count++;
-		line++;
-	}
-	return (count);
-}
-
-// boucle infini si la variable d'environnement n'existe pas 201
 
 char	*modify_token(char *line, t_list *env_lst)
 {
