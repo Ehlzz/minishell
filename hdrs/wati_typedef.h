@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_env_list.c                                  :+:      :+:    :+:   */
+/*   wati_typedef.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 15:48:54 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/13 15:59:16 by ehalliez         ###   ########.fr       */
+/*   Created: 2024/03/12 13:28:36 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/03/19 17:50:59 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#ifndef WATI_TYPEDEF_H
+# define WATI_TYPEDEF_H
 
-t_list	*create_env_list(char **env)
+# include <sys/stat.h>
+
+typedef struct stat		t_stat;
+typedef struct dirent	t_dir;
+
+typedef enum s_bool
 {
-	t_list	*lst;
+	ERROR = -1,
+	FALSE,
+	TRUE,
+}	t_bool;
 
-	lst = NULL;
-	while (*env)
-	{
-		wati_lstadd_back(&lst, wati_lstnew(*env));
-		env++;
-	}
-	return (lst);
-}
+#endif

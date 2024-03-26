@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_putstr_fd.c                                   :+:      :+:    :+:   */
+/*   create_env_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 19:30:27 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/19 17:55:56 by ehalliez         ###   ########.fr       */
+/*   Created: 2024/03/19 17:49:20 by ehalliez          #+#    #+#             */
+/*   Updated: 2024/03/19 17:49:47 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <unistd.h>
-
-void	wati_putstr_fd(char *s, int fd)
+int	is_operator_char(char c)
 {
-	if (s)
-		write(fd, s, wati_strlen(s));
+	return (c == '<' || c == '>' || c == '&' || c == '|');
+}
+#include <minishell.h>
+
+t_list	*create_env_list(char **env)
+{
+	t_list	*lst;
+
+	lst = NULL;
+	while (*env)
+	{
+		wati_lstadd_back(&lst, wati_lstnew(*env));
+		env++;
+	}
+	return (lst);
 }

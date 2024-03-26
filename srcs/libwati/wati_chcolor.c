@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_putchar_fd.c                                  :+:      :+:    :+:   */
+/*   wati_chcolor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 19:17:38 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/17 11:31:14 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/03/18 14:14:52 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/03/18 14:22:30 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libwati.h>
-#include <unistd.h>
+#include <stdlib.h>
 
-void	wati_putchar_fd(char c, int fd)
+char	*wati_chcolor(char *str, char *color)
 {
-	write(fd, &c, 1);
+	char	*s1;
+	char	*s2;
+
+	if (!str || !color)
+		return (NULL);
+	s1 = wati_strjoin(color, str);
+	s2 = wati_strjoin(s1, NC);
+	free(s1);
+	return (s2);
 }
