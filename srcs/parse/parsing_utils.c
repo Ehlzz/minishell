@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:40:47 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/12 20:42:50 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:35:21 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,13 @@ void	print(void *str)
 	wati_putendl_fd(str, 1);
 }
 
-int	is_char_operator(char c)
+int	is_dollar_operator(char *line)
 {
-	return (c == '|' || c == '&' || c == '<' || c == '>');
+	while (*line)
+	{
+		if (*line == '$')
+			return (1);
+		line++;
+	}
+	return (0);
 }

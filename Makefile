@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
+#    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 15:48:47 by bedarenn          #+#    #+#              #
-#    Updated: 2024/03/19 18:02:10 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/03/26 15:33:49 by ehalliez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,8 @@ SRCS = \
 	main_ehlz.c \
 	parse/parsing.c \
 	parse/parsing_utils.c \
+	parse/parsing_dollar_quote.c \
+	parse/parsing_get_word.c \
 	environnement/variable.c \
 	environnement/create_env_list.c
 
