@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_ehlz.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 16:02:51 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:35:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		lst = init_parsing(str, env);
 		if (lst)
-		{
-			wati_lstiter(lst, free);
-			wati_lstclean(&lst);
-			if (!wati_strncmp(str, "exit", 4) && wati_strlen(str) == 4)
-				break ;
-		}
-		wati_lstclear(&lst, free);
+			wati_lstclear(&lst, free);
 	}
 	if (str)
 		free(str);
