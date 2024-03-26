@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   wati_wildcard.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:45:52 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/19 17:59:26 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:56:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <dirent.h>
 #include <minishell.h>
 
-int	wildcard(char *wildcard)
+t_list	*wildcard(char *where)
 {
 	DIR		*dir;
 	t_dir	*entry;
@@ -21,7 +21,7 @@ int	wildcard(char *wildcard)
 	char	*str;
 	t_list	*list;
 
-	dir = opendir(".");
+	dir = opendir(where);
 	if (dir == NULL)
 		return (NULL);
 	strs = NULL;
@@ -37,5 +37,6 @@ int	wildcard(char *wildcard)
 		}
 		entry = readdir(dir);
 	}
+	closedir(dir);
 	return (strs);
 }

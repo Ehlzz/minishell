@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/03/26 15:54:17 by ehalliez         ###   ########.fr        #
+#    Updated: 2024/03/26 16:51:05 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRCS = \
 	parse/parsing_dollar_quote.c \
 	parse/parsing_get_words.c \
 	environnement/variable.c \
-	environnement/create_env_list.c
+	environnement/create_env_list.c \
+	wati_wildcard.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 
