@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_ehlz.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:01 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/19 18:04:34 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:29:53 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	env_lst = create_env_list(env);
-	// wati_lstiter(env_lst, print);
 	set_readline_signal();
 	while (1)
 	{
@@ -30,7 +29,6 @@ int	main(int argc, char **argv, char **env)
 		lst = init_parsing(str, env_lst);
 		if (lst)
 		{
-			// wati_lstiter(lst, print);
 			wati_lstiter(lst, free);
 			wati_lstclean(&lst);
 			if (!wati_strncmp(str, "exit", 4) && wati_strlen(str) == 4)
