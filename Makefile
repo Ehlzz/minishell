@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/03/26 17:09:07 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/03/27 16:06:51 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,19 +33,20 @@ DIR := \
 #################################### FILES #####################################
 
 SRCS = \
-	wati_readline.c \
-	wati_prompt.c \
+	readline/wati_readline.c \
+	readline/wati_prompt.c \
 	env/env_manage.c env/env_tools.c \
 	dir/dir_manage.c \
 	builtin/wati_echo.c \
 	signal_new.c \
-	main_ehlz.c \
+	main.c \
 	parse/parsing.c \
 	parse/parsing_utils.c \
 	parse/parsing_dollar_quote.c \
 	parse/parsing_get_words.c \
 	environnement/variable.c \
-	environnement/create_env_list.c
+	environnement/manage_oper.c \
+	word/manage_token.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 

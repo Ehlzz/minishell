@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:28:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/26 16:38:10 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:33:58 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define WATI_TYPEDEF_H
 
 # include <sys/stat.h>
+
+typedef char *			t_string;
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dir;

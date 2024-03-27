@@ -6,14 +6,15 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 13:25:38 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/26 16:11:34 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:52:48 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+#include "minishell.h"
 
 static char	*get_format_pwd(t_list *env);
 

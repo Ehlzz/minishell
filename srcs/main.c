@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_ehlz.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 16:02:51 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:06:53 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include <stdio.h>
+
+#include "minishell.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -30,12 +31,11 @@ int	main(int argc, char **argv, char **envp)
 		if (wati_strlen(str) == 4 && !wati_strncmp(str, "exit", 4))
 			break ;
 		lst = init_parsing(str, env);
-		if (lst)
+		wati_lstiter(lst, print_token);
+		if (lst && !wati_strncmp(str, "exit", 4) && wati_strlen(str) == 4)
 		{
-			wati_lstiter(lst, free);
-			wati_lstclean(&lst);
-			if (!wati_strncmp(str, "exit", 4) && wati_strlen(str) == 4)
-				break ;
+			wati_lstclear(&lst, free);
+			break ;
 		}
 		wati_lstclear(&lst, free);
 	}

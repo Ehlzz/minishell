@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_readline.c                                    :+:      :+:    :+:   */
+/*   wati_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 13:02:29 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/18 17:28:05 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/03/27 14:35:54 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <stdlib.h>
-#include <minishell.h>
-#include <stdio.h>
+#ifndef WATI_STRUCT_H
+# define WATI_STRUCT_H
 
-char	*wati_readline(t_list *env, char *exec)
+# include <stdbool.h>
+# include "wati_typedef.h"
+
+typedef struct s_test
 {
-	char	*prompt;
-	char	*line;
+	bool	quote;
+}	t_test;
 
-	prompt = wati_prompt(env, exec);
-	if (prompt)
-		line = readline(prompt);
-	else
-		line = readline("Minishell>");
-	free(prompt);
-	return (line);
-}
+typedef struct s_token
+{
+	t_string	word;
+	t_oper		oper;
+}	t_token;
+
+#endif

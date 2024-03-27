@@ -6,16 +6,17 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:19:19 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/17 11:38:11 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:51:23 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
+#include "libwati.h"
+#include "wati_typedef.h"
 
-static void	wati_echo_w(char **strs);
-static void	wati_echo_n(char **strs);
+static void	wati_echo_w(t_string *strs);
+static void	wati_echo_n(t_string *strs);
 
-void	wati_echo(char **strs)
+void	wati_echo(t_string *strs)
 {
 	if (!*strs)
 		return ;
@@ -33,7 +34,7 @@ void	wati_echo(char **strs)
 		wati_echo_n(strs);
 }
 
-static void	wati_echo_w(char **strs)
+static void	wati_echo_w(t_string *strs)
 {
 	if (!*strs)
 		return ;
@@ -47,7 +48,7 @@ static void	wati_echo_w(char **strs)
 	}
 }
 
-static void	wati_echo_n(char **strs)
+static void	wati_echo_n(t_string *strs)
 {
 	while (*strs)
 	{

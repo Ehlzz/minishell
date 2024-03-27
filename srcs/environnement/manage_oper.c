@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_env_list.c                                  :+:      :+:    :+:   */
+/*   manage_oper.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:49:20 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 16:39:51 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:52:00 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
-char	*get_operator(char *s)
+t_string	get_operator(t_string s)
 {
 	if (!wati_memcmp(s, "&&", 2))
 		return (wati_strdup("&&"));
@@ -31,7 +31,7 @@ char	*get_operator(char *s)
 	return (NULL);
 }
 
-t_oper	is_operator(char *s)
+t_oper	is_operator(t_string s)
 {
 	if (!wati_memcmp(s, "&&", 2))
 		return (AND);

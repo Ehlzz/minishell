@@ -6,12 +6,13 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:45:52 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/19 17:59:26 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:53:06 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <dirent.h>
-#include <minishell.h>
+
+#include "minishell.h"
 
 int	wildcard(char *wildcard)
 {
