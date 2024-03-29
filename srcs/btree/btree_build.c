@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_putstrs_fd.c                                  :+:      :+:    :+:   */
+/*   btree_build.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 17:14:29 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/28 17:31:17 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/03/27 16:08:21 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/03/28 16:44:29 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
+#include <stdlib.h>
+#include <stdio.h>
 
-void	wati_putstrs_fd(char **s, int fd)
+#include "minishell.h"
+
+t_list	*btree_build(t_btree **root, t_list *list)
 {
-	while (*s)
-		wati_putendl_fd(*s++, fd);
+	t_token	*token;
+	t_fds	fds;
+
+	fds.in = 0;
+	fds.out = 1;
+	token = new_token(&list, fds);
+	*root = btree_create_node(token);
+	return (list);
 }

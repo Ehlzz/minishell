@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/03/27 16:06:51 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/03/29 12:54:54 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,14 +39,19 @@ SRCS = \
 	dir/dir_manage.c \
 	builtin/wati_echo.c \
 	signal_new.c \
-	main.c \
 	parse/parsing.c \
 	parse/parsing_utils.c \
 	parse/parsing_dollar_quote.c \
 	parse/parsing_get_words.c \
 	environnement/variable.c \
 	environnement/manage_oper.c \
-	word/manage_token.c
+	word_token/word_manager.c \
+	word_token/token_manager.c \
+	word_token/token_creator.c \
+	redirect/open_read.c \
+	redirect/open_write.c \
+	btree/btree_build.c \
+	main.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 

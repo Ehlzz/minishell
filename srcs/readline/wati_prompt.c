@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 13:25:38 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/27 14:52:48 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:52:09 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ char	*wati_prompt(t_list *env, char *exec)
 
 	user = env_search(env, "USER");
 	pwd = get_format_pwd(env);
-	str = wati_joinf(12, GREEN, user, DEFAULT, "@",
-			PURPLE, exec + 2, DEFAULT, " ",
-			B_BLUE, pwd, DEFAULT, " % ");
+	str = wati_joinf(12, BLUE, user, DEFAULT, "@",
+			B_CYAN, exec + 2, DEFAULT, " ",
+			B_PURPLE, pwd, DEFAULT, " $ ");
 	free(user);
 	free(pwd);
 	return (str);

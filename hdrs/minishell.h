@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/27 15:06:33 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/29 13:18:07 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	print(void *str);
 
 t_oper	is_operator(t_string s);
 char	*get_operator(t_string s);
+void	print_word(void *ptr);
+
 int		is_dollar_operator(t_string line);
 char	*verify_token(t_string line, t_list *env_lst);
 int		count_dollars(t_string line);
@@ -70,8 +72,21 @@ int		is_operator_char(char c);
 
 void	set_readline_signal(void);
 
+/*    Manage Word    */
+t_word	*new_word(t_string word);
+t_word	*getc_word(t_list *list);
 /*    Manage Token    */
-t_token	*new_token(t_string word);
+t_token	*new_token(t_list **lst, t_fds fds);
 void	print_token(void *ptr);
+t_token	*getc_token(t_btree *node);
+void	free_token(t_token *token);
+
+/*    Binary Tree    */
+t_list	*btree_build(t_btree **root, t_list *list);
+
+/*    Open Read    */
+void	open_read(t_fds *fds, t_list *list);
+/*    Open Write    */
+void	open_write_trunc(t_fds *fds, t_list *list);
 
 #endif
