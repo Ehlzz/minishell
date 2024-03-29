@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/29 13:18:07 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/29 13:28:12 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ t_list	*btree_build(t_btree **root, t_list *list);
 void	open_read(t_fds *fds, t_list *list);
 /*    Open Write    */
 void	open_write_trunc(t_fds *fds, t_list *list);
+void	open_write_append(t_fds *fds, t_list *list);
 
 #endif

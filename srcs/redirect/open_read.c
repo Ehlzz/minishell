@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:56:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/29 12:56:55 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:22:23 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	open_read(t_fds *fds, t_list *list)
 
 	if (!list)
 	{
-		wati_fprintf(2, "Error: no file given\n");
+		wati_fprintf(STDERR_FILENO,
+			"Error: no file given\n");
 		if (fds->in > 2)
 			close(fds->in);
 		fds->in = -1;
@@ -30,16 +31,18 @@ void	open_read(t_fds *fds, t_list *list)
 	}
 	word = list->content;
 	if (word->oper != NO)
-		wati_fprintf(2, "Error: syntax error near unexpected token '%s'\n",
+		wati_fprintf(STDERR_FILENO,
+			"Error: syntax error near unexpected token '%s'\n",
 			word->str);
 	fd = open(word->str, O_RDONLY);
 	if (fd < 0)
 	{
 		if (access(word->str, F_OK))
-			wati_fprintf(2, "Error: permission denied: %s\n",
+			wati_fprintf(STDERR_FILENO, "Error: permission denied: %s\n",
 				word->str);
 		else
-			wati_fprintf(2, "Error: no such file or directory: %s\n",
+			wati_fprintf(STDERR_FILENO,
+				"Error: no such file or directory: %s\n",
 				word->str);
 	}
 	if (fds->in > 2)
