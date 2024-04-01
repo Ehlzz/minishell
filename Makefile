@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/03/29 15:05:31 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/03/29 16:05:19 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,9 +45,9 @@ SRCS = \
 	parse/parsing_get_words.c \
 	environnement/variable.c \
 	environnement/manage_oper.c \
-	word_token/word_manager.c \
-	word_token/token_manager.c \
-	word_token/token_creator.c \
+	token_cmd/token_manager.c \
+	token_cmd/cmd_manager.c \
+	token_cmd/cmd_creator.c \
 	redirect/open_read.c \
 	redirect/open_write.c \
 	btree/btree_build.c \
@@ -87,7 +87,7 @@ fclean: $(WATI_RULES)fclean
 	@rm -f $(NAME)
 	@rm -f $(DIR_LIBS)$(WATI_NAME)
 
-re: fclean all
+re: fclean debug
 
 all:	$(WATI_RULES)all $(NAME)
 debug:	CFLAGS += -g

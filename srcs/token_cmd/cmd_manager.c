@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_manager.c                                    :+:      :+:    :+:   */
+/*   cmd_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:18:26 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/29 12:55:29 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/29 16:04:52 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,18 @@
 
 #include "minishell.h"
 
-void	print_token(void *ptr)
+t_cmd	*get_cmd(t_btree *node)
 {
-	t_token		*token;
+	return (node->item);
+}
+
+void	print_cmd(void *ptr)
+{
+	t_cmd		*cmd;
 	t_string	*strs;
 
-	token = ptr;
-	strs = token->strs;
+	cmd = ptr;
+	strs = cmd->strs;
 	while (*strs)
 	{
 		wati_putstr_fd(*strs, 1);
@@ -29,22 +34,17 @@ void	print_token(void *ptr)
 		strs++;
 	}
 	wati_putstr_fd("fd: ", 1);
-	wati_putnbr_fd(token->fds.in, 1);
+	wati_putnbr_fd(cmd->fds.in, 1);
 	wati_putchar_fd(' ', 1);
-	wati_putnbr_fd(token->fds.out, 1);
+	wati_putnbr_fd(cmd->fds.out, 1);
 }
 
-t_token	*getc_token(t_btree *node)
+void	free_cmd(t_cmd *cmd)
 {
-	return (node->item);
-}
-
-void	free_token(t_token *token)
-{
-	wati_free_tab(token->strs);
-	if (token->fds.in > 2)
-		close(token->fds.in);
-	if (token->fds.out > 2)
-		close(token->fds.out);
-	free(token);
+	wati_free_tab(cmd->strs);
+	if (cmd->fds.in > 2)
+		close(cmd->fds.in);
+	if (cmd->fds.out > 2)
+		close(cmd->fds.out);
+	free(cmd);
 }

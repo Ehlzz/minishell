@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:56:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/29 15:22:23 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:47:44 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	open_read(t_fds *fds, t_list *list)
 {
-	t_word	*word;
+	t_token	*token;
 	t_fd	fd;
 
 	if (!list)
@@ -29,24 +29,24 @@ void	open_read(t_fds *fds, t_list *list)
 		fds->in = -1;
 		return ;
 	}
-	word = list->content;
-	if (word->oper != NO)
+	token = list->content;
+	if (token->oper != NO)
 		wati_fprintf(STDERR_FILENO,
 			"Error: syntax error near unexpected token '%s'\n",
-			word->str);
-	fd = open(word->str, O_RDONLY);
+			token->str);
+	fd = open(token->str, O_RDONLY);
 	if (fd < 0)
 	{
-		if (access(word->str, F_OK))
+		if (access(token->str, F_OK))
 			wati_fprintf(STDERR_FILENO, "Error: permission denied: %s\n",
-				word->str);
+				token->str);
 		else
 			wati_fprintf(STDERR_FILENO,
 				"Error: no such file or directory: %s\n",
-				word->str);
+				token->str);
 	}
 	if (fds->in > 2)
 		close(fds->in);
 	fds->in = fd;
-	free(word->str);
+	free(token->str);
 }

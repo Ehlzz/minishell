@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_creator.c                                    :+:      :+:    :+:   */
+/*   cmd_creator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:53:17 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/29 15:12:06 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/29 16:00:23 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,41 +19,41 @@
 static t_bool	in_command(t_list *list);
 static t_bool	parse_word(t_list **lst, t_list **l_strs, t_fds *fds);
 
-t_token	*new_token(t_list **lst, t_fds fds)
+t_cmd	*new_cmd(t_list **lst, t_fds fds)
 {
 	t_list		*list;
-	t_token		*token;
+	t_cmd		*cmd;
 	t_list		*l_strs;
 
 	list = *lst;
 	l_strs = NULL;
-	token = malloc(sizeof(t_token));
-	if (!token)
+	cmd = malloc(sizeof(t_token));
+	if (!cmd)
 		return (NULL);
-	token->fds = fds;
+	cmd->fds = fds;
 	while (in_command(list))
 	{
-		if (!parse_word(&list, &l_strs, &token->fds))
+		if (!parse_word(&list, &l_strs, &cmd->fds))
 			break ;
 	}
-	token->strs = wati_lstsplit(l_strs);
+	cmd->strs = wati_lstsplit(l_strs);
 	wati_lstclean(&l_strs);
 	*lst = list;
-	return (token);
+	return (cmd);
 }
 
 static t_bool	in_command(t_list *list)
 {
-	return (list && (getc_word(list)->oper == NO
-			|| getc_word(list)->oper == R_IN
-			|| getc_word(list)->oper == R_OUT
-			|| getc_word(list)->oper == H_OUT));
+	return (list && (get_token(list)->oper == NO
+			|| get_token(list)->oper == R_IN
+			|| get_token(list)->oper == R_OUT
+			|| get_token(list)->oper == H_OUT));
 }
 
-static t_bool	redirecion(t_word *word, t_fds *fds, t_list **lst,
+static t_bool	redirecion(t_token *token, t_fds *fds, t_list **lst,
 	void (*f)(t_fds *fds, t_list *list))
 {
-	free(word->str);
+	free(token->str);
 	f(fds, (*lst)->next);
 	if (fds->in < 0 || fds->out < 0)
 		return (FALSE);
@@ -64,22 +64,22 @@ static t_bool	redirecion(t_word *word, t_fds *fds, t_list **lst,
 static t_bool	parse_word(t_list **lst, t_list **l_strs, t_fds *fds)
 {
 	t_list	*list;
-	t_word	*word;
+	t_token	*token;
 
 	list = *lst;
-	word = getc_word(list);
-	if (word->oper == NO)
+	token = get_token(list);
+	if (token->oper == NO)
 	{
-		wati_lstadd_back(l_strs, wati_lstnew(getc_word(list)->str));
+		wati_lstadd_back(l_strs, wati_lstnew(get_token(list)->str));
 		list = list->next;
 	}
-	else if (word->oper == R_IN
+	else if (token->oper == R_IN
 		&& !redirecion(list->content, fds, &list, &open_read))
 		return (FALSE);
-	else if (word->oper == R_OUT
+	else if (token->oper == R_OUT
 		&& !redirecion(list->content, fds, &list, &open_write_trunc))
 		return (FALSE);
-	else if (word->oper == H_OUT
+	else if (token->oper == H_OUT
 		&& !redirecion(list->content, fds, &list, &open_write_append))
 		return (FALSE);
 	*lst = list;

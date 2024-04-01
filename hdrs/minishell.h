@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/29 13:28:12 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/29 16:02:45 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print(void *str);
 
 t_oper	is_operator(t_string s);
 char	*get_operator(t_string s);
-void	print_word(void *ptr);
+void	print_token(void *ptr);
 
 int		is_dollar_operator(t_string line);
 char	*verify_token(t_string line, t_list *env_lst);
@@ -73,13 +73,13 @@ int		is_operator_char(char c);
 void	set_readline_signal(void);
 
 /*    Manage Word    */
-t_word	*new_word(t_string word);
-t_word	*getc_word(t_list *list);
+t_token	*new_token(t_string token);
+t_token	*get_token(t_list *list);
 /*    Manage Token    */
-t_token	*new_token(t_list **lst, t_fds fds);
-void	print_token(void *ptr);
-t_token	*getc_token(t_btree *node);
-void	free_token(t_token *token);
+t_cmd	*new_cmd(t_list **lst, t_fds fds);
+void	print_cmd(void *ptr);
+t_cmd	*get_cmd(t_btree *node);
+void	free_cmd(t_cmd *cmd);
 
 /*    Binary Tree    */
 t_list	*btree_build(t_btree **root, t_list *list);

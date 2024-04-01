@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:56:40 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/29 15:21:47 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:47:29 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	open_write_trunc(t_fds *fds, t_list *list)
 {
-	t_word	*word;
+	t_token	*token;
 	t_fd	fd;
 
 	if (!list)
@@ -28,26 +28,26 @@ void	open_write_trunc(t_fds *fds, t_list *list)
 		fds->out = -1;
 		return ;
 	}
-	word = list->content;
-	if (word->oper != NO)
+	token = list->content;
+	if (token->oper != NO)
 		wati_fprintf(STDERR_FILENO,
 			"Error: syntax error near unexpected token '%s'\n",
-			word->str);
-	fd = open(word->str, O_WRONLY | O_CREAT | O_TRUNC);
+			token->str);
+	fd = open(token->str, O_WRONLY | O_CREAT | O_TRUNC);
 	if (fd < 0)
 	{
 		wati_fprintf(STDERR_FILENO, "Error: permission denied: %s\n",
-			word->str);
+			token->str);
 	}
 	if (fds->out > 2)
 		close(fds->out);
 	fds->out = fd;
-	free(word->str);
+	free(token->str);
 }
 
 void	open_write_append(t_fds *fds, t_list *list)
 {
-	t_word	*word;
+	t_token	*token;
 	t_fd	fd;
 
 	if (!list)
@@ -58,19 +58,19 @@ void	open_write_append(t_fds *fds, t_list *list)
 		fds->out = -1;
 		return ;
 	}
-	word = list->content;
-	if (word->oper != NO)
+	token = list->content;
+	if (token->oper != NO)
 		wati_fprintf(STDERR_FILENO,
 			"Error: syntax error near unexpected token '%s'\n",
-			word->str);
-	fd = open(word->str, O_WRONLY | O_CREAT | O_APPEND);
+			token->str);
+	fd = open(token->str, O_WRONLY | O_CREAT | O_APPEND);
 	if (fd < 0)
 	{
 		wati_fprintf(STDERR_FILENO, "Error: permission denied: %s\n",
-			word->str);
+			token->str);
 	}
 	if (fds->out > 2)
 		close(fds->out);
 	fds->out = fd;
-	free(word->str);
+	free(token->str);
 }
