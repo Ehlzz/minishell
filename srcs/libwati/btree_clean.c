@@ -1,43 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_struct.h                                      :+:      :+:    :+:   */
+/*   btree_clean.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/02 14:41:48 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/04/02 15:14:56 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/04/02 15:27:00 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WATI_STRUCT_H
-# define WATI_STRUCT_H
+#include <stdlib.h>
 
-# include <stdbool.h>
-# include "wati_typedef.h"
+#include "libwati.h"
 
-typedef struct s_test
+void	btree_clean(t_btree *root)
 {
-	bool	quote;
-}	t_test;
-
-typedef struct s_token
-{
-	t_string	str;
-	t_oper		oper;
-}	t_token;
-
-typedef struct s_fds
-{
-	t_fd	in;
-	t_fd	out;
-}	t_fds;
-
-typedef struct s_cmd
-{
-	t_oper		oper;
-	t_string	*strs;
-	t_fds		fds;
-}	t_cmd;
-
-#endif
+	if (!root)
+		return ;
+	btree_clean(root->left);
+	btree_clean(root->right);
+	free(root);
+}

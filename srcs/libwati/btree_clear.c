@@ -1,43 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_struct.h                                      :+:      :+:    :+:   */
+/*   btree_clear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/02 14:41:48 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/04/02 15:14:58 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/04/02 15:26:50 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WATI_STRUCT_H
-# define WATI_STRUCT_H
+#include <stdlib.h>
 
-# include <stdbool.h>
-# include "wati_typedef.h"
+#include "libwati.h"
 
-typedef struct s_test
+void	btree_clear(t_btree *root, void (*f)(void *ptr))
 {
-	bool	quote;
-}	t_test;
-
-typedef struct s_token
-{
-	t_string	str;
-	t_oper		oper;
-}	t_token;
-
-typedef struct s_fds
-{
-	t_fd	in;
-	t_fd	out;
-}	t_fds;
-
-typedef struct s_cmd
-{
-	t_oper		oper;
-	t_string	*strs;
-	t_fds		fds;
-}	t_cmd;
-
-#endif
+	if (!root || !f)
+		return ;
+	btree_clear(root->left, f);
+	btree_clear(root->right, f);
+	if (root->item)
+		f(root->item);
+	free(root);
+}

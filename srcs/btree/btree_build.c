@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:08:21 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/01 14:23:09 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:07:44 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_btree	*btree_node_oper(t_token *token, t_fds fds);
 
 t_list	*btree_build(t_btree **root, t_list *list)
 {
-	t_btree	**ptr;
+	t_btree	*ptr;
 	t_btree	*node;
 	t_cmd	*cmd;
 	t_fds	fds;
@@ -28,15 +28,19 @@ t_list	*btree_build(t_btree **root, t_list *list)
 		return (NULL);
 	fds.in = 0;
 	fds.out = 1;
-	printf("ICI\n");
 	if (get_token(list)->oper == NO)
 	{
 		cmd = new_cmd(&list, fds);
 		node = btree_create_node(cmd);
-		ptr = root;
-		while (*ptr != NULL)
-			*ptr = (*ptr)->right;
-		*ptr = node;
+		if (!*root)
+			*root = node;
+		else
+		{
+			ptr = *root;
+			while (ptr->right)
+				ptr = ptr->right;
+			ptr->right = node;
+		}
 	}
 	else if (get_token(list)->oper == PIPE)
 	{
@@ -62,5 +66,6 @@ t_btree	*btree_node_oper(t_token *token, t_fds fds)
 	cmd->strs = NULL;
 	cmd->oper = token->oper;
 	node = btree_create_node(cmd);
+	free(token->str);
 	return (node);
 }

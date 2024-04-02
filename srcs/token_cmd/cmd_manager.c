@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:18:26 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/01 14:10:03 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:13:18 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,35 @@ void	print_cmd(void *ptr)
 		return ;
 	}
 	cmd = ptr;
-	strs = cmd->strs;
-	while (*strs)
+	fprint_operator(cmd->oper, 1);
+	wati_putchar_fd(' ', 1);
+	if (cmd->oper == NO)
 	{
-		wati_putstr_fd(*strs, 1);
-		wati_putchar_fd(' ', 1);
-		strs++;
+		strs = cmd->strs;
+		if (strs)
+		{
+			while (*strs)
+			{
+				wati_putstr_fd(*strs, 1);
+				wati_putchar_fd(' ', 1);
+				strs++;
+			}
+		}
 	}
 	wati_putstr_fd("fd: ", 1);
 	wati_putnbr_fd(cmd->fds.in, 1);
 	wati_putchar_fd(' ', 1);
 	wati_putnbr_fd(cmd->fds.out, 1);
+	wati_putchar_fd('\n', 1);
 }
 
-void	free_cmd(t_cmd *cmd)
+void	free_cmd(void *ptr)
 {
-	wati_free_tab(cmd->strs);
+	t_cmd	*cmd;
+
+	cmd = ptr;
+	if (cmd->strs)
+		wati_free_tab(cmd->strs);
 	if (cmd->fds.in > 2)
 		close(cmd->fds.in);
 	if (cmd->fds.out > 2)

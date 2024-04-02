@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:53:17 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/29 16:00:23 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:13:00 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,18 @@ t_cmd	*new_cmd(t_list **lst, t_fds fds)
 
 	list = *lst;
 	l_strs = NULL;
-	cmd = malloc(sizeof(t_token));
+	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	cmd->fds = fds;
 	while (in_command(list))
 	{
-		if (!parse_word(&list, &l_strs, &cmd->fds))
+		if (!parse_word(&list, &l_strs, &fds))
 			break ;
 	}
 	cmd->strs = wati_lstsplit(l_strs);
 	wati_lstclean(&l_strs);
+	cmd->fds = fds;
+	cmd->oper = NO;
 	*lst = list;
 	return (cmd);
 }

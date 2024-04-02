@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/29 16:02:45 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/02 14:26:42 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	print(void *str);
 
 t_oper	is_operator(t_string s);
 char	*get_operator(t_string s);
+void	fprint_operator(t_oper oper, t_fd fd);
 void	print_token(void *ptr);
 
 int		is_dollar_operator(t_string line);
@@ -79,7 +80,7 @@ t_token	*get_token(t_list *list);
 t_cmd	*new_cmd(t_list **lst, t_fds fds);
 void	print_cmd(void *ptr);
 t_cmd	*get_cmd(t_btree *node);
-void	free_cmd(t_cmd *cmd);
+void	free_cmd(void *ptr);
 
 /*    Binary Tree    */
 t_list	*btree_build(t_btree **root, t_list *list);
