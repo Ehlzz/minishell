@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:18:26 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/29 16:04:52 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/01 14:10:03 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ void	print_cmd(void *ptr)
 	t_cmd		*cmd;
 	t_string	*strs;
 
+	if (!ptr)
+	{
+		wati_putendl_fd("NO CMD", 1);
+		return ;
+	}
 	cmd = ptr;
 	strs = cmd->strs;
 	while (*strs)
