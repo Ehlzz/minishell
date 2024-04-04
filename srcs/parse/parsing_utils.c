@@ -55,10 +55,8 @@ int	is_dollar_operator(char *line)
 
 int	count_dollars(char *line)
 {
-	char	*str0;
 	int		count;
 
-	str0 = line;
 	count = 0;
 	while (*line)
 	{
