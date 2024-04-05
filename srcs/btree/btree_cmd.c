@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   btree_clear.c                                      :+:      :+:    :+:   */
+/*   btree_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 15:14:58 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/05 14:01:11 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/04/05 13:58:14 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/04/05 13:58:50 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "minishell.h"
 
-#include "libwati.h"
-
-void	btree_clear(t_btree *root, void (*f)(void *ptr))
+t_btree	*new_root(t_btree **root, t_btree *node)
 {
-	if (!root || !f)
-		return ;
-	btree_clear(root->left, f);
-	btree_clear(root->right, f);
-	if (root->item)
-		f(root->item);
-	free(root);
+	node->left = *root;
+	*root = node;
+	return (*root);
+}
+
+t_btree	*add_cmd(t_btree **root, t_btree *node)
+{
+	t_btree	*ptr;
+
+	if (!*root)
+		*root = node;
+	else
+	{
+		ptr = *root;
+		while (ptr->right)
+			ptr = ptr->right;
+		ptr->right = node;
+	}
+	return (*root);
 }

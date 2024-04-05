@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/02 15:33:35 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/04 12:12:30 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,9 @@ int	main(int argc, char **argv, char **envp)
 	{
 		str = argv[1];
 		lst = init_parsing(str, env);
-		wati_lstiter(lst, &print_token);
 		root = NULL;
 		btree_build(&root, lst);
-		wati_putendl_fd("-----", 1);
-		btree_apply_infix(root, print_cmd);
-		wati_putchar_fd('\n', 1);
+		btree_apply_by_level(root, print_cmd_by_level);
 		btree_clear(root, free_cmd);
 		wati_lstclear(&lst, free);
 		wati_lstclear(&env, free);
@@ -50,12 +47,9 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		lst = init_parsing(str, env);
 		free(str);
-		wati_lstiter(lst, &print_token);
 		root = NULL;
 		btree_build(&root, lst);
-		wati_putendl_fd("-----", 1);
-		btree_apply_infix(root, print_cmd);
-		wati_putchar_fd('\n', 1);
+		btree_apply_by_level(root, print_cmd_by_level);
 		btree_clear(root, free_cmd);
 		wati_lstclear(&lst, free);
 	}

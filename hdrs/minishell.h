@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/02 14:26:42 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:10:03 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <libwati.h>
-
-// #### PARSING ### // 
 
 char	*ft_join_args(t_string *argv);
 char	*skip_space(t_string *line);
@@ -73,22 +71,27 @@ int		is_operator_char(char c);
 
 void	set_readline_signal(void);
 
-/*    Manage Word    */
+/*    Manage Token    */
 t_token	*new_token(t_string token);
 t_token	*get_token(t_list *list);
-/*    Manage Token    */
+/*    Manage CMD    */
 t_cmd	*new_cmd(t_list **lst, t_fds fds);
-void	print_cmd(void *ptr);
 t_cmd	*get_cmd(t_btree *node);
+void	print_cmd(void *ptr);
+void	print_cmd_by_level(void *ptr, int level, int is_first_elem);
 void	free_cmd(void *ptr);
 
 /*    Binary Tree    */
 t_list	*btree_build(t_btree **root, t_list *list);
+	/*    OPER    */
+t_btree	*btree_node_oper(t_token *token, t_fds fds);
+	/*    CMD    */
+t_btree	*add_cmd(t_btree **root, t_btree *node);
+t_btree	*new_root(t_btree **root, t_btree *node);
 
 /*    Open Read    */
 void	open_read(t_fds *fds, t_list *list);
 /*    Open Write    */
-void	open_write_trunc(t_fds *fds, t_list *list);
-void	open_write_append(t_fds *fds, t_list *list);
+void	open_write(t_fds *fds, t_list *list, int flags);
 
 #endif

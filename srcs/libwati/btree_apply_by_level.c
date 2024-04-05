@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:30:50 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/11 13:37:58 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/04 12:03:56 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	btree_apply_by_level(t_btree *root,
 				int current_level,
 				int is_first_elem))
 {
+	if (!root || !applyf)
+		return ;
 	if (root->left)
 		btree_apply_by_level_node(root->left, 1, applyf);
 	applyf(root->item, 0, 1);

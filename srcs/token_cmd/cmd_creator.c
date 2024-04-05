@@ -6,13 +6,14 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:53:17 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/02 15:13:00 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:20:15 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>	
 #include <unistd.h>
+#include <fcntl.h>
 
 #include "minishell.h"
 
@@ -51,11 +52,15 @@ static t_bool	in_command(t_list *list)
 			|| get_token(list)->oper == H_OUT));
 }
 
-static t_bool	redirecion(t_token *token, t_fds *fds, t_list **lst,
-	void (*f)(t_fds *fds, t_list *list))
+static t_bool	redirecion(t_token *token, t_fds *fds, t_list **lst)
 {
 	free(token->str);
-	f(fds, (*lst)->next);
+	if (token->oper == R_IN)
+		open_write(fds, (*lst)->next, O_WRONLY | O_CREAT | O_TRUNC);
+	if (token->oper == H_IN)
+		open_write(fds, (*lst)->next, O_WRONLY | O_CREAT | O_APPEND);
+	if (token->oper == R_OUT)
+		open_read(fds, (*lst)->next);
 	if (fds->in < 0 || fds->out < 0)
 		return (FALSE);
 	(*lst) = (*lst)->next->next;
@@ -74,14 +79,7 @@ static t_bool	parse_word(t_list **lst, t_list **l_strs, t_fds *fds)
 		wati_lstadd_back(l_strs, wati_lstnew(get_token(list)->str));
 		list = list->next;
 	}
-	else if (token->oper == R_IN
-		&& !redirecion(list->content, fds, &list, &open_read))
-		return (FALSE);
-	else if (token->oper == R_OUT
-		&& !redirecion(list->content, fds, &list, &open_write_trunc))
-		return (FALSE);
-	else if (token->oper == H_OUT
-		&& !redirecion(list->content, fds, &list, &open_write_append))
+	else if (!redirecion(list->content, fds, &list))
 		return (FALSE);
 	*lst = list;
 	return (TRUE);

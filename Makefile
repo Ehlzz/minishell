@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/03/29 16:05:19 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/04/05 14:38:05 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ SRCS = \
 	token_cmd/cmd_creator.c \
 	redirect/open_read.c \
 	redirect/open_write.c \
-	btree/btree_build.c \
+	btree/btree_build.c btree/btree_cmd.c btree/btree_oper.c \
 	main.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
