@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:31:28 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/02 14:24:35 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/08 16:24:58 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ void	print_token(void *ptr)
 {
 	t_token	*token;
 
+	if (!ptr)
+	{
+		printf("NCMD\n");
+		return ;
+	}
 	token = ptr;
 	if (token->oper == AND)
 		printf("AND\n");
