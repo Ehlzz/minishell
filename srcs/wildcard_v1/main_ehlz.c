@@ -3,41 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main_ehlz.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 17:33:14 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/09 16:42:36 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
-
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	char	*str;
-// 	t_list	*lst;
-// 	t_list	*env;
-
-// 	(void)argc;
-// 	env = env_getlist(envp);
-// 	set_readline_signal();
-// 	while (1)
-// 	{
-// 		str = wati_readline(env, argv[0]);
-// 		if (str == NULL)
-// 			break ;
-// 		if (wati_strlen(str) == 4 && !wati_strncmp(str, "exit", 4))
-// 			break ;
-// 		lst = init_parsing(str, env);
-// 		if (lst)
-// 			wati_lstclear(&lst, free);
-// 	}
-// 	if (str)
-// 		free(str);
-// 	wati_lstclear(&env, free);
-// 	return (0);
-// }
 
 int	find_stars(char *str)
 {
@@ -55,7 +29,6 @@ int	find_stars(char *str)
 	}
 	return (0);
 }
-
 
 /*
 
@@ -84,7 +57,7 @@ static char	*get_first_check(char *search)
 static char	*get_second_check(char *search)
 {
 	while (search && *search && *search != '*')
-		search++;
+		search++;	
 	if (*search == '*')
 		search++;
 	return (search);
@@ -112,10 +85,6 @@ int is_valid(char *content, char *search)
 	}
 	else if (star_emplacement == 2)
 	{
-		/*
-		Save the content until the star and verify which file match with the start.
-		After check if the content match with the end and return 1 if its works.
-		*/
 		char	*first_check;
 		char	*second_check;
 		int		first_check_len;
@@ -201,7 +170,6 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-
 /*
 * = Tous les fichiers,
 x* = Tous les fichiers, commencant par x,
@@ -243,5 +211,3 @@ wati_wildcard.c -- Correct, saved, fourth element of the new list
 wati_prompt.c -- Correct, saved, fifth element of the new list
 
 */
-
-
