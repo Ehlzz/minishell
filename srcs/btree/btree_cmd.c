@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_readline.c                                    :+:      :+:    :+:   */
+/*   btree_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 13:02:29 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/18 17:28:05 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/04/05 13:58:14 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/04/05 13:58:50 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <stdlib.h>
-#include <minishell.h>
-#include <stdio.h>
+#include "minishell.h"
 
-char	*wati_readline(t_list *env, char *exec)
+t_btree	*new_root(t_btree **root, t_btree *node)
 {
-	char	*prompt;
-	char	*line;
+	node->left = *root;
+	*root = node;
+	return (*root);
+}
 
-	prompt = wati_prompt(env, exec);
-	if (prompt)
-		line = readline(prompt);
+t_btree	*add_cmd(t_btree **root, t_btree *node)
+{
+	t_btree	*ptr;
+
+	if (!*root)
+		*root = node;
 	else
-		line = readline("Minishell>");
-	free(prompt);
-	return (line);
+	{
+		ptr = *root;
+		while (ptr->right)
+			ptr = ptr->right;
+		ptr->right = node;
+	}
+	return (*root);
 }

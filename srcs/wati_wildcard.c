@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   wati_wildcard.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:45:52 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/26 16:56:38 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/09 16:57:46 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <dirent.h>
-#include <minishell.h>
+
+#include "minishell.h"
 
 t_list	*wildcard(char *where)
 {

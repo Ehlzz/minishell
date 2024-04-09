@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_chdir.c                                       :+:      :+:    :+:   */
+/*   wati_readline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 15:43:19 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/27 14:46:59 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/03/17 13:02:29 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/03/27 14:52:57 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <readline/readline.h>
 #include <stdlib.h>
 #include <stdio.h>
 
-void	wati_chdir(void)
+#include "minishell.h"
+
+char	*wati_readline(t_list *env, char *exec)
 {
-	chdir("/nfs/homes/bedarenn/Documents/Minish/srcs");
-	printf("%s\n", getenv("PWD"));
+	char	*prompt;
+	char	*line;
+
+	prompt = wati_prompt(env, exec);
+	if (prompt)
+		line = readline(prompt);
+	else
+		line = readline("Minishell>");
+	free(prompt);
+	return (line);
 }

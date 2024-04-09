@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libwati.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:50:39 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/19 17:50:46 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:20:06 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ void	btree_apply_by_level(t_btree *root,
 			void (*applyf)(void *item,
 				int current_level,
 				int is_first_elem));
+void	btree_clean(t_btree *root);
+void	btree_clear(t_btree *root, void (*f)(void *ptr));
 
 int		wati_printf(const char *format, ...);
 int		wati_fprintf(int fd, const char *format, ...);

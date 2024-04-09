@@ -3,31 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_get_words.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
 /*   Updated: 2024/03/26 16:34:11 by marvin           ###   ########.fr       */
+=======
+/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
+/*   Updated: 2024/03/26 17:11:11 by bedarenn         ###   ########.fr       */
+>>>>>>> bedarenn
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*get_operator(char **line)
-{
-	char	*str0;
-	char	*str;
-	int		len;
-
-	str = *line;
-	if (!is_char_operator(*str))
-		return (NULL);
-	str0 = str;
-	while (*str == *str0)
-		str++;
-	len = str - str0;
-	*line += len;
-	return (wati_substr(str0, 0, len));
-}
 
 char	*skip_space(char **line)
 {
@@ -53,7 +43,11 @@ char	*get_word(char **line, t_test *test)
 	str = *line;
 	str0 = str;
 	quote_c = 0;
+<<<<<<< HEAD
 	while (*str && !is_char_operator(*str))
+=======
+	while (*str && is_operator(str) == NO)
+>>>>>>> bedarenn
 	{
 		if ((*str == '"' || *str == 39) && !quote_c)
 		{
@@ -76,9 +70,11 @@ char	*get_next_token(char **line, t_test *test)
 {
 	char	*token;
 
-	token = get_operator(line);
+	token = get_operator(*line);
 	if (!token)
 		token = get_word(line, test);
+	else
+		*line += wati_strlen(token);
 	if (test->quote)
 		return (NULL);
 	if (!token)
