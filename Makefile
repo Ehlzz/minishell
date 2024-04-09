@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/03/26 16:51:05 by marvin           ###   ########.fr        #
+#    Updated: 2024/04/09 16:55:32 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRCS = \
 	dir/dir_manage.c \
 	builtin/wati_echo.c \
 	signal_new.c \
-	main_ehlz.c \
+	wildcard_v1/main_ehlz.c \
 	parse/parsing.c \
 	parse/parsing_utils.c \
 	parse/parsing_dollar_quote.c \
