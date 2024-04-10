@@ -6,32 +6,15 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/10 17:57:47 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:59:06 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 
-int	count_char(char *str, char c)
-{
-	int	count;
-
-	count = 0;
-	while (*str)
-	{
-		if (*str == c)
-			count++;
-		str++;
-	}
-	return (count);
-}
-
 int	star_other_case(char *search, char *content)
 {
-	int	search_len;
-
-	search_len = wati_strlen(search);
 	while (*search)
 	{
 		if (*search == '*')
