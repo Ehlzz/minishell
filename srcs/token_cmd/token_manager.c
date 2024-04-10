@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:31:28 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/08 16:24:58 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:04:48 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ t_token	*get_token(t_list *list)
 	return (list->content);
 }
 
+void	free_token(void *ptr)
+{
+	t_token	*token;
+
+	if (!ptr)
+		return ;
+	token = ptr;
+	if (token->str)
+		free(token->str);
+}
+
 void	print_token(void *ptr)
 {
 	t_token	*token;
@@ -42,26 +53,9 @@ void	print_token(void *ptr)
 		return ;
 	}
 	token = ptr;
-	if (token->oper == AND)
-		printf("AND\n");
-	else if (token->oper == OR)
-		printf("OR\n");
-	else if (token->oper == H_IN)
-		printf("H_IN\n");
-	else if (token->oper == R_OUT)
-		printf("R_OUT\n");
-	else if (token->oper == PIPE)
-		printf("PIPE\n");
-	else if (token->oper == R_IN)
-		printf("R_IN\n");
-	else if (token->oper == R_IN)
-		printf("R_OUT\n");
-	else if (token->oper == P_IN)
-		printf("P_IN\n");
-	else if (token->oper == P_OUT)
-		printf("P_OUT\n");
-	else if (token->oper == NO)
-		printf("NO : %s\n", token->str);
+	fprint_operator(token->oper, 1);
+	if (token->oper == NO)
+		wati_printf(" %s\n", token->str);
 	else
-		printf("Error : %s\n", token->str);
+		wati_putchar_fd('\n', 1);
 }

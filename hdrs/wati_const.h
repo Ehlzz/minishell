@@ -6,12 +6,14 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 14:23:15 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/28 15:51:21 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:55:27 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WATI_CONST_H
 # define WATI_CONST_H
+
+# define NAME "wati_minish"
 
 # define BLACK "\001\033[0;30m\002"
 # define RED "\001\033[0;31m\002"

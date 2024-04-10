@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/08 16:26:34 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:56:35 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	print_pwd(void);
 void	wati_echo(t_string *strs);
 
 /*    wati_readline    */
-char	*wati_readline(t_list *env, t_string exec);
+char	*wati_readline(t_list *env);
 /*    Manage prompt    */
-char	*wati_prompt(t_list *env, t_string exec);
+char	*wati_prompt(t_list *env);
 
 t_list	*parsing(t_string str);
 char	*quote_manager(t_string *ptr);
@@ -74,6 +74,7 @@ void	set_readline_signal(void);
 /*    Manage Token    */
 t_token	*new_token(t_string token);
 t_token	*get_token(t_list *list);
+void	free_token(void *ptr);
 /*    Manage CMD    */
 t_cmd	*new_cmd(t_list **lst, t_fds fds);
 t_cmd	*get_cmd(t_btree *node);

@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:08:21 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/08 16:34:02 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:46:47 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,14 @@ static t_list	*btree_build_cmd(t_btree **root, t_list *list, t_fds fds)
 	t_cmd	*cmd;
 
 	cmd = new_cmd(&list, fds);
+	if (!cmd)
+		return (NULL);
 	node = btree_create_node(cmd);
+	if (!node)
+	{
+		free_cmd(cmd);
+		return (NULL);
+	}
 	add_cmd(root, node);
 	return (list);
 }
@@ -65,6 +72,11 @@ static t_list	*btree_build_oper(t_btree **root, t_list *list, t_fds fds)
 	t_btree	*node;
 
 	node = btree_node_oper(list->content, fds);
+	if (!node)
+	{
+		wati_lstiter(list, free_token);
+		return (NULL);
+	}
 	new_root(root, node);
 	return (list->next);
 }
