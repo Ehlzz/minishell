@@ -6,14 +6,14 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/10 17:59:06 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:00:03 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 
-int	star_other_case(char *search, char *content)
+int	wildcard_checker(char *search, char *content)
 {
 	while (*search)
 	{
@@ -47,7 +47,7 @@ t_list	*wildcard_search(t_list *lst, char *search)
 	new_lst = NULL;
 	while (lst)
 	{
-		if (star_other_case(search, lst->content))
+		if (wildcard_checker(search, lst->content))
 			wati_lstadd_back(&new_lst, wati_lstnew(wati_strdup(lst->content)));
 		lst = lst->next;
 	}
