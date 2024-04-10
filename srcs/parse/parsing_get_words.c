@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_get_words.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 16:34:11 by marvin           ###   ########.fr       */
-=======
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 17:11:11 by bedarenn         ###   ########.fr       */
->>>>>>> bedarenn
+/*   Updated: 2024/04/10 11:55:30 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +36,7 @@ char	*get_word(char **line, t_test *test)
 	str = *line;
 	str0 = str;
 	quote_c = 0;
-<<<<<<< HEAD
-	while (*str && !is_char_operator(*str))
-=======
 	while (*str && is_operator(str) == NO)
->>>>>>> bedarenn
 	{
 		if ((*str == '"' || *str == 39) && !quote_c)
 		{

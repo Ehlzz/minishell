@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/26 16:52:46 by marvin           ###   ########.fr       */
-=======
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/08 16:26:34 by bedarenn         ###   ########.fr       */
->>>>>>> bedarenn
+/*   Updated: 2024/04/10 11:54:17 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +71,6 @@ int		is_operator_char(char c);
 
 void	set_readline_signal(void);
 
-<<<<<<< HEAD
-t_list	*wildcard(char *where);	
-=======
 /*    Manage Token    */
 t_token	*new_token(t_string token);
 t_token	*get_token(t_list *list);
@@ -104,6 +94,5 @@ t_bool	in_command(t_token *token);
 void	open_read(t_fds *fds, t_list *list);
 /*    Open Write    */
 void	open_write(t_fds *fds, t_list *list, int flags);
->>>>>>> bedarenn
 
 #endif

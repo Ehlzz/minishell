@@ -6,11 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2024/04/09 16:55:32 by bedarenn         ###   ########.fr        #
-=======
-#    Updated: 2024/04/05 14:38:05 by bedarenn         ###   ########.fr        #
->>>>>>> bedarenn
+#    Updated: 2024/04/10 11:56:27 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,19 +39,12 @@ SRCS = \
 	dir/dir_manage.c \
 	builtin/wati_echo.c \
 	signal_new.c \
-<<<<<<< HEAD
-	wildcard_v1/main_ehlz.c \
-=======
->>>>>>> bedarenn
 	parse/parsing.c \
 	parse/parsing_utils.c \
 	parse/parsing_dollar_quote.c \
 	parse/parsing_get_words.c \
 	environnement/variable.c \
-<<<<<<< HEAD
-	environnement/create_env_list.c \
-	wati_wildcard.c
-=======
+	wati_wildcard.c \
 	environnement/manage_oper.c \
 	token_cmd/token_manager.c \
 	token_cmd/cmd_manager.c \
@@ -64,7 +53,6 @@ SRCS = \
 	redirect/open_write.c \
 	btree/btree_build.c btree/btree_cmd.c btree/btree_oper.c \
 	main.c
->>>>>>> bedarenn
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 
