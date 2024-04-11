@@ -6,7 +6,7 @@
 #    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/04/09 16:55:47 by ehalliez         ###   ########.fr        #
+#    Updated: 2024/04/11 18:13:50 by ehalliez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ SRCS = \
 	environnement/variable.c \
 	environnement/create_env_list.c \
 	wati_wildcard.c \
-	wildcard_v1/main_ehlz.c \
+	wildcard/wildcard.c \
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 

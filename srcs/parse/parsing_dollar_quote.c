@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_dollar_quote.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:32:55 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 16:34:55 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/11 16:46:56 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,8 @@ char	*dollar_to_dollar(char *line)
 		str++;
 	len_start = str - line;
 	str++;
-	while (*str)
-	{
-		if (*str == ' ' || *str == '$')
-			break ;
+	while (*str && *str != ' ' && *str != '$')
 		str++;
-	}
 	len_end = str - line;
 	if (!*str)
 		len_end--;
