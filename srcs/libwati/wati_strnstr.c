@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_strnstr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 09:44:21 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 15:41:29 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:37:02 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
