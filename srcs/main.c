@@ -6,15 +6,12 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/11 21:29:26 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/11 22:05:42 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-
 #include "minishell.h"
-
-char	*remove_quote(char *str);
 
 int	main(int argc, char **argv, char **envp)
 {
