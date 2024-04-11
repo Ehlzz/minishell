@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_chdir.c                                       :+:      :+:    :+:   */
+/*   btree_clean.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 15:43:19 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/27 14:46:59 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/04/02 15:14:56 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/04/02 15:27:00 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h>
 
-void	wati_chdir(void)
+#include "libwati.h"
+
+void	btree_clean(t_btree *root)
 {
-	chdir("/nfs/homes/bedarenn/Documents/Minish/srcs");
-	printf("%s\n", getenv("PWD"));
+	if (!root)
+		return ;
+	btree_clean(root->left);
+	btree_clean(root->right);
+	free(root);
 }

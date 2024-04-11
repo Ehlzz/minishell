@@ -1,21 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_chdir.c                                       :+:      :+:    :+:   */
+/*   wati_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 15:43:19 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/27 14:46:59 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/04/02 14:41:48 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
+#ifndef WATI_STRUCT_H
+# define WATI_STRUCT_H
 
-void	wati_chdir(void)
+# include <stdbool.h>
+# include "wati_typedef.h"
+
+typedef struct s_test
 {
-	chdir("/nfs/homes/bedarenn/Documents/Minish/srcs");
-	printf("%s\n", getenv("PWD"));
-}
+	bool	quote;
+}	t_test;
+
+typedef struct s_token
+{
+	t_string	str;
+	t_oper		oper;
+}	t_token;
+
+typedef struct s_fds
+{
+	t_fd	in;
+	t_fd	out;
+}	t_fds;
+
+typedef struct s_cmd
+{
+	t_oper		oper;
+	t_string	*strs;
+	t_fds		fds;
+}	t_cmd;
+
+#endif

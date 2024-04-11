@@ -6,12 +6,13 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:45:52 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/10 17:58:03 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:38:20 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <dirent.h>
-#include <minishell.h>
+
+#include "minishell.h"
 
 t_list	*wildcard(char *where)
 {

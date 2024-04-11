@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_chdir.c                                       :+:      :+:    :+:   */
+/*   btree_oper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 15:43:19 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/27 14:46:59 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/04/05 13:57:07 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/04/05 13:57:49 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include "minishell.h"
 
-void	wati_chdir(void)
+t_btree	*btree_node_oper(t_token *token, t_fds fds)
 {
-	chdir("/nfs/homes/bedarenn/Documents/Minish/srcs");
-	printf("%s\n", getenv("PWD"));
+	t_btree	*node;
+	t_cmd	*cmd;
+
+	cmd = malloc(sizeof(t_cmd));
+	if (!cmd)
+		return (NULL);
+	cmd->fds = fds;
+	cmd->strs = NULL;
+	cmd->oper = token->oper;
+	node = btree_create_node(cmd);
+	free(token->str);
+	return (node);
 }

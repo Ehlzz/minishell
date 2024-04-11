@@ -6,7 +6,7 @@
 #    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/04/11 18:13:50 by ehalliez         ###   ########.fr        #
+#    Updated: 2024/04/11 18:38:11 by ehalliez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,8 @@ DIR := \
 #################################### FILES #####################################
 
 SRCS = \
-	wati_readline.c \
-	wati_prompt.c \
+	readline/wati_readline.c \
+	readline/wati_prompt.c \
 	env/env_manage.c env/env_tools.c \
 	dir/dir_manage.c \
 	builtin/wati_echo.c \
@@ -47,6 +47,15 @@ SRCS = \
 	environnement/create_env_list.c \
 	wati_wildcard.c \
 	wildcard/wildcard.c \
+	wati_wildcard.c \
+	environnement/manage_oper.c \
+	token_cmd/token_manager.c \
+	token_cmd/cmd_manager.c \
+	token_cmd/cmd_creator.c \
+	redirect/open_read.c \
+	redirect/open_write.c \
+	btree/btree_build.c btree/btree_cmd.c btree/btree_oper.c \
+	main.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 
@@ -60,8 +69,8 @@ MAKE := make --no-print-directory -C
 
 #################################### RULES #####################################
 
-all:
 debug:
+all:
 
 $(NAME): $(OBJS)
 	@printf "$(GREEN)compile $@                                         $(NC)\n"
@@ -82,7 +91,7 @@ fclean: $(WATI_RULES)fclean
 	@rm -f $(NAME)
 	@rm -f $(DIR_LIBS)$(WATI_NAME)
 
-re: fclean all
+re: fclean debug
 
 all:	$(WATI_RULES)all $(NAME)
 debug:	CFLAGS += -g
@@ -99,7 +108,7 @@ $(WATI_RULES)all:
 	@cp $(DIR_SRCS)$(DIR_WATI)$(WATI_NAME) $(DIR_LIBS)
 	@cp $(DIR_SRCS)$(DIR_WATI)libwati.h $(DIR_HDRS)libwati.h
 $(WATI_RULES)debug:
-	@$(MAKE) $(DIR_SRCS)$(DIR_WATI) debug
+	@$(MAKE) $(DIR_SRCS)$(DIR_WATI) debug -j
 	@mkdir -p $(DIR_LIBS)
 	@cp $(DIR_SRCS)$(DIR_WATI)$(WATI_NAME) $(DIR_LIBS)
 	@cp $(DIR_SRCS)$(DIR_WATI)libwati.h $(DIR_HDRS)libwati.h

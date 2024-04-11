@@ -6,19 +6,21 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:29:49 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/16 18:53:57 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:54:45 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
 #include <stdlib.h>
+
+#include "libwati.h"
+#include "wati_typedef.h"
 
 void	print_endl(void *ptr)
 {
-	wati_putendl_fd((char *)ptr, 1);
+	wati_putendl_fd((t_string)ptr, 1);
 }
 
-t_list	*get_var(const t_list *list, char *find)
+t_list	*get_var(const t_list *list, t_string find)
 {
 	size_t	len;
 
@@ -32,17 +34,17 @@ t_list	*get_var(const t_list *list, char *find)
 	return ((t_list *)list);
 }
 
-char	*get_name(const char *str)
+t_string	get_name(const t_string str)
 {
-	char	*name;
-	size_t	len;
+	t_string	name;
+	size_t		len;
 
 	len = wati_strlen_set(str, '=');
 	name = wati_substr(str, 0, len);
 	return (name);
 }
 
-t_list	*get_vat_prev(const t_list *list, char *find)
+t_list	*get_vat_prev(const t_list *list, t_string find)
 {
 	size_t	len;
 

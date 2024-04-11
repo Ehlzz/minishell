@@ -6,20 +6,21 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:02:06 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/16 19:53:26 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:49:00 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <minishell.h>
-#include <libwati.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
 
-static int		is_directory(const char *dir_name);
+#include "minishell.h"
+#include "libwati.h"
 
-void	wati_chdir(t_list **env, const char *dir_name)
+static int		is_directory(const t_string dir_name);
+
+void	wati_chdir(t_list **env, const t_string dir_name)
 {
 	if (!env || !*env || !dir_name)
 		return ;
@@ -52,7 +53,7 @@ void	print_pwd(void)
 	free(path);
 }
 
-static int	is_directory(const char *dir_name)
+static int	is_directory(const t_string dir_name)
 {
 	t_stat	buf;
 
