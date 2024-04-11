@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_strjoin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 12:21:13 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 15:46:46 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/11 20:01:26 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ char	*wati_strjoin(char const *s1, char const *s2)
 	size_t	len2;
 	char	*s;
 
-	if (!s1 || !s2)
-		return (NULL);
+	if (!s1)
+		return (wati_strdup(s2));
+	if (!s2)
+		return (wati_strdup(s1));
 	len1 = wati_strlen(s1);
 	len2 = wati_strlen(s2);
 	len = len1 + len2;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:39:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/29 15:57:06 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/11 19:46:33 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ t_list	*init_parsing(t_string line, t_list *env_lst)
 	while (*line)
 	{
 		str = get_next_token(&line, &test);
-		str = verify_token(str, env_lst);
+		if (str)
+			str = verify_token(str, env_lst);
 		if (!str)
 			break ;
 		token = new_token(str);

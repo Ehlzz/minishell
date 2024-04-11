@@ -6,13 +6,15 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/11 19:11:28 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/11 21:29:26 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
 #include "minishell.h"
+
+char	*remove_quote(char *str);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -46,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (str == NULL)
 			break ;
-		lst = init_parsing(str, env);
+		lst = init_parsing(str, env);;
 		add_history(str);
 		free(str);
 		root = NULL;

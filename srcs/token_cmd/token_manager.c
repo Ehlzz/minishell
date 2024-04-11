@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:31:28 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/08 16:24:58 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/11 20:08:23 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,43 @@
 
 #include "minishell.h"
 
+int	len_without_quote(char *str, char c)
+{
+	int	len;
+
+	len = 0;
+	while (*str)
+	{
+		if (*str != c)
+			len++;
+		str++;
+	}
+	return (len);
+}
+
+char	*remove_quote(char *str)
+{
+	int		i;
+	char	*result;
+	char	quote;
+
+	if (*str != '\'' && *str != '"')
+		return (str);
+	quote = *str;
+	i = 0;
+	result = malloc(len_without_quote(str, quote) + 1);
+	while (*str)
+	{
+		if (*str != quote)
+		{
+			result[i] = *str;
+			i++;
+		}
+		str++;
+	}
+	return (result);
+}
+
 t_token	*new_token(t_string str)
 {
 	t_token	*token;
@@ -22,7 +59,7 @@ t_token	*new_token(t_string str)
 	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
-	token->str = str;
+	token->str = remove_quote(str);
 	token->oper = is_operator(str);
 	return (token);
 }
