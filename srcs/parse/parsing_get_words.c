@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_get_words.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 16:34:11 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/17 17:43:58 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ char	*get_word(char **line, t_test *test)
 			test->quote = !test->quote;
 		}
 		else if (quote_c && *str == quote_c)
+		{
+			quote_c = 0;
 			test->quote = !test->quote;
+		}
 		else if (quote_c && *str == ' ' && !test->quote)
 			break ;
 		else if (!quote_c && *str == ' ')
@@ -86,3 +89,43 @@ char	*get_next_token(char **line, t_test *test)
 	skip_space(line);
 	return (token);
 }
+
+// int	main(int argc, char **argv)
+// {
+// 	char	*token;
+// 	t_test	test;
+	
+// 	test.quote = false;
+// 	token = get_operator(argv + 1);
+// 	if (!token)
+// 		token = get_word(argv + 1, &test);
+// 	wati_printf("%s\n", token);
+// }
+
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	char	*str;
+// 	t_list	*lst;
+// 	t_btree	*root;
+// 	t_list	*env;
+
+// 	env = env_getlist(envp);
+// 	set_readline_signal();
+// 	while (1)
+// 	{
+// 		str = wati_readline(env, argv[0]);
+// 		while (str != NULL && *str == '\0')
+// 		{
+// 			add_history(str);
+// 			free(str);
+// 			str = wati_readline(env, argv[0]);
+// 		}
+// 		if (str == NULL)
+// 			break ;
+// 		lst = init_parsing(str, env);
+// 		wati_lstiter(lst, print);
+// 		wati_lstclear(&lst, free);
+// 	}
+// 	wati_lstclear(&env, free);
+// 	return (0);
+// }

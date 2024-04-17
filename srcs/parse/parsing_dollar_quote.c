@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:32:55 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/11 16:46:56 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:43:56 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,29 +96,116 @@ char	*modify_token(char *line, t_list *env_lst)
 	return (line);
 }
 
+// char	*verify_token(char *line, t_list *env_lst)
+// {
+// 	char	*str0;
+// 	char	*str;
+// 	bool	simple_quote;
+// 	bool	double_quote;
+
+// 	str0 = line;
+// 	str = str0;
+// 	simple_quote = false;
+// 	double_quote = false;
+// 	while (*str)
+// 	{
+// 		if ((*str == '\'' || *str == '"') && (!simple_quote && !double_quote))
+// 		{
+// 			if (*str == '\'')
+// 				simple_quote = true;
+// 			if (*str == '"')
+// 				double_quote = true;
+// 		}
+// 		str++;
+// 	}
+// 	if (!simple_quote)
+// 		return (modify_token(line, env_lst));
+// 	return (line);
+// }
+
+#include <stdio.h>
+
+char	*truc_raciste(char *str, char c)
+{
+	char	*new;
+	char	*str0;
+	int		len;
+	int		i;
+
+	len = wati_strlen(str) + 1;
+	new = malloc(len + 1);
+	str0 = str;
+	i = 0;
+	while (*str)
+	{
+		new[i] = *str;
+		i++;
+		str++;
+	}
+	new[i] = c;
+	new[i + 1] = 0;
+	free(str0);
+	return (new); 
+}
+
 char	*verify_token(char *line, t_list *env_lst)
 {
 	char	*str0;
-	char	*str;
-	bool	simple_quote;
-	bool	double_quote;
+	char	*tmp;
+	char	*cacommenceafairebeaucoup;
+	char	quote;
+	int		i;
+	int		start;
 
+	quote = 0;
+	start = 0;
 	str0 = line;
-	str = str0;
-	simple_quote = false;
-	double_quote = false;
-	while (*str)
+	i = 0;
+	tmp = NULL;
+	while (*line)
 	{
-		if ((*str == '\'' || *str == '"') && (!simple_quote && !double_quote))
+		if ((*line == '\'' || *line == '"') && !quote)
 		{
-			if (*str == '\'')
-				simple_quote = true;
-			if (*str == '"')
-				double_quote = true;
+			start = i + 1;
+			quote = *line;
+			line++;
+			i++;
 		}
-		str++;
+		if (!quote && *line)
+		{
+			tmp = truc_raciste(tmp, *line);
+			wati_printf("raciste == %s\n", tmp);
+		}
+		if (*line == quote) 
+		{
+			if (tmp)
+			{
+				cacommenceafairebeaucoup = wati_substr(str0, start, i - start);
+				tmp = wati_strjoin(tmp, cacommenceafairebeaucoup);
+				free(cacommenceafairebeaucoup);
+			}
+			else
+				tmp = wati_substr(str0, start, i - start);
+			wati_printf("word without quote = %s\n", tmp);
+			quote = 0;
+			start = i - 1;
+		}
+		line++;	
+		i++;
 	}
-	if (!simple_quote)
-		return (modify_token(line, env_lst));
-	return (line);
+	free(tmp);
+	wati_printf("Token = %s\n", line);
+	return (str0);
+}
+
+// modify_token(line, env_lst) renvoie la ligne en changeant les dollars par la variable d'environnement
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_list	*env_lst;
+	char *str;
+	
+	env_lst = env_getlist(envp);
+	str = modify_token(argv[1], env_lst);
+	wati_printf("%s\n", str);
 }
