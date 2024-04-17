@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/17 17:43:58 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:35:07 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,30 +102,30 @@ char	*get_next_token(char **line, t_test *test)
 // 	wati_printf("%s\n", token);
 // }
 
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	char	*str;
-// 	t_list	*lst;
-// 	t_btree	*root;
-// 	t_list	*env;
+int	main(int argc, char **argv, char **envp)
+{
+	char	*str;
+	t_list	*lst;
+	t_btree	*root;
+	t_list	*env;
 
-// 	env = env_getlist(envp);
-// 	set_readline_signal();
-// 	while (1)
-// 	{
-// 		str = wati_readline(env, argv[0]);
-// 		while (str != NULL && *str == '\0')
-// 		{
-// 			add_history(str);
-// 			free(str);
-// 			str = wati_readline(env, argv[0]);
-// 		}
-// 		if (str == NULL)
-// 			break ;
-// 		lst = init_parsing(str, env);
-// 		wati_lstiter(lst, print);
-// 		wati_lstclear(&lst, free);
-// 	}
-// 	wati_lstclear(&env, free);
-// 	return (0);
-// }
+	env = env_getlist(envp);
+	set_readline_signal();
+	while (1)
+	{
+		str = wati_readline(env, argv[0]);
+		while (str != NULL && *str == '\0')
+		{
+			add_history(str);
+			free(str);
+			str = wati_readline(env, argv[0]);
+		}
+		if (str == NULL)
+			break ;
+		lst = init_parsing(str, env);
+		wati_lstiter(lst, print);
+		wati_lstclear(&lst, free);
+	}
+	wati_lstclear(&env, free);
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:32:55 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/17 17:43:56 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/17 20:00:54 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,9 +153,11 @@ char	*verify_token(char *line, t_list *env_lst)
 	char	*str0;
 	char	*tmp;
 	char	*cacommenceafairebeaucoup;
+	char	*ntm;
 	char	quote;
 	int		i;
 	int		start;
+	int		encorestart;
 
 	quote = 0;
 	start = 0;
@@ -173,14 +175,19 @@ char	*verify_token(char *line, t_list *env_lst)
 		}
 		if (!quote && *line)
 		{
-			tmp = truc_raciste(tmp, *line);
-			wati_printf("raciste == %s\n", tmp);
+			
 		}
 		if (*line == quote) 
 		{
 			if (tmp)
 			{
 				cacommenceafairebeaucoup = wati_substr(str0, start, i - start);
+				if (quote == '"')
+				{
+					ntm = modify_token(cacommenceafairebeaucoup, env_lst);
+					free(cacommenceafairebeaucoup);
+					cacommenceafairebeaucoup = ntm;
+				}
 				tmp = wati_strjoin(tmp, cacommenceafairebeaucoup);
 				free(cacommenceafairebeaucoup);
 			}
@@ -193,19 +200,11 @@ char	*verify_token(char *line, t_list *env_lst)
 		line++;	
 		i++;
 	}
-	free(tmp);
+	if (tmp)
+		free(tmp);
 	wati_printf("Token = %s\n", line);
 	return (str0);
 }
 
 // modify_token(line, env_lst) renvoie la ligne en changeant les dollars par la variable d'environnement
 
-int	main(int argc, char **argv, char **envp)
-{
-	t_list	*env_lst;
-	char *str;
-	
-	env_lst = env_getlist(envp);
-	str = modify_token(argv[1], env_lst);
-	wati_printf("%s\n", str);
-}
