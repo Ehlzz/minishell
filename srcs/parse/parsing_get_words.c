@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/18 16:57:33 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/18 20:23:17 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,7 @@ char	*get_word(char **line, t_test *test)
 			quote_c = 0;
 			test->quote = !test->quote;
 		}
-		else if (quote_c && *str == ' ' && !test->quote)
-			break ;
-		else if (!quote_c && *str == ' ')
+		else if ((!quote_c || (quote_c && !test->quote)) && *str == ' ')
 			break ;
 		str++;
 	}
@@ -83,24 +81,15 @@ char	*get_next_token(char **line, t_test *test)
 	if (!token)
 		token = get_word(line, test);
 	if (test->quote)
+	{
+		free(token);
 		return (NULL);
+	}
 	if (!token)
 		return (NULL);
 	skip_space(line);
 	return (token);
 }
-
-// int	main(int argc, char **argv)
-// {
-// 	char	*token;
-// 	t_test	test;
-	
-// 	test.quote = false;
-// 	token = get_operator(argv + 1);
-// 	if (!token)
-// 		token = get_word(argv + 1, &test);
-// 	wati_printf("%s\n", token);
-// }
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -114,9 +103,9 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = wati_readline(env, argv[0]);
+		add_history(str);
 		while (str != NULL && *str == '\0')
 		{
-			add_history(str);
 			free(str);
 			str = wati_readline(env, argv[0]);
 		}

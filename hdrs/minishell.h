@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/26 16:52:46 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/18 19:59:29 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ char	*skip_space(char **line);
 char	*get_word(char **line, t_test *test);
 char	*get_next_token(char **line, t_test *test);
 char	*find_variable(t_list *env_lst, char *to_find);
+char	*modify_token(char *line, t_list *env_lst);
+char	*verify_token(char *line, t_list *env_lst);
+char	*remove_quote(char *str);
+int		count_available(char *str);
+char	*dollar_to_end(char *line);
+char	*dollar_to_dollar(char *line);
+char	*start_to_dollar(char *line);
 
 void	print(void *str);
 
