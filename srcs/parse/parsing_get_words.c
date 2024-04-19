@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/18 20:23:17 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:30:48 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,11 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
 	t_list	*lst;
-	t_btree	*root;
 	t_list	*env;
 
 	env = env_getlist(envp);
 	set_readline_signal();
+	(void)argc;
 	while (1)
 	{
 		str = wati_readline(env, argv[0]);

@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:39:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/18 19:57:57 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:17:41 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_list	*init_parsing(char *line, t_list *env_lst)
 	lst = NULL;
 	test.quote = false;
 	str = line;
+	
 	while (*line)
 	{
 		token = get_next_token(&line, &test);
