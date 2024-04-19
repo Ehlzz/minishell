@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_putstrs_fd.c                                  :+:      :+:    :+:   */
+/*   wati_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 17:14:29 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 20:47:58 by ehalliez         ###   ########.fr       */
+/*   Created: 2024/04/19 19:12:27 by ehalliez          #+#    #+#             */
+/*   Updated: 2024/04/19 19:12:40 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
+#include <minishell.h>
 
-void	wati_putstrs_fd(char **s, int fd)
+void	print_pwd(void)
 {
-	while (*s)
-	{
-		wati_putstr_fd(*s++, fd);
-		wati_putchar_fd('\n', fd);
-	}
+	char	*path;
+
+	path = getcwd(NULL, 0);
+	wati_putendl_fd(path, 1);
+	free(path);
 }

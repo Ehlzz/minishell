@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/18 19:59:29 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/19 20:14:04 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,9 @@ void	wati_chdir(t_list **env, const char *dir_name);
 void	update_pwd(t_list **env);
 void	print_pwd(void);
 
-/*    Builtin echo    */
+/*    Builtin    */
 void	wati_echo(char **strs);
+void	wati_env(t_list *env);
 
 /*    wati_readline    */
 char	*wati_readline(t_list *env, char *exec);

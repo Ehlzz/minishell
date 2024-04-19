@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_putstrs_fd.c                                  :+:      :+:    :+:   */
+/*   wati_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 17:14:29 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 20:47:58 by ehalliez         ###   ########.fr       */
+/*   Created: 2024/04/19 19:05:09 by ehalliez          #+#    #+#             */
+/*   Updated: 2024/04/19 19:10:22 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
+#include <minishell.h>
 
-void	wati_putstrs_fd(char **s, int fd)
+void	wati_env(t_list *env)
 {
-	while (*s)
-	{
-		wati_putstr_fd(*s++, fd);
-		wati_putchar_fd('\n', fd);
-	}
+	wati_lstiter(env, print);
 }

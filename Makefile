@@ -6,7 +6,7 @@
 #    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/04/11 18:13:50 by ehalliez         ###   ########.fr        #
+#    Updated: 2024/04/19 19:21:11 by ehalliez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,9 @@ SRCS = \
 	env/env_manage.c env/env_tools.c \
 	dir/dir_manage.c \
 	builtin/wati_echo.c \
+	builtin/wati_env.c \
+	builtin/wati_export.c \
+	builtin/wati_pwd.c \
 	signal_new.c \
 	parse/parsing.c \
 	parse/parsing_utils.c \

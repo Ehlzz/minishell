@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dir_manage.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:02:06 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/16 19:53:26 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/19 19:13:05 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,6 @@ void	update_pwd(t_list **env)
 	path = getcwd(NULL, 0);
 	var = wati_strjoin("PWD=", path);
 	env_add(env, var);
-	free(path);
-}
-
-void	print_pwd(void)
-{
-	char	*path;
-
-	path = getcwd(NULL, 0);
-	wati_putendl_fd(path, 1);
 	free(path);
 }
 

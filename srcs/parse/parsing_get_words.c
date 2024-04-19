@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/19 17:45:49 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/19 19:09:52 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,11 @@ void	here_doc(char *limiter)
 	close (fd);
 }
 
-int main(int argc, char **argv)
-{
-	if (argc != 1)
-		here_doc(argv[1]);
-}
+// int main(int argc, char **argv)
+// {
+// 	if (argc != 1)
+// 		here_doc(argv[1]);
+// }
 
 // int	main(int argc, char **argv, char **envp)
 // {
