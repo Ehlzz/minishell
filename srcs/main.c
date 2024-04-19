@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/11 22:05:42 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:14:53 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int	main(int argc, char **argv, char **envp)
 	set_readline_signal();
 	while (1)
 	{
-		str = wati_readline(env, argv[0]);
+		str = wati_readline(env);
 		while (str != NULL && *str == '\0')
 		{
 			free(str);
-			str = wati_readline(env, argv[0]);
+			str = wati_readline(env);
 		}
 		if (str == NULL)
 			break ;

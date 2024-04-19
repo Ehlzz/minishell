@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:57:07 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/05 13:57:49 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:46:58 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,13 @@ t_btree	*btree_node_oper(t_token *token, t_fds fds)
 	cmd->fds = fds;
 	cmd->strs = NULL;
 	cmd->oper = token->oper;
-	node = btree_create_node(cmd);
+	//node = btree_create_node(cmd);
+	node = NULL;
+	if (!node)
+	{
+		free(cmd);
+		return (NULL);
+	}
 	free(token->str);
 	return (node);
 }
