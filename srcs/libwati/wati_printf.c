@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wati_printf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:51:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 16:25:36 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:58:24 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libwati.h>
-#include <unistd.h>
 
 int	wati_vfprintf(int fd, const char *format, va_list arg)
 {

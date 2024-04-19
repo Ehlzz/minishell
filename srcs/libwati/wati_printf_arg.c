@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wati_printf_arg.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:30:28 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 16:25:22 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:58:34 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libwati.h>
-#include <unistd.h>
 
 int	wati_printf_arg_str(int fd, char format, va_list arg)
 {

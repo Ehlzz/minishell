@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 15:58:37 by ehalliez         ###   ########.fr       */
+/*   Created: 2023/10/30 15:30:26 by ehalliez          #+#    #+#             */
+/*   Updated: 2023/11/07 16:33:14 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
+#include "libft.h"
 
-char	**wati_lstsplit(t_list *list)
+char	*ft_strdup(const char *src)
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
+	int		i;
+	char	*dest;
 
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
-		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
+	i = 0;
+	dest = malloc(sizeof(char) * ft_strlen((char *)src) + 1);
+	if (dest == NULL)
+		return (0);
+	while (src && dest && src[i])
 	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
+		dest[i] = src[i];
+		i++;
 	}
-	return (strs0);
+	dest[i] = '\0';
+	return (dest);
 }

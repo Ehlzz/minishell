@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/19 15:30:48 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/19 17:45:49 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,30 +91,62 @@ char	*get_next_token(char **line, t_test *test)
 	return (token);
 }
 
-int	main(int argc, char **argv, char **envp)
+void	here_doc(char *limiter)
 {
-	char	*str;
-	t_list	*lst;
-	t_list	*env;
-
-	env = env_getlist(envp);
-	set_readline_signal();
-	(void)argc;
+	int		fd;
+	int		size_limiter;
+	int		size_line;
+	char	*line;
+	
+	fd = open("testoutput", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	if (!fd)
+		return ;
+	size_limiter = wati_strlen(limiter);
 	while (1)
 	{
-		str = wati_readline(env, argv[0]);
-		add_history(str);
-		while (str != NULL && *str == '\0')
-		{
-			free(str);
-			str = wati_readline(env, argv[0]);
-		}
-		if (str == NULL)
+		wati_putstr_fd("> ", 1);
+		line = get_next_line(0);
+		size_line = wati_strlen(line);
+		if (!wati_strncmp(limiter, line, size_limiter) && size_line - 1 == size_limiter)
 			break ;
-		lst = init_parsing(str, env);
-		wati_lstiter(lst, print);
-		wati_lstclear(&lst, free);
+		write(fd, line, size_line);
+		free(line);
 	}
-	wati_lstclear(&env, free);
-	return (0);
+	free(line);
+	get_next_line(-1);
+	close (fd);
 }
+
+int main(int argc, char **argv)
+{
+	if (argc != 1)
+		here_doc(argv[1]);
+}
+
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	char	*str;
+// 	t_list	*lst;
+// 	t_list	*env;
+
+// 	env = env_getlist(envp);
+// 	set_readline_signal();
+// 	(void)argc;
+// 	while (1)
+// 	{
+// 		str = wati_readline(env, argv[0]);
+// 		add_history(str);
+// 		while (str != NULL && *str == '\0')
+// 		{
+// 			free(str);
+// 			str = wati_readline(env, argv[0]);
+// 		}
+// 		if (str == NULL)
+// 			break ;
+// 		lst = init_parsing(str, env);
+// 		wati_lstiter(lst, print);
+// 		wati_lstclear(&lst, free);
+// 	}
+// 	wati_lstclear(&env, free);
+// 	return (0);
+// }

@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 15:58:37 by ehalliez         ###   ########.fr       */
+/*   Created: 2023/11/02 18:47:57 by ehalliez          #+#    #+#             */
+/*   Updated: 2023/11/08 05:00:36 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
+#include "libft.h"
 
-char	**wati_lstsplit(t_list *list)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
+	size_t	i;
+	char	*d;
+	char	*s;
 
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
+	i = -1;
+	d = (char *)dest;
+	s = (char *)src;
+	if (!d && !s)
 		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
+	if (d > s)
 	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
+		while (n-- > 0)
+			d[n] = s[n];
 	}
-	return (strs0);
+	else
+	{
+		while (++i < n)
+			d[i] = s[i];
+	}
+	dest = d;
+	return (dest);
 }

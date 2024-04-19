@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
+#    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 07:12:45 by bedarenn          #+#    #+#              #
-#    Updated: 2024/03/18 16:04:12 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/04/19 15:59:17 by ehalliez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,9 @@ SRCS = \
 	btree_insert_data.c btree_search_item.c \
 	btree_level_count.c btree_apply_by_level.c \
 	wati_printf.c wati_printf_arg.c wati_printf_utils_nbr.c wati_printf_utils_str.c \
-	wati_joinf.c
+	wati_joinf.c \
+	get_next_line_bonus.c \
+	get_next_line_utils_bonus.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 

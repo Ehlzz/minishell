@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 15:58:37 by ehalliez         ###   ########.fr       */
+/*   Created: 2023/11/24 06:33:54 by ehalliez          #+#    #+#             */
+/*   Updated: 2023/11/27 17:09:03 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
+#include "ft_printf.h"
 
-char	**wati_lstsplit(t_list *list)
+int	ft_putnbr_base(long long int nb, char *hex, long long int base)
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
+	char	unit;
+	int		count;
 
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
-		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
+	count = 1;
+	if (nb < 0)
 	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
+		nb = -nb;
+		write(1, "-", 1);
+		count++;
 	}
-	return (strs0);
+	if (base == 16)
+		unit = hex[nb % 16];
+	else if (base == 10)
+	{
+		unit = nb % base;
+		unit = unit + '0';
+	}
+	if (nb > base - 1)
+		count += ft_putnbr_base(nb / base, hex, base);
+	write(1, &unit, 1);
+	return (count);
 }

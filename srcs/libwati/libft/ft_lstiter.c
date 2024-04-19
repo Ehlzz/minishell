@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 15:58:37 by ehalliez         ###   ########.fr       */
+/*   Created: 2023/11/21 14:09:50 by ehalliez          #+#    #+#             */
+/*   Updated: 2023/11/21 22:27:03 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
+#include "libft.h"
 
-char	**wati_lstsplit(t_list *list)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
-
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
-		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
+	if (!lst || !f)
+		return ;
+	while (lst)
 	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
+		f(lst->content);
+		lst = lst->next;
 	}
-	return (strs0);
 }

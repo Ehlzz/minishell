@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 15:58:37 by ehalliez         ###   ########.fr       */
+/*   Created: 2023/09/26 13:52:02 by ehalliez          #+#    #+#             */
+/*   Updated: 2023/11/08 06:33:33 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
+#include "libft.h"
 
-char	**wati_lstsplit(t_list *list)
+void	ft_putnbr_fd(int nb, int fd)
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
+	char	unit;
 
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
-		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
+	if (nb == -2147483648)
 	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
+		write(fd, "-2147483648", 11);
+		return ;
 	}
-	return (strs0);
+	if (nb < 0)
+	{
+		nb = -nb;
+		write(fd, "-", 1);
+	}
+	unit = nb % 10;
+	unit = unit + '0';
+	if (nb > 9)
+		ft_putnbr_fd(nb / 10, fd);
+	write(fd, &unit, 1);
 }

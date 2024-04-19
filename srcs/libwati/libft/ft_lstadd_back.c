@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 15:58:37 by ehalliez         ###   ########.fr       */
+/*   Created: 2023/11/09 04:19:44 by ehalliez          #+#    #+#             */
+/*   Updated: 2023/11/21 22:24:45 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
+#include "libft.h"
 
-char	**wati_lstsplit(t_list *list)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
+	t_list	*l;
 
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
-		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
+	if (!lst || !new)
+		return ;
+	if (lst[0])
 	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
+		l = ft_lstlast(lst[0]);
+		l->next = new;
 	}
-	return (strs0);
+	else
+		lst[0] = new;
 }

@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:50:39 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/19 17:50:46 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:58:04 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,13 @@
 
 # include <stddef.h>
 # include <stdarg.h>
+# include <fcntl.h>
+# include <unistd.h>
 # include <stdlib.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 int		wati_isalpha(int c);
 int		wati_isdigit(int c);
@@ -144,5 +150,13 @@ int		wati_printf_usnbr_base_fd(size_t n, char *base, size_t size, int fd);
 char	*wati_vjoinf(size_t nb, va_list arg);
 char	*wati_joinf(size_t nb, ...);
 size_t	wati_arglen(char c, va_list arg);
+
+char	*get_next_line(int fd);
+char	*wati_read_nl(int fd, char *str);
+char	*wati_save_line(char *stash);
+char	*wati_delete_line(char *str);
+char	*free_and_null(char *s1, char *s2, char *s3);
+int		check_newline(char *str);
+int		wati_strlen_to_nl(char *str);
 
 #endif

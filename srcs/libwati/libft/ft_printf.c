@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 15:58:37 by ehalliez         ###   ########.fr       */
+/*   Created: 2023/11/24 03:43:41 by ehalliez          #+#    #+#             */
+/*   Updated: 2023/11/27 17:04:50 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
+#include "ft_printf.h"
 
-char	**wati_lstsplit(t_list *list)
+int	ft_printf(const char *str, ...)
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
+	va_list	param;
+	int		test;
+	int		i;
 
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
-		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
+	i = 0;
+	test = 0;
+	va_start(param, str);
+	while (str[i])
 	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
+		if (str[i] == '%')
+		{
+			test += ft_check_param((char *)str, param, i + 1);
+			i += 1;
+		}
+		else
+			test += ft_putchar_fd(str[i], 1);
+		i++;
 	}
-	return (strs0);
+	va_end(param);
+	return (test);
 }

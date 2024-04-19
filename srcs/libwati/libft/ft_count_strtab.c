@@ -1,35 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   ft_count_strtab.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 15:58:37 by ehalliez         ###   ########.fr       */
+/*   Created: 2023/12/02 23:03:10 by ehalliez          #+#    #+#             */
+/*   Updated: 2023/12/16 09:32:00 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
-
-char	**wati_lstsplit(t_list *list)
+int	ft_count_strtab(char **tab)
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
+	int	i;
 
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
-		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
-	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
-	}
-	return (strs0);
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
 }

@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 15:58:37 by ehalliez         ###   ########.fr       */
+/*   Created: 2023/11/07 20:00:13 by ehalliez          #+#    #+#             */
+/*   Updated: 2023/11/08 03:18:14 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
+#include "libft.h"
 
-char	**wati_lstsplit(t_list *list)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
+	unsigned int	i;
 
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
-		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
+	i = 0;
+	while (((unsigned char)s1[i] != '\0' || \
+		(unsigned char)s2[i] != '\0') && i < n)
 	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
+		if ((unsigned char)s1[i] == (unsigned char)s2[i])
+			i++;
+		else
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 	}
-	return (strs0);
+	return (0);
 }

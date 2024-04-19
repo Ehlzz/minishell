@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 15:58:37 by ehalliez         ###   ########.fr       */
+/*   Created: 2023/11/08 06:37:02 by ehalliez          #+#    #+#             */
+/*   Updated: 2023/11/21 22:23:10 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
+#include "libft.h"
 
-char	**wati_lstsplit(t_list *list)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
+	unsigned int	i;
+	char			*new_str;
 
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
-		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
+	i = 0;
+	if (!s || !f)
+		return (0);
+	new_str = malloc(sizeof(char) * ft_strlen((char *)s) + 1);
+	if (!new_str)
+		return (0);
+	while (s[i])
 	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
+		new_str[i] = f(i, s[i]);
+		i++;
 	}
-	return (strs0);
+	new_str[i] = 0;
+	return (new_str);
 }

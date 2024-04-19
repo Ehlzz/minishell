@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 15:58:37 by ehalliez         ###   ########.fr       */
+/*   Created: 2023/11/07 15:19:17 by ehalliez          #+#    #+#             */
+/*   Updated: 2023/11/21 22:22:03 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
+#include "libft.h"
 
-char	**wati_lstsplit(t_list *list)
+void	*ft_calloc(size_t count, size_t size)
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
+	void	*result;
+	size_t	calc;
 
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
+	calc = (count * size);
+	if (size == 0 || count == 0)
+		return (malloc(0));
+	if (calc / count != size)
 		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
-	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
-	}
-	return (strs0);
+	result = malloc(size * count);
+	if (result == NULL)
+		return (NULL);
+	ft_bzero(result, size * count);
+	return (result);
 }

@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 15:58:37 by ehalliez         ###   ########.fr       */
+/*   Created: 2023/11/27 18:03:47 by ehalliez          #+#    #+#             */
+/*   Updated: 2023/12/02 21:23:26 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
+#include "get_next_line_bonus.h"
 
-char	**wati_lstsplit(t_list *list)
+int	check_newline(char *str)
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
+	int	i;
 
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
-		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
+	i = 0;
+	while (str && str[i])
 	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
+		if (str[i] == '\n')
+			return (1);
+		i++;
 	}
-	return (strs0);
+	return (0);
+}
+
+int	ft_strlen_to_nl(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i] && str[i] != '\n')
+		i++;
+	return (i);
 }

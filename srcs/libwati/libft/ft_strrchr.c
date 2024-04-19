@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 15:58:37 by ehalliez         ###   ########.fr       */
+/*   Created: 2023/11/07 19:47:52 by ehalliez          #+#    #+#             */
+/*   Updated: 2023/11/21 18:07:04 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
+#include "libft.h"
 
-char	**wati_lstsplit(t_list *list)
+char	*ft_strrchr(const char *str, int c)
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
+	int	i;
+	int	size;
 
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
-		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
+	i = 0;
+	size = ft_strlen((char *) str);
+	while (*str)
+		str++;
+	while (i < size + 1)
 	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
+		if (*str == (unsigned char)c)
+			return ((char *)str);
+		str--;
+		size--;
 	}
-	return (strs0);
+	if (c == 0)
+		return ((char *) str);
+	return (0);
 }

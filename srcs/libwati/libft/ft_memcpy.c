@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 15:58:37 by ehalliez         ###   ########.fr       */
+/*   Created: 2023/11/02 18:32:23 by ehalliez          #+#    #+#             */
+/*   Updated: 2023/12/18 05:22:51 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
+#include "libft.h"
 
-char	**wati_lstsplit(t_list *list)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
+	size_t			i;
+	long			*d;
+	const long		*s;
 
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
+	if (!dest && !src)
 		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
+	i = 0;
+	d = (long *)dest;
+	s = (const long *)src;
+	while (i < n / sizeof(long))
 	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
+		d[i] = s[i];
+		i++;
 	}
-	return (strs0);
+	return (d);
 }

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wati_printf_utils_nbr.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 22:34:23 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 16:20:12 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:58:31 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libwati.h>
-#include <unistd.h>
 
 static int	wati_printf_nbr_base_fd(size_t n, char *base,
 	size_t size, int fd)
