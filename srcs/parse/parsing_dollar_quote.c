@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:32:55 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/11 19:20:45 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:56:19 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,24 @@
 char	*start_to_dollar(char *line)
 {
 	char	*str;
+	char	quote;
 	int		len;
 
 	str = line;
-	while (str && *str && *str != '$')
+	quote = 0;
+	while (str && *str)
+	{
+		if ((*str == '\'' || *str == '"') && !quote)
+		{
+			quote = *str;
+			str++;
+		}
+		if (*str == quote)
+			quote = 0;
+		if (quote != '\'' && *str == '$')
+			break ;
 		str++;
+	}
 	len = str - line;
 	return (wati_substr(line, 0, len));
 }
@@ -35,90 +48,89 @@ char	*dollar_to_dollar(char *line)
 		str++;
 	len_start = str - line;
 	str++;
-	while (*str && *str != ' ' && *str != '$')
+	while (*str && *str != ' ' && *str != '$' && *str != '\'' && *str != '"')
 		str++;
 	len_end = str - line;
-	if (!*str)
-		len_end--;
 	return (wati_substr(line, len_start, len_end - len_start));
 }
 
 char	*dollar_to_end(char *line)
 {
 	char	*str;
-	int		len;
+	char	quote;
 
 	str = line;
-	while (*str != '$')
+	quote = 0;
+	while (str && *str)
+	{
+		if ((*str == '\'' || *str == '"') && !quote)
+		{
+			quote = *str;
+			str++;
+		}
+		if (*str == quote)
+			quote = 0;
+		if (quote != '\'' && *str == '$')
+			break ;
 		str++;
+	}
 	while (*str)
 	{
 		str++;
-		if (*str == ' ' || *str == '$')
+		if (*str == ' ' || *str == '$' || *str == '\'' || *str == '"')
 			break ;
 	}
-	if (*line == '"')
-	{
-		if (*str)
-			len = str - line;
-		else
-			len = str - line - 1;
-	}
-	else
-		len = str - line;
-	return (wati_substr(line, len, wati_strlen(line)));
+	return (wati_substr(line, str - line, wati_strlen(line)));
 }
 
-char	*modify_token(char *line, t_list *env_lst)
+int	count_available(char *str)
 {
-	char	*start;
-	char	*variable;
-	char	*end;
-	char	*tmp;
-	int		dollar_count;
+	int	quote;
+	int	i;
 
-	dollar_count = count_dollars(line);
-	while (dollar_count)
-	{
-		start = start_to_dollar(line);
-		if (*line == '"')
-			variable = find_variable(env_lst, dollar_to_dollar(line));
-		else
-			variable = find_variable(env_lst, line);
-		tmp = wati_strjoin(start, variable);
-		start = tmp;
-		end = dollar_to_end(line);
-		tmp = wati_strjoin(tmp, end);
-		free(start);
-		line = tmp;
-		dollar_count--;
-	}
-	return (line);
-}
-
-char	*verify_token(char *line, t_list *env_lst)
-{
-	char	*str0;
-	char	*str;
-	bool	simple_quote;
-	bool	double_quote;
-
-	str0 = line;
-	str = str0;
-	simple_quote = false;
-	double_quote = false;
+	i = 0;
+	quote = 0;
 	while (*str)
 	{
-		if ((*str == '\'' || *str == '"') && (!simple_quote && !double_quote))
+		if ((*str == '\'' || *str == '"') && !quote)
 		{
-			if (*str == '\'')
-				simple_quote = true;
-			if (*str == '"')
-				double_quote = true;
+			quote = *str;
+			str++;
+		}
+		if (*str == quote)
+		{
+			quote = 0;
+			str++;
+			continue ;
 		}
 		str++;
+		i++;
 	}
-	if (!simple_quote)
-		return (modify_token(line, env_lst));
-	return (line);
+	return (i);
+}
+
+char	*remove_quote(char *str)
+{
+	char	*result;
+	char	*str0;
+	int		i;
+	int		quote;
+
+	result = malloc(count_available(str) + 1);
+	str0 = str;
+	i = 0;
+	quote = 0;
+	while (*str)
+	{
+		if ((*str == '\'' || *str == '"') && !quote)
+			quote = *str;
+		else if (*str == quote)
+			quote = 0;
+		else
+			result[i++] = *str;
+		str++;
+	}
+	result[i] = '\0';
+	free(str0);
+	return (result);
 }

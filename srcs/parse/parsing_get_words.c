@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/11 21:34:25 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:56:23 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ char	*get_word(char **line, t_test *test)
 			test->quote = !test->quote;
 		}
 		else if (quote_c && *str == quote_c)
+		{
+			quote_c = 0;
 			test->quote = !test->quote;
-		else if (quote_c && *str == ' ' && !test->quote)
-			break ;
-		else if (!quote_c && *str == ' ')
+		}
+		else if ((!quote_c || (quote_c && !test->quote)) && *str == ' ')
 			break ;
 		str++;
 	}
@@ -65,9 +66,40 @@ char	*get_next_token(char **line, t_test *test)
 	else
 		*line += wati_strlen(token);
 	if (test->quote)
+	{
+		free(token);
 		return (NULL);
+	}
 	if (!token)
 		return (NULL);
 	skip_space(line);
 	return (token);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	char	*str;
+	t_list	*lst;
+	t_btree	*root;
+	t_list	*env;
+
+	env = env_getlist(envp);
+	set_readline_signal();
+	while (1)
+	{
+		str = wati_readline(env, argv[0]);
+		add_history(str);
+		while (str != NULL && *str == '\0')
+		{
+			free(str);
+			str = wati_readline(env, argv[0]);
+		}
+		if (str == NULL)
+			break ;
+		lst = init_parsing(str, env);
+		wati_lstiter(lst, print);
+		wati_lstclear(&lst, free);
+	}
+	wati_lstclear(&env, free);
+	return (0);
 }

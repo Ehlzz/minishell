@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:40:47 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 16:06:03 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:50:36 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,21 @@ int	is_dollar_operator(char *line)
 
 int	count_dollars(char *line)
 {
+	int		quote;
 	int		count;
 
 	count = 0;
+	quote = 0;
 	while (*line)
 	{
-		if (*line == '$')
+		if ((*line == '\'' || *line == '"') && !quote)
+		{
+			quote = *line;
+			line++;
+		}
+		if (*line == quote)
+			quote = 0;
+		if (*line == '$' && quote != '\'')
 			count++;
 		line++;
 	}

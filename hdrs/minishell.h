@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/10 11:54:17 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:58:04 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,26 @@
 # include <readline/history.h>
 # include <libwati.h>
 
-char	*ft_join_args(t_string *argv);
-char	*skip_space(t_string *line);
-char	*get_word(t_string *line, t_test *test);
-char	*get_next_token(t_string *line, t_test *test);
-char	*find_variable(t_list *env_lst, t_string to_find);
+typedef struct s_test
+{
+	bool	quote;
+}	t_test;
+
+// #### PARSING ### // 
+
+char	*ft_join_args(char **argv);
+char	*get_operator(char **line);
+char	*skip_space(char **line);
+char	*get_word(char **line, t_test *test);
+char	*get_next_token(char **line, t_test *test);
+char	*find_variable(t_list *env_lst, char *to_find);
+char	*modify_token(char *line, t_list *env_lst);
+char	*verify_token(char *line, t_list *env_lst);
+char	*remove_quote(char *str);
+int		count_available(char *str);
+char	*dollar_to_end(char *line);
+char	*dollar_to_dollar(char *line);
+char	*start_to_dollar(char *line);
 
 void	print(void *str);
 
