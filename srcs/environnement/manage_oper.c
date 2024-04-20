@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:49:20 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/10 13:04:04 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:05:56 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_oper	is_operator(t_string s)
 void	fprint_operator(t_oper oper, t_fd fd)
 {
 	if (oper == NO)
-		wati_putstr_fd("NO", fd);
+		return ;
 	else if (oper == PIPE)
 		wati_putstr_fd("PIPE", fd);
 	else if (oper == AND)

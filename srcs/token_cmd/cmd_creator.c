@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:53:17 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/10 17:15:42 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/20 14:30:27 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static t_bool	parse_word(t_list **lst, t_list **l_strs, t_fds *fds);
 
 t_cmd	*new_cmd(t_list **lst, t_fds fds)
 {
-	t_list		*list;
-	t_cmd		*cmd;
-	t_list		*l_strs;
+	t_list	*list;
+	t_cmd	*cmd;
+	t_list	*l_strs;
 
 	list = *lst;
 	l_strs = NULL;
@@ -32,24 +32,21 @@ t_cmd	*new_cmd(t_list **lst, t_fds fds)
 		if (!parse_word(&list, &l_strs, &fds))
 		{
 			wati_lstclean(&l_strs);
-			wati_lstiter(list, free_token);
 			return (NULL);
 		}
 	}
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 	{
-		wati_fprintf(STDERR_FILENO, "%s: Error: alloc cmd error\n", NAME);
+		wati_fprintf(STDERR_FILENO, "%s: Error: alloc fail\n", NAME);
 		wati_lstclean(&l_strs);
-		wati_lstiter(list, free_token);
 		return (NULL);
 	}
 	cmd->strs = wati_lstsplit(l_strs);
 	if (!cmd->strs)
 	{
-		wati_fprintf(STDERR_FILENO, "%s: Error: alloc cmd->strs error\n", NAME);
+		wati_fprintf(STDERR_FILENO, "%s: Error: alloc fail\n", NAME);
 		wati_lstclean(&l_strs);
-		wati_lstiter(list, free_token);
 		return (NULL);
 	}
 	wati_lstclean(&l_strs);
@@ -83,8 +80,7 @@ static t_bool	parse_word(t_list **lst, t_list **l_strs, t_fds *fds)
 		new = wati_lstnew(get_token(list)->str);
 		if (!new)
 		{
-			wati_fprintf(STDERR_FILENO, "%s: Error: alloc error: %s\n",
-				NAME, get_token(list)->str);
+			wati_fprintf(STDERR_FILENO, "%s: Error: alloc fail\n", NAME);
 			*lst = list;
 			return (FALSE);
 		}

@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:18:26 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/05 14:06:55 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:04:12 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	print_no(t_cmd *cmd);
 
 void	print_cmd(void *ptr)
 {
-	t_cmd		*cmd;
+	t_cmd	*cmd;
 
 	if (!ptr)
 	{

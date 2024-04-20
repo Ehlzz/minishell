@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/10 16:56:35 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/20 13:33:26 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,15 @@ void	print_cmd_by_level(void *ptr, int level, int is_first_elem);
 void	free_cmd(void *ptr);
 
 /*    Binary Tree    */
-t_list	*btree_build(t_btree **root, t_list *list);
-	/*    OPER    */
+t_bool	btree_build(t_btree **root, t_list *list);
+	/*    Tools    */
+t_bool	btree_build_cmd(t_btree **root, t_list **list, t_fds fds);
+t_bool	btree_build_oper(t_btree **root, t_list **list, t_fds fds);
+t_bool	btree_build_pipe(t_btree **root, t_list **list, t_fds fds);
+t_bool	btree_build_par(t_btree **root, t_list **list, t_fds fds);
+		/*    OPER    */
 t_btree	*btree_node_oper(t_token *token, t_fds fds);
-	/*    CMD    */
+		/*    CMD    */
 t_btree	*add_cmd(t_btree **root, t_btree *node);
 t_btree	*new_root(t_btree **root, t_btree *node);
 t_bool	in_command(t_token *token);
