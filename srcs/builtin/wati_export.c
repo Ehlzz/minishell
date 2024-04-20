@@ -6,79 +6,68 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 19:20:58 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/20 16:53:33 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/20 19:25:10 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-// char	*add_quote(char *str)
-// {
-// 	int		i;
-// 	int		len;
-// 	char	*str0;
-// 	char	*result;
+char	*add_quote(char *str)
+{
+	int		i;
+	int		len;
+	char	*str0;
+	char	*result;
 
-// 	if (!str)
-// 		return (NULL);
-// 	i = 0;
-// 	str0 = str;
-// 	len = wati_strlen(str);
-// 	result = malloc(len + 3);
-// 	if (!result)
-// 		return (NULL);
-// 	while (*str && *str != '=')
-// 	{
-// 		result[i] = *str;
-// 		str++;
-// 		i++;
-// 	}
-// 	result[i] = 0;
-// 	if (!*str)
-// 	{
-// 		wati_printf("%s\n", result);
-// 		return (result);
-// 	}
-// 	result[i] = '=';
-// 	if (*str == '"')
-// 		str++;
-// 	result[i + 1]= '"';
-// 	i++;
-// 	str++;
-// 	while (*str)
-// 	{
-// 		i++;
-// 		result[i] = *str;
-// 		str++;
-// 	}
-// 	result[i + 1] = '"';
-// 	result[i + 2] = 0;
-// 	wati_printf("%s\n", result);
-// 	return (result);
-// }
-
-// void	add_to_env(char *str, t_list **env)
-// {
-// 	int	len;
-
-// 	len = wati_strlen(str);
-// 	add_quote(str);
-// 	if (str && env)
-// 		wati_lstadd_back(env, wati_lstnew(str));
-// }
+	i = 0;
+	str0 = str;
+	len = wati_strlen(str) + 2;
+	result = malloc(len + 1);
+	while (*str && *str != '=')
+	{
+		result[i] = *str;
+		i++;
+		str++;
+	}
+	result[i] = *str;
+	i++;
+	str++;
+	result[i] = '"';
+	i++;
+	while (*str)
+	{
+		result[i] = *str;
+		i++;
+		str++;
+	}
+	result[i] = '"';
+	result[i + 1] = 0;
+	free(str0);
+	return (result);
+}
 
 char	*__export_getline(char *str)
 {
 	char	*result;
 
 	result = wati_strjoin("declare -x ", str);
-	return (result);
+	return (add_quote(result));
+}
+
+void	swap_content(t_list **export)
+{
+	t_list  *ptr1;
+	char	*tmp;
+
+	ptr1 = *export;
+	tmp = ptr1->next->content;
+	ptr1->next->content = ptr1->content;
+	ptr1->content = tmp;
 }
 
 void	export_sortlist(t_list **export)
 {
 	int	finish;
-	char	*tmp;
     t_list  *ptr1;
     t_list  *ptr2;
 
@@ -94,9 +83,7 @@ void	export_sortlist(t_list **export)
 		{
 			if (wati_strncmp(ptr1->content, ptr1->next->content, wati_strlen(ptr1->content) + 1) > 0)
 			{
-				tmp = ptr1->next->content;
-				ptr1->next->content = ptr1->content;
-				ptr1->content = tmp;
+				swap_content(&ptr1);
 				finish = 0;
 			}
 			ptr1 = ptr1->next;
@@ -105,7 +92,7 @@ void	export_sortlist(t_list **export)
 	}
 }
 
-t_list	*export_getlist(t_list *env)
+void	export_getlist(t_list *env)
 {
 	t_list	*export;
 	char	*str;
@@ -113,7 +100,7 @@ t_list	*export_getlist(t_list *env)
 
 	export = NULL;
 	if (!env)
-		return (export);
+		return ;
 	while (env)
 	{
 		if (env->content)
@@ -125,7 +112,9 @@ t_list	*export_getlist(t_list *env)
 		}
 		env = env->next;
 	}
-	return (export);
+	export_sortlist(&export);
+	wati_lstiter(export, print);
+	wati_lstclear(&export, free);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -133,10 +122,8 @@ int	main(int argc, char **argv, char **envp)
 	// char	*str;
 	// t_list	*lst;
 	t_list	*env;
-	t_list	*export;
 
 	env = env_getlist(envp);
-	export = export_getlist(env);
 	// set_readline_signal();
 	// (void)argc;
 	// while (1)
@@ -156,10 +143,11 @@ int	main(int argc, char **argv, char **envp)
 	// 	wati_lstiter(lst, print);
 	// 	wati_lstclear(&lst, free);
 	// }
-	export_sortlist(&export);
-	wati_lstiter(export, print);
+	if (atoi(argv[1]) == 1)
+		export_getlist(env);
+	if (atoi(argv[1]) == 2)
+		wati_env(env);
 	wati_lstclear(&env, free);
-	wati_lstclear(&export, free);
 	// return (0);
 	// add_to_env(argv[1], &env);
 	// wati_env(env);
