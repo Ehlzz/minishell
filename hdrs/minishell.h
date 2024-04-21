@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/20 13:33:26 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/21 12:49:25 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ int		count_dollars(t_string line);
 t_list	*init_parsing(t_string line, t_list *env_lst);
 t_list	*create_env_list(t_string *env);
 
+/*    Manage FDs    */
+void	close_fds(t_fds fds);
+
 /*    Manage env    */
 t_list	*env_getlist(t_string *envp);
 void	env_print(t_list *env);
@@ -64,6 +67,8 @@ void	wati_echo(t_string *strs);
 char	*wati_readline(t_list *env);
 /*    Manage prompt    */
 char	*wati_prompt(t_list *env);
+/*    Manage Error    */
+t_bool	wati_error(char *format, ...);
 
 t_list	*parsing(t_string str);
 char	*quote_manager(t_string *ptr);
@@ -76,7 +81,7 @@ t_token	*new_token(t_string token);
 t_token	*get_token(t_list *list);
 void	free_token(void *ptr);
 /*    Manage CMD    */
-t_cmd	*new_cmd(t_list **lst, t_fds fds);
+t_cmd	*new_cmd(t_list **list, t_fds fds);
 t_cmd	*get_cmd(t_btree *node);
 void	print_cmd(void *ptr);
 void	print_cmd_by_level(void *ptr, int level, int is_first_elem);

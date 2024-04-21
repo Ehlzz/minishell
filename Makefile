@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/04/20 15:06:28 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/04/21 12:33:51 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,10 @@ DIR := \
 #################################### FILES #####################################
 
 SRCS = \
-	readline/wati_readline.c \
-	readline/wati_prompt.c \
+	fds/fds_manager.c \
+	wati_std/wati_readline.c \
+	wati_std/wati_prompt.c \
+	wati_std/wati_error.c \
 	env/env_manage.c env/env_tools.c \
 	dir/dir_manage.c \
 	builtin/wati_echo.c \
