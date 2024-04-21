@@ -6,19 +6,18 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/21 12:49:25 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/21 14:11:28 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <wati_const.h>
-# include <wati_struct.h>
-# include <libwati.h>
+# include "wati_const.h"
+# include "wati_struct.h"
+# include "libwati.h"
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <libwati.h>
 
 char	*ft_join_args(t_string *argv);
 char	*skip_space(t_string *line);
