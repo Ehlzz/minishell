@@ -6,7 +6,11 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:31:28 by bedarenn          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/04/19 13:15:03 by ehalliez         ###   ########.fr       */
+=======
+/*   Updated: 2024/04/20 12:19:43 by bedarenn         ###   ########.fr       */
+>>>>>>> origin/bedarenn
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +81,10 @@ void	free_token(void *ptr)
 		return ;
 	token = ptr;
 	if (token->str)
+	{
 		free(token->str);
+		token->str = NULL;
+	}
 }
 
 void	print_token(void *ptr)

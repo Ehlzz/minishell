@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   btree_build.c                                      :+:      :+:    :+:   */
+/*   btree_build_par.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/27 16:08:21 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/21 13:40:19 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/04/20 13:20:49 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/04/21 14:07:57 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,42 +16,43 @@
 
 #include "minishell.h"
 
-static t_bool	_btree_build(t_btree **root, t_list **list, t_fds fds);
-static t_bool	_btree_build_case(t_btree **root, t_list **list, t_fds fds,
+static t_bool	_btree_build_par(t_btree **root, t_list **list, t_fds fds);
+static t_bool	_btree_build_par_case(t_btree **root, t_list **list, t_fds fds,
 					t_token *token);
 
-t_bool	btree_build(t_btree **root, t_list *list)
+t_bool	btree_build_par(t_btree **root, t_list **list, t_fds fds)
 {
-	t_fds	fds;
+	t_btree	**ptr;
 
-	fds.in = 0;
-	fds.out = 1;
-	if (!_btree_build(root, &list, fds))
-	{
-		wati_lstiter(list, free_token);
-		return (FALSE);
-	}
-	return (TRUE);
+	free(get_token(*list)->str);
+	ptr = root;
+	while (*ptr)
+		ptr = &(*ptr)->right;
+	*list = (*list)->next;
+	return (_btree_build_par(ptr, list, fds));
 }
 
-static t_bool	_btree_build(t_btree **root, t_list **list, t_fds fds)
+static t_bool	_btree_build_par(t_btree **root, t_list **list, t_fds fds)
 {
 	t_token	*token;
 
 	if (!list)
 		return (TRUE);
 	token = (*list)->content;
-	if (!_btree_build_case(root, list, fds, token))
+	if (!_btree_build_par_case(root, list, fds, token))
 		return (FALSE);
-	if (*list)
+	else if (token->oper == P_OUT)
 	{
-		if (!_btree_build(root, list, fds))
-			return (FALSE);
+		free(get_token(*list)->str);
+		*list = (*list)->next;
+		return (TRUE);
 	}
-	return (TRUE);
+	if (*list)
+		return (_btree_build_par(root, list, fds));
+	return (wati_error("missing operator ')'"));
 }
 
-static t_bool	_btree_build_case(t_btree **root, t_list **list, t_fds fds,
+static t_bool	_btree_build_par_case(t_btree **root, t_list **list, t_fds fds,
 					t_token *token)
 {
 	if (in_command(token))
@@ -74,7 +75,5 @@ static t_bool	_btree_build_case(t_btree **root, t_list **list, t_fds fds,
 		if (!btree_build_par(root, list, fds))
 			return (FALSE);
 	}
-	else if (token->oper == P_OUT)
-		return (wati_error("operator '%s'", token->str));
 	return (TRUE);
 }

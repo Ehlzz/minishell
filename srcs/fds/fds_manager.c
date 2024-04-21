@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   btree_clear.c                                      :+:      :+:    :+:   */
+/*   fds_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 15:14:58 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/18 16:32:56 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/04/21 12:27:56 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/04/21 12:29:41 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "wati_struct.h"
+#include <unistd.h>
 
-#include "libwati.h"
-
-void	btree_clear(t_btree *root, void (*f)(void *ptr))
+void	close_fds(t_fds fds)
 {
-	if (!root || !f)
-		return ;
-	btree_clear(root->left, f);
-	btree_clear(root->right, f);
-	if (root->item)
-		f(root->item);
-	free(root);
+	if (fds.in > 2)
+		close(fds.in);
+	if (fds.out > 2)
+		close(fds.out);
 }

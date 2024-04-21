@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
+#    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/04/11 18:41:10 by ehalliez         ###   ########.fr        #
+#    Updated: 2024/04/21 14:24:01 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,10 @@ DIR := \
 #################################### FILES #####################################
 
 SRCS = \
-	readline/wati_readline.c \
-	readline/wati_prompt.c \
+	fds/fds_manager.c \
+	wati_std/wati_readline.c \
+	wati_std/wati_prompt.c \
+	wati_std/wati_error.c \
 	env/env_manage.c env/env_tools.c \
 	dir/dir_manage.c \
 	builtin/wati_echo.c \
@@ -53,13 +55,15 @@ SRCS = \
 	token_cmd/cmd_creator.c \
 	redirect/open_read.c \
 	redirect/open_write.c \
-	btree/btree_build.c btree/btree_cmd.c btree/btree_oper.c \
+	btree/btree_build.c \
+	btree/btree_build_tools.c btree/btree_build_par.c \
+	btree/btree_cmd.c btree/btree_oper.c \
 	main.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 
 #################################### FLAGS #####################################
-CFLAGS := -Wall -Wextra #-Werror
+CFLAGS := -Wall -Wextra -Werror
 LFLAGS := -L$(DIR_LIBS) -lreadline -lwati
 IFLAGS := -I$(DIR_HDRS)
 

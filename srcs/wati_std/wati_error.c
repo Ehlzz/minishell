@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   btree_clear.c                                      :+:      :+:    :+:   */
+/*   wati_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 15:14:58 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/18 16:32:56 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/04/21 12:32:32 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/04/21 12:57:25 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <minishell.h>
 
-#include "libwati.h"
+#include <unistd.h>
 
-void	btree_clear(t_btree *root, void (*f)(void *ptr))
+t_bool	wati_error(char *format, ...)
 {
-	if (!root || !f)
-		return ;
-	btree_clear(root->left, f);
-	btree_clear(root->right, f);
-	if (root->item)
-		f(root->item);
-	free(root);
+	va_list	arg;
+
+	va_start(arg, format);
+	wati_fprintf(STDERR_FILENO, "%s: Error: ", NAME);
+	wati_vfprintf(STDERR_FILENO, format, arg);
+	wati_putchar_fd('\n', STDERR_FILENO);
+	va_end(arg);
+	return (FALSE);
 }

@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/19 13:14:51 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/21 14:24:04 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <wati_const.h>
-# include <wati_struct.h>
-# include <libwati.h>
+# include "wati_const.h"
+# include "wati_struct.h"
+# include "libwati.h"
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <libwati.h>
 
 typedef struct s_test
 {
@@ -55,6 +54,9 @@ int		count_dollars(t_string line);
 t_list	*init_parsing(t_string line, t_list *env_lst);
 t_list	*create_env_list(t_string *env);
 
+/*    Manage FDs    */
+void	close_fds(t_fds fds);
+
 /*    Manage env    */
 t_list	*env_getlist(t_string *envp);
 void	env_print(t_list *env);
@@ -79,6 +81,8 @@ void	wati_echo(t_string *strs);
 char	*wati_readline(t_list *env);
 /*    Manage prompt    */
 char	*wati_prompt(t_list *env);
+/*    Manage Error    */
+t_bool	wati_error(char *format, ...);
 
 t_list	*parsing(t_string str);
 char	*quote_manager(t_string *ptr);
@@ -91,17 +95,22 @@ t_token	*new_token(t_string token);
 t_token	*get_token(t_list *list);
 void	free_token(void *ptr);
 /*    Manage CMD    */
-t_cmd	*new_cmd(t_list **lst, t_fds fds);
+t_cmd	*new_cmd(t_list **list, t_fds fds);
 t_cmd	*get_cmd(t_btree *node);
 void	print_cmd(void *ptr);
 void	print_cmd_by_level(void *ptr, int level, int is_first_elem);
 void	free_cmd(void *ptr);
 
 /*    Binary Tree    */
-t_list	*btree_build(t_btree **root, t_list *list);
-	/*    OPER    */
+t_bool	btree_build(t_btree **root, t_list *list);
+	/*    Tools    */
+t_bool	btree_build_cmd(t_btree **root, t_list **list, t_fds fds);
+t_bool	btree_build_oper(t_btree **root, t_list **list, t_fds fds);
+t_bool	btree_build_pipe(t_btree **root, t_list **list, t_fds fds);
+t_bool	btree_build_par(t_btree **root, t_list **list, t_fds fds);
+		/*    OPER    */
 t_btree	*btree_node_oper(t_token *token, t_fds fds);
-	/*    CMD    */
+		/*    CMD    */
 t_btree	*add_cmd(t_btree **root, t_btree *node);
 t_btree	*new_root(t_btree **root, t_btree *node);
 t_bool	in_command(t_token *token);
