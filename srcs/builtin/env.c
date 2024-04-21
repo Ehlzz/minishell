@@ -6,13 +6,18 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 19:05:09 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/19 19:10:22 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/21 17:10:03 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	wati_env(t_list *env)
+void	env_print(t_list *env)
 {
-	wati_lstiter(env, print);
+	while (env)
+	{
+		if (env->content && wati_strchr(env->content, '='))
+			wati_putendl_fd(env->content, 1);
+		env = env->next;
+	}
 }

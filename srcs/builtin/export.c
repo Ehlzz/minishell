@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_export.c                                      :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 19:20:58 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/21 14:54:01 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/21 17:43:12 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	swap_content(t_list **export)
 
 void	export_sortlist(t_list **export)
 {
-	int	finish;
+	int		finish;
     t_list  *ptr1;
     t_list  *ptr2;
 
@@ -117,6 +117,18 @@ void	export_getlist(t_list *env)
 	wati_lstclear(&export, free);
 }
 
+int		strlen_to_char(char *str, int c)
+{
+	int	i;
+
+	i =	0;
+	while (*str++ && *str != c)
+		i++;
+	if (*str == c)
+		i++;
+	return (i);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	// char	*str;
@@ -142,13 +154,27 @@ int	main(int argc, char **argv, char **envp)
 	// 	wati_lstiter(lst, print);
 	// 	wati_lstclear(&lst, free);
 	// }
-	if (atoi(argv[1]) == 1)
-		export_getlist(env);
-	if (atoi(argv[1]) == 2)
-	{
-		add_to_env(argv[2], &env);
-		wati_env(env);
-	}
+	// if (argc != 3)
+	// 	return (1);
+	// if (atoi(argv[1]) == 1)
+	// {
+	// 	char	*arg = wati_strdup(argv[2]);
+	// 	env_add(&env, arg);
+	// 	export_getlist(env);
+	// 	wati_printf("\n\n");
+	// 	env_delete(&env, "neuille");
+	// 	export_getlist(env);
+	// }
+	// if (atoi(argv[1]) == 2)
+	// {
+	// 	char	*arg = wati_strdup(argv[2]);
+	// 	env_add(&env, arg);
+	// 	env_print(env);
+	// 	wati_printf("\n\n");
+	// 	env_delete(&env, "neuille");
+	// 	env_print(env);
+	// }
+	wati_printf("%d\n", strlen_to_char(argv[1], '='));
 	wati_lstclear(&env, free);
 	// return (0);
 	// add_to_env(argv[1], &env);
