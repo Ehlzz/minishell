@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 19:20:58 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/04/20 19:25:10 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/04/21 14:54:01 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ int	main(int argc, char **argv, char **envp)
 	// 	if (str == NULL)
 	// 		break ;
 	// 	lst = init_parsing(str, env);
-	// 	add_to_env(lst->content, &env);
 	// 	wati_env(env);
 	// 	wati_lstiter(lst, print);
 	// 	wati_lstclear(&lst, free);
@@ -146,7 +145,10 @@ int	main(int argc, char **argv, char **envp)
 	if (atoi(argv[1]) == 1)
 		export_getlist(env);
 	if (atoi(argv[1]) == 2)
+	{
+		add_to_env(argv[2], &env);
 		wati_env(env);
+	}
 	wati_lstclear(&env, free);
 	// return (0);
 	// add_to_env(argv[1], &env);
