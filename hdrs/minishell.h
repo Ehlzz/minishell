@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/21 14:24:04 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/23 12:35:31 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@
 # include "libwati.h"
 # include <readline/readline.h>
 # include <readline/history.h>
-
-typedef struct s_test
-{
-	bool	quote;
-}	t_test;
 
 // #### PARSING ### // 
 
