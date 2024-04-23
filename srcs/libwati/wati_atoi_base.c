@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wati_atoi_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 08:57:07 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 15:38:26 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:54:17 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libwati.h>
-#include <stdio.h>
 
 static int	wati_ischarset(char c, char *charset0)
 {

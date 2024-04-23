@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_chdir.c                                       :+:      :+:    :+:   */
+/*   wati_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 15:43:19 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/27 14:46:59 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/04/19 19:05:09 by ehalliez          #+#    #+#             */
+/*   Updated: 2024/04/21 17:10:03 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <minishell.h>
 
-void	wati_chdir(void)
+void	env_print(t_list *env)
 {
-	chdir("/nfs/homes/bedarenn/Documents/Minish/srcs");
-	printf("%s\n", getenv("PWD"));
+	while (env)
+	{
+		if (env->content && wati_strchr(env->content, '='))
+			wati_putendl_fd(env->content, 1);
+		env = env->next;
+	}
 }

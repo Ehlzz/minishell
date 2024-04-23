@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_manage.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:24:22 by bedarenn          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/27 14:51:37 by bedarenn         ###   ########.fr       */
+=======
+/*   Updated: 2024/04/21 17:42:03 by ehalliez         ###   ########.fr       */
+>>>>>>> ehalliez
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +42,16 @@ t_list	*env_getlist(t_string *envp)
 	return (list);
 }
 
+<<<<<<< HEAD
 void	env_print(t_list *env)
 {
 	wati_lstiter(env, print_endl);
 }
 
 t_string	env_search(t_list *env, t_string var)
+=======
+char	*env_search(t_list *env, char *var)
+>>>>>>> ehalliez
 {
 	t_list		*list;
 	t_string	str;
@@ -80,7 +88,13 @@ t_list	*env_add(t_list **env, t_string str)
 	return (new);
 }
 
+<<<<<<< HEAD
 void	env_delete(t_list	**env, t_string find)
+=======
+
+
+void	env_delete(t_list	**env, char *find)
+>>>>>>> ehalliez
 {
 	t_string	str;
 	t_list		*list;

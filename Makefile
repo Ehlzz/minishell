@@ -6,7 +6,11 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2024/04/21 14:24:01 by bedarenn         ###   ########.fr        #
+=======
+#    Updated: 2024/04/21 17:10:40 by ehalliez         ###   ########.fr        #
+>>>>>>> ehalliez
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +43,10 @@ SRCS = \
 	wati_std/wati_error.c \
 	env/env_manage.c env/env_tools.c \
 	dir/dir_manage.c \
-	builtin/wati_echo.c \
+	builtin/echo.c \
+	builtin/env.c \
+	builtin/export.c \
+	builtin/pwd.c \
 	signal_new.c \
 	parse/parsing.c \
 	parse/parsing_utils.c \

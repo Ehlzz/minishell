@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   wati_printf_utils_str.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:43:48 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 16:19:15 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:58:28 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <libwati.h>
 
 int	wati_printf_char_fd(char c, int fd)

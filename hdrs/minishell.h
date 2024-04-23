@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/23 12:35:31 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/23 12:38:17 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,9 @@ void	wati_chdir(t_list **env, const t_string dir_name);
 void	update_pwd(t_list **env);
 void	print_pwd(void);
 
-/*    Builtin echo    */
+/*    Builtin    */
 void	wati_echo(t_string *strs);
+void	wati_env(t_list *env);
 
 /*    wati_readline    */
 char	*wati_readline(t_list *env);

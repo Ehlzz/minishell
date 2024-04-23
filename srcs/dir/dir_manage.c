@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dir_manage.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:02:06 by bedarenn          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/27 14:49:00 by bedarenn         ###   ########.fr       */
+=======
+/*   Updated: 2024/04/19 19:13:05 by ehalliez         ###   ########.fr       */
+>>>>>>> ehalliez
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +48,7 @@ void	update_pwd(t_list **env)
 	free(path);
 }
 
+<<<<<<< HEAD
 void	print_pwd(void)
 {
 	char	*path;
@@ -54,6 +59,9 @@ void	print_pwd(void)
 }
 
 static int	is_directory(const t_string dir_name)
+=======
+static int	is_directory(const char *dir_name)
+>>>>>>> ehalliez
 {
 	t_stat	buf;
 
