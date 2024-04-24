@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/02 14:41:48 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/23 16:04:45 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,12 @@ typedef struct s_cmd
 	t_string	*strs;
 	t_fds		fds;
 }	t_cmd;
+
+typedef struct s_exec
+{
+	t_string	path;
+	t_string	*strs;
+	t_string	*envp;
+}	t_exec;
 
 #endif

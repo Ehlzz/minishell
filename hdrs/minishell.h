@@ -6,19 +6,20 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/20 13:33:26 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:11:54 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <wati_const.h>
-# include <wati_struct.h>
-# include <libwati.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <libwati.h>
+# include <unistd.h>
+
+# include <wati_const.h>
+# include <wati_struct.h>
+# include "libwati.h"
 
 char	*ft_join_args(t_string *argv);
 char	*skip_space(t_string *line);
@@ -64,6 +65,8 @@ void	wati_echo(t_string *strs);
 char	*wati_readline(t_list *env);
 /*    Manage prompt    */
 char	*wati_prompt(t_list *env);
+/*    wati_error    */
+t_bool	wati_error(char *format, ...);
 
 t_list	*parsing(t_string str);
 char	*quote_manager(t_string *ptr);
@@ -100,5 +103,13 @@ t_bool	in_command(t_token *token);
 void	open_read(t_fds *fds, t_list *list);
 /*    Open Write    */
 void	open_write(t_fds *fds, t_list *list, int flags);
+
+void	close_fds(t_fds fds);
+t_bool	dup_fds(t_fds fds);
+
+/*    EXEC    */
+t_bool	wati_exec(t_btree *root, t_list *env);
+pid_t	wati_execve(t_cmd *cmd, t_list *env, t_btree *root);
+char	*get_path(t_string cmd, t_list *env);
 
 #endif

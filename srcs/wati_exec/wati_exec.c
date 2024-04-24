@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   wati_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/23 16:41:58 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/04/23 15:39:27 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/04/24 12:54:57 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
+#include <sys/wait.h>
 
-char	**wati_lstsplit(t_list *list)
+#include "minishell.h"
+
+t_bool	wati_exec(t_btree *root, t_list *env)
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
+	t_cmd	*cmd;
+	pid_t	pid;
 
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
-		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
+	cmd = root->item;
+	if (cmd->oper == NO)
 	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
+		pid = wati_execve(cmd, env, root);
+		if (pid)
+			waitpid(pid, NULL, 0);
 	}
-	return (strs0);
+	return (TRUE);
 }

@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/04/20 15:06:28 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/04/24 13:03:23 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,9 @@ DIR := \
 #################################### FILES #####################################
 
 SRCS = \
-	readline/wati_readline.c \
-	readline/wati_prompt.c \
+	wati_std/wati_readline.c \
+	wati_std/wati_prompt.c \
+	wati_std/wati_error.c \
 	env/env_manage.c env/env_tools.c \
 	dir/dir_manage.c \
 	builtin/wati_echo.c \
@@ -50,9 +51,12 @@ SRCS = \
 	token_cmd/cmd_creator.c \
 	redirect/open_read.c \
 	redirect/open_write.c \
+	fds/fds_manager.c \
 	btree/btree_build.c \
 	btree/btree_build_tools.c btree/btree_build_par.c \
 	btree/btree_cmd.c btree/btree_oper.c \
+	wati_exec/wati_exec.c wati_exec/wati_execve.c \
+	wati_exec/parsing/get_path.c \
 	main.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))

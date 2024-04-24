@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   wati_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/23 16:41:58 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/04/21 12:32:32 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/04/21 12:57:25 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
+#include <minishell.h>
 
-char	**wati_lstsplit(t_list *list)
+#include <unistd.h>
+
+t_bool	wati_error(char *format, ...)
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
+	va_list	arg;
 
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
-		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
-	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
-	}
-	return (strs0);
+	va_start(arg, format);
+	wati_fprintf(STDERR_FILENO, "%s: Error: ", NAME);
+	wati_vfprintf(STDERR_FILENO, format, arg);
+	wati_putchar_fd('\n', STDERR_FILENO);
+	va_end(arg);
+	return (FALSE);
 }
