@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_exec.c                                        :+:      :+:    :+:   */
+/*   pid_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/23 15:39:27 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/30 19:46:40 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/04/24 14:06:36 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/04/24 16:31:38 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,26 @@
 
 #include <sys/wait.h>
 
-static t_bool	_wati_exec(t_btree *node, t_shell *shell);
-
-t_bool	wati_exec(t_shell shell)
+t_list	*add_pid(t_list **list, pid_t pid)
 {
-	return (_wati_exec(shell.root, &shell));
+	pid_t	*ptr;
+	t_list	*new;
+
+	ptr = malloc(sizeof(pid_t));
+	*ptr = pid;
+	new = wati_lstnew(ptr);
+	wati_lstadd_back(list, new);
+	return (*list);
 }
 
-static t_bool	_wati_exec(t_btree *node, t_shell *shell)
+void	wait_pids(t_list *list)
 {
-	t_cmd	*cmd;
-	pid_t	pid;
+	pid_t	*ptr;
 
-	cmd = node->item;
-	if (cmd->oper == PIPE)
-		wati_pipe(node, shell);
-	else if (cmd->oper == NO)
-	{
-		pid = wati_execve(cmd, shell);
-		waitpid(pid, NULL, 0);
-	}
-	return (TRUE);
+	ptr = list->content;
+	waitpid(*ptr, NULL, 0);
+	free(ptr);
+	if (list->next)
+		wait_pids(list->next);
+	free(list);
 }

@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/04/24 13:03:23 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/04/24 14:06:45 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,29 +33,21 @@ DIR := \
 #################################### FILES #####################################
 
 SRCS = \
-	wati_std/wati_readline.c \
-	wati_std/wati_prompt.c \
-	wati_std/wati_error.c \
+	wati_std/wati_readline.c wati_std/wati_prompt.c wati_std/wati_error.c \
 	env/env_manage.c env/env_tools.c \
 	dir/dir_manage.c \
 	builtin/wati_echo.c \
 	signal_new.c \
-	parse/parsing.c \
-	parse/parsing_utils.c \
-	parse/parsing_dollar_quote.c \
-	parse/parsing_get_words.c \
-	environnement/variable.c \
-	environnement/manage_oper.c \
-	token_cmd/token_manager.c \
-	token_cmd/cmd_manager.c \
-	token_cmd/cmd_creator.c \
-	redirect/open_read.c \
-	redirect/open_write.c \
-	fds/fds_manager.c \
+	parse/parsing.c parse/parsing_utils.c parse/parsing_dollar_quote.c parse/parsing_get_words.c \
+	environnement/variable.c environnement/manage_oper.c \
+	token_cmd/token_manager.c token_cmd/cmd_manager.c token_cmd/cmd_creator.c \
+	redirect/open_read.c redirect/open_write.c \
+	sys_manager/fds_manager.c sys_manager/pid_manager.c\
 	btree/btree_build.c \
 	btree/btree_build_tools.c btree/btree_build_par.c \
 	btree/btree_cmd.c btree/btree_oper.c \
 	wati_exec/wati_exec.c wati_exec/wati_execve.c \
+	wati_exec/wati_pipe.c \
 	wati_exec/parsing/get_path.c \
 	main.c
 

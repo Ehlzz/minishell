@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/24 13:11:54 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/30 19:46:48 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 # include <wati_const.h>
 # include <wati_struct.h>
-# include "libwati.h"
 
 char	*ft_join_args(t_string *argv);
 char	*skip_space(t_string *line);
@@ -105,11 +104,16 @@ void	open_read(t_fds *fds, t_list *list);
 void	open_write(t_fds *fds, t_list *list, int flags);
 
 void	close_fds(t_fds fds);
-t_bool	dup_fds(t_fds fds);
+t_bool	wati_dup2(t_fds fds);
+void	link_cmd(t_fds *cmd_fds, t_fd in, t_fd out);
+
+t_list	*add_pid(t_list **list, pid_t pid);
+void	wait_pids(t_list *list);
 
 /*    EXEC    */
-t_bool	wati_exec(t_btree *root, t_list *env);
-pid_t	wati_execve(t_cmd *cmd, t_list *env, t_btree *root);
+t_bool	wati_exec(t_shell shell);
+pid_t	wati_execve(t_cmd *cmd, t_shell *shell);
+t_bool	wati_pipe(t_btree *node, t_shell *shell);
 char	*get_path(t_string cmd, t_list *env);
 
 #endif

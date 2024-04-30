@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/23 16:04:45 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:17:35 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define WATI_STRUCT_H
 
 # include <stdbool.h>
+
+# include "libwati.h"
 # include "wati_typedef.h"
 
 typedef struct s_test
@@ -46,5 +48,19 @@ typedef struct s_exec
 	t_string	*strs;
 	t_string	*envp;
 }	t_exec;
+
+typedef struct s_pipe
+{
+	t_fd	pipe[2];
+	t_fd	in;
+}	t_pipe;
+
+typedef struct s_shell
+{
+	t_btree	*root;
+	t_list	*env;
+	char	**envp;
+	t_pipe	fd;
+}	t_shell;
 
 #endif
