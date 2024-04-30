@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:59:30 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/30 20:24:14 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/04/30 20:33:07 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,8 @@ static t_bool	_wati_pipe_o(t_btree *node, t_pipe *fd,
 
 	cmd = node->item;
 	if (cmd->oper == PIPE)
-		_wati_pipe(node, shell);
+		return (_wati_pipe(node, shell));
 	pipe(fd->pipe);
-	wati_fprintf(2, "pipe: %i->%i\n", fd->pipe[1], fd->pipe[0]);
 	link_cmd(&cmd->fds, fd->in, fd->pipe[1]);
 	if (cmd->oper == NO)
 	{
@@ -80,7 +79,7 @@ static t_bool	_wati_pipe_l(t_btree *node, t_pipe *fd,
 
 	cmd = node->item;
 	if (cmd->oper == PIPE)
-		_wati_pipe(node, shell);
+		return (_wati_pipe(node, shell));
 	link_cmd(&cmd->fds, fd->in, -1);
 	if (cmd->oper == NO)
 	{
