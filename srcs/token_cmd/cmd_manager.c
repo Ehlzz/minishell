@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:18:26 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/05 20:31:30 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:52:10 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	free_cmd(void *ptr)
 
 	cmd = ptr;
 	if (cmd->strs)
-		wati_free_tab(cmd->strs);
+		wati_lstclear(&cmd->strs, free);
 	if (cmd->fds.in > 2)
 		close(cmd->fds.in);
 	if (cmd->fds.out > 2)

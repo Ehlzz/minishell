@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/05 14:12:59 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:49:50 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char **argv, char **envp)
 		if (is_work)
 		{
 			btree_apply_by_level(shell.root, print_cmd_by_level);
+			wati_exec(shell);
 			btree_clear(shell.root, free_cmd);
 		}
 		wati_lstclear(&shell.env, free);
