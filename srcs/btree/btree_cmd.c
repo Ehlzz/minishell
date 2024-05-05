@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:58:14 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/05 13:02:04 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:35:30 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,7 @@ static t_bool	_btree_cmd(t_cmd *cmd, t_list **list, t_fds fds)
 			wati_lstadd_back(&lst, new);
 		(*list) = (*list)->next;
 	}
-	cmd->strs = wati_lstsplit(lst);
-	if (!cmd->strs)
-	{
-		wati_lstclear(&lst, free);
-		return (wati_error("alloc fail"));
-	}
-	wati_lstclean(&lst);
+	cmd->strs = lst;
 	cmd->fds = fds;
 	return (TRUE);
 }

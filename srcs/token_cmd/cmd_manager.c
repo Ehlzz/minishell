@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:18:26 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/05 19:51:43 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:31:30 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,6 @@ void	free_cmd(void *ptr)
 
 static void	print_no(t_cmd *cmd)
 {
-	t_string	*strs;
-
-	strs = cmd->strs;
-	if (strs)
-	{
-		while (*strs)
-		{
-			wati_putstr_fd(*strs, 1);
-			wati_putchar_fd(' ', 1);
-			strs++;
-		}
-	}
+	if (cmd->strs)
+		wati_lstiter(cmd->strs, print);
 }

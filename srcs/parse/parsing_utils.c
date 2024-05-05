@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:40:47 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 16:06:03 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:30:48 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ char	*ft_join_args(char **argv)
 
 void	print(void *str)
 {
-	wati_putendl_fd(str, 1);
+	wati_putstr_fd(str, 1);
+	wati_putchar_fd(' ', 1);
 }
 
 int	is_dollar_operator(char *line)

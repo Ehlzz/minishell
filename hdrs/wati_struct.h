@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/24 17:17:35 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:28:33 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ typedef struct s_fds
 
 typedef struct s_cmd
 {
-	t_oper		oper;
-	t_string	*strs;
-	t_fds		fds;
+	t_oper	oper;
+	t_list	*strs;
+	t_fds	fds;
 }	t_cmd;
 
 typedef struct s_exec
