@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_read.c                                        :+:      :+:    :+:   */
+/*   pipe_manager.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:56:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/03 12:45:12 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/05/01 13:07:56 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/05/01 13:28:36 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <fcntl.h>
-
 #include "minishell.h"
 
-t_bool	open_read(t_fds *fds, t_string str, int flags)
+#include <unistd.h>
+
+void	swap_spipe(t_pipe *fd)
 {
-	wati_close(fds->in);
-	fds->in = -1;
-	fds->in = open(str, flags);
-	if (fds->in < 0)
-	{
-		if (!access(str, F_OK))
-			return (wati_error("permission denied: %s", str));
-		return (wati_error("no such file or directory: %s", str));
-	}
-	free(str);
-	return (TRUE);
+	wati_close(fd->in);
+	wati_close(fd->pipe[1]);
+	fd->in = fd->pipe[0];
+	fd->pipe[1] = -1;
 }

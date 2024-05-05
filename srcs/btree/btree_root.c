@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_read.c                                        :+:      :+:    :+:   */
+/*   btree_root.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:56:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/03 12:45:12 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/05/05 14:31:32 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/05/05 14:32:01 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <fcntl.h>
+#include "libwati.h"
 
-#include "minishell.h"
-
-t_bool	open_read(t_fds *fds, t_string str, int flags)
+t_btree	*new_root(t_btree **root, t_btree *node)
 {
-	wati_close(fds->in);
-	fds->in = -1;
-	fds->in = open(str, flags);
-	if (fds->in < 0)
-	{
-		if (!access(str, F_OK))
-			return (wati_error("permission denied: %s", str));
-		return (wati_error("no such file or directory: %s", str));
-	}
-	free(str);
-	return (TRUE);
+	node->left = *root;
+	*root = node;
+	return (*root);
+}
+
+t_btree	*add_root(t_btree **root, t_btree *node)
+{
+	if (!node)
+		return (*root);
+	if (*root)
+		(*root)->right = node;
+	else
+		*root = node;
+	return (*root);
 }

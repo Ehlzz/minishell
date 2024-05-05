@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:31:28 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/20 12:19:43 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/05 12:43:58 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,11 @@ void	print_token(void *ptr)
 
 	if (!ptr)
 	{
-		printf("NCMD\n");
+		printf("NCMD ");
 		return ;
 	}
 	token = ptr;
 	fprint_operator(token->oper, 1);
 	if (token->oper == NO)
-		wati_printf(" %s\n", token->str);
-	else
-		wati_putchar_fd('\n', 1);
+		wati_printf(" %s ", token->str);
 }

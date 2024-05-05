@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/30 20:12:56 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/01 13:25:56 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include <unistd.h>
 
-pid_t	wati_execve(t_cmd *cmd, t_shell *shell)
+pid_t	wati_execve(t_cmd *cmd, t_pipe *fd, t_shell *shell)
 {
 	pid_t	pid;
 	t_exec	exec;
@@ -27,16 +27,16 @@ pid_t	wati_execve(t_cmd *cmd, t_shell *shell)
 		exec.path = get_path(*cmd->strs, shell->env);
 		exec.strs = cmd->strs;
 		exec.envp = wati_lstsplit(shell->env);
-		wati_dup2(cmd->fds);
-		wati_fprintf(2, "%s : %i->%i\n", *cmd->strs, cmd->fds.in, cmd->fds.out);
+		wati_dup2(cmd->fds, fd);
+		close_fds(cmd->fds);
+		close_spipe(*fd);
 		if (exec.path && exec.envp)
 			execve(exec.path, exec.strs, exec.envp);
 		free(exec.path);
 		free(exec.envp);
 		btree_clear(shell->root, free_cmd);
 		wati_lstclear(&shell->env, free);
-		close(shell->fd.pipe[0]);
-		exit(EXIT_SUCCESS);
+		exit(EXIT_FAILURE);
 	}
 	return (pid);
 }

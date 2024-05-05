@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/04/24 14:06:45 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/05/05 14:32:15 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,12 +40,15 @@ SRCS = \
 	signal_new.c \
 	parse/parsing.c parse/parsing_utils.c parse/parsing_dollar_quote.c parse/parsing_get_words.c \
 	environnement/variable.c environnement/manage_oper.c \
-	token_cmd/token_manager.c token_cmd/cmd_manager.c token_cmd/cmd_creator.c \
+	token_cmd/token_manager.c token_cmd/cmd_manager.c \
 	redirect/open_read.c redirect/open_write.c \
-	sys_manager/fds_manager.c sys_manager/pid_manager.c\
+	sys_manager/fds_manager.c sys_manager/pid_manager.c \
+	sys_manager/close_manager.c sys_manager/pipe_manager.c \
 	btree/btree_build.c \
-	btree/btree_build_tools.c btree/btree_build_par.c \
-	btree/btree_cmd.c btree/btree_oper.c \
+	btree/btree_oper.c \
+	btree/btree_pipe.c \
+	btree/btree_cmd.c\
+	btree/btree_root.c \
 	wati_exec/wati_exec.c wati_exec/wati_execve.c \
 	wati_exec/wati_pipe.c \
 	wati_exec/parsing/get_path.c \
@@ -54,7 +57,7 @@ SRCS = \
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 
 #################################### FLAGS #####################################
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra #-Werror
 LFLAGS := -L$(DIR_LIBS) -lreadline -lwati
 IFLAGS := -I$(DIR_HDRS)
 

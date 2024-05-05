@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:08:21 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/23 15:30:36 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/05 14:31:58 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 #include "minishell.h"
 
 static t_bool	_btree_build(t_btree **root, t_list **list, t_fds fds);
-static t_bool	_btree_build_case(t_btree **root, t_list **list, t_fds fds,
-					t_token *token);
 
 t_bool	btree_build(t_btree **root, t_list *list)
 {
@@ -28,53 +26,66 @@ t_bool	btree_build(t_btree **root, t_list *list)
 	fds.out = 1;
 	if (!_btree_build(root, &list, fds))
 	{
+		btree_clear(*root, free_cmd);
 		wati_lstiter(list, free_token);
 		return (FALSE);
 	}
 	return (TRUE);
 }
 
+static t_bool	_btree_build_oper(t_btree **root, t_list **list, t_fds fds);
+static t_bool	_btree_build_pipe(t_btree **root, t_list **list, t_fds fds);
+
 static t_bool	_btree_build(t_btree **root, t_list **list, t_fds fds)
+{
+	if (!list)
+		return (TRUE);
+	if (!_btree_build_oper(root, list, fds))
+		return (FALSE);
+	if (!_btree_build_pipe(root, list, fds))
+		return (FALSE);
+	if (*list)
+		return (_btree_build(root, list, fds));
+	return (TRUE);
+}
+
+static t_bool	_btree_build_oper(t_btree **root, t_list **list, t_fds fds)
 {
 	t_token	*token;
 
-	if (!list)
+	if (!*list)
 		return (TRUE);
 	token = (*list)->content;
-	if (!_btree_build_case(root, list, fds, token))
-		return (FALSE);
-	if (*list)
+	if (token->oper == AND || token->oper == OR)
 	{
-		if (!_btree_build(root, list, fds))
+		if (!btree_oper(root, list, fds))
 			return (FALSE);
 	}
 	return (TRUE);
 }
 
-static t_bool	_btree_build_case(t_btree **root, t_list **list, t_fds fds,
-					t_token *token)
+static t_bool	_btree_build_pipe(t_btree **root, t_list **list, t_fds fds)
 {
-	if (in_command(token))
+	t_token	*token;
+	t_btree	*node;
+
+	node = NULL;
+	if (!*list)
+		return (TRUE);
+	token = (*list)->content;
+	if (is_opercmd(token->oper))
 	{
-		if (!btree_build_cmd(root, list, fds))
+		if (!btree_cmd(&node, list, fds))
 			return (FALSE);
 	}
-	else if (token->oper == AND || token->oper == OR)
+	if (*list)
+		token = (*list)->content;
+	if (token->oper == PIPE)
 	{
-		if (!btree_build_oper(root, list, fds))
+		if (!btree_pipe(&node, list, fds))
 			return (FALSE);
 	}
-	else if (token->oper == PIPE)
-	{
-		if (!btree_build_pipe(root, list, fds))
-			return (FALSE);
-	}
-	else if (token->oper == P_IN)
-	{
-		if (!btree_build_par(root, list, fds))
-			return (FALSE);
-	}
-	else if (token->oper == P_OUT)
-		return (wati_error("operator '%s'", token->str));
+	if (node)
+		add_root(root, node);
 	return (TRUE);
 }
