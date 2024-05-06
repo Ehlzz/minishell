@@ -6,7 +6,7 @@
 #    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/05/06 15:59:26 by ehalliez         ###   ########.fr        #
+#    Updated: 2024/05/06 22:23:40 by ehalliez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRCS = \
 	wati_std/wati_readline.c wati_std/wati_prompt.c wati_std/wati_error.c \
 	env/env_manage.c env/env_tools.c \
 	dir/dir_manage.c \
-	builtin/wati_echo.c \
+	builtin/echo.c builtin/export.c builtin/env.c\
 	signal_new.c \
 	parse/parsing.c parse/parsing_utils.c parse/parsing_dollar_quote.c parse/parsing_get_words.c \
 	environnement/variable.c environnement/manage_oper.c wildcard/wildcard.c wildcard/wildcard_utils.c \

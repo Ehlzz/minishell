@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_echo.c                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:19:19 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/27 14:51:23 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:24:28 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libwati.h"
-#include "wati_typedef.h"
+#include <libwati.h>
 
-static void	wati_echo_w(t_string *strs);
-static void	wati_echo_n(t_string *strs);
+static void	wati_echo_w(char **strs);
+static void	wati_echo_n(char **strs);
 
-void	wati_echo(t_string *strs)
+void	wati_echo(char **strs)
 {
 	if (!*strs)
 		return ;
@@ -34,7 +33,7 @@ void	wati_echo(t_string *strs)
 		wati_echo_n(strs);
 }
 
-static void	wati_echo_w(t_string *strs)
+static void	wati_echo_w(char **strs)
 {
 	if (!*strs)
 		return ;
@@ -48,7 +47,7 @@ static void	wati_echo_w(t_string *strs)
 	}
 }
 
-static void	wati_echo_n(t_string *strs)
+static void	wati_echo_n(char **strs)
 {
 	while (*strs)
 	{

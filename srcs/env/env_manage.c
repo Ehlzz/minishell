@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_manage.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:24:22 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/27 14:51:37 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:50:23 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,6 @@ t_list	*env_getlist(t_string *envp)
 	return (list);
 }
 
-void	env_print(t_list *env)
-{
-	wati_lstiter(env, print_endl);
-}
-
 t_string	env_search(t_list *env, t_string var)
 {
 	t_list		*list;
@@ -64,6 +59,8 @@ t_list	*env_add(t_list **env, t_string str)
 	if (!str)
 		return (NULL);
 	new = get_var(*env, name);
+	if (!new)
+		new = get_var_not_assigned(*env, name);
 	free(name);
 	if (new)
 	{
@@ -86,7 +83,7 @@ void	env_delete(t_list	**env, t_string find)
 	t_list		*list;
 	t_list		*next;
 
-	if (!env || !*env || !(*env)->content)
+	if (!env || !*env || !(*env)->content || !find || !*find)
 		return ;
 	str = wati_strjoin(find, "=");
 	if (!wati_memcmp(str, (*env)->content, wati_strlen((*env)->content)))

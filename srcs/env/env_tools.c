@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:29:49 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/27 14:54:45 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:44:37 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 void	print_endl(void *ptr)
 {
 	wati_putendl_fd((t_string)ptr, 1);
+}
+
+t_list	*get_var_not_assigned(const t_list *list, t_string find)
+{
+	size_t	len;
+
+	len = wati_strlen(find);
+	while (list && wati_memcmp(find, list->content, len))
+		list = list->next;
+	return ((t_list *)list);
 }
 
 t_list	*get_var(const t_list *list, t_string find)

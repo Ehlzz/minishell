@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/06 16:00:07 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:44:08 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	env_delete(t_list	**env, t_string find);
 /*        Tools         */
 void	print_endl(void *ptr);
 t_list	*get_var(t_list *list, t_string var);
+t_list	*get_var_not_assigned(const t_list *list, t_string find);
 char	*get_name(const t_string str);
 t_list	*get_vat_prev(const t_list *list, t_string find);
 
@@ -76,6 +77,9 @@ t_list	*get_vat_prev(const t_list *list, t_string find);
 void	wati_chdir(t_list **env, const t_string dir_name);
 void	update_pwd(t_list **env);
 void	print_pwd(void);
+
+/* Builtin export */
+void	export(t_list *env, char **strs);
 
 /*    Builtin echo    */
 void	wati_echo(t_string *strs);
