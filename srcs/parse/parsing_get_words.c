@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_get_words.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/03/26 17:11:11 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:02:10 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*get_operator_line(char **line)
+{
+	char	*str0;
+	char	*str;
+	int		len;
+
+	str = *line;
+	if (!is_char_operator(*str))
+		return (NULL);
+	str0 = str;
+	while (*str == *str0)
+		str++;
+	len = str - str0;
+	*line += len;
+	return (wati_substr(str0, 0, len));
+}
 
 char	*skip_space(char **line)
 {
@@ -36,7 +53,7 @@ char	*get_word(char **line, t_test *test)
 	str = *line;
 	str0 = str;
 	quote_c = 0;
-	while (*str && is_operator(str) == NO)
+	while (*str && !is_char_operator(*str))
 	{
 		if ((*str == '"' || *str == 39) && !quote_c)
 		{
@@ -44,10 +61,11 @@ char	*get_word(char **line, t_test *test)
 			test->quote = !test->quote;
 		}
 		else if (quote_c && *str == quote_c)
+		{
+			quote_c = 0;
 			test->quote = !test->quote;
-		else if (quote_c && *str == ' ' && !test->quote)
-			break ;
-		else if (!quote_c && *str == ' ')
+		}
+		else if ((!quote_c || (quote_c && !test->quote)) && *str == ' ')
 			break ;
 		str++;
 	}
@@ -59,15 +77,49 @@ char	*get_next_token(char **line, t_test *test)
 {
 	char	*token;
 
-	token = get_operator(*line);
+	token = get_operator_line(line);
 	if (!token)
 		token = get_word(line, test);
-	else
-		*line += wati_strlen(token);
 	if (test->quote)
+	{
+		free(token);
 		return (NULL);
+	}
 	if (!token)
 		return (NULL);
 	skip_space(line);
 	return (token);
 }
+
+// void	here_doc(char *limiter)
+// {
+// 	int		fd;
+// 	int		size_limiter;
+// 	int		size_line;
+// 	char	*line;
+
+// 	fd = open("testoutput", O_RDWR | O_CREAT | O_TRUNC, 0644);
+// 	if (!fd)
+// 		return ;
+// 	size_limiter = wati_strlen(limiter);
+// 	while (1)
+// 	{
+// 		wati_putstr_fd("> ", 1);
+// 		line = get_next_line(0);
+// 		size_line = wati_strlen(line);
+// 		if (!wati_strncmp(limiter, line, size_limiter) && \
+//				size_line - 1 == size_limiter)
+// 			break ;
+// 		write(fd, line, size_line);
+// 		free(line);
+// 	}
+// 	free(line);
+// 	get_next_line(-1);
+// 	close (fd);
+// }
+
+// int main(int argc, char **argv)
+// {
+// 	if (argc != 1)
+// 		here_doc(argv[1]);
+// }

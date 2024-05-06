@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/05 13:25:45 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:00:07 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,32 @@ char	*get_operator(t_string s);
 void	fprint_operator(t_oper oper, t_fd fd);
 void	print_token(void *ptr);
 
-int		is_dollar_operator(t_string line);
-char	*verify_token(t_string line, t_list *env_lst);
-int		count_dollars(t_string line);
+// #### PARSING ### // 
 
-t_list	*init_parsing(t_string line, t_list *env_lst);
-t_list	*create_env_list(t_string *env);
+int		is_char_operator(char c);
+char	*ft_join_args(char **argv);
+char	*get_operator_line(char **line);
+char	*skip_space(char **line);
+char	*get_word(char **line, t_test *test);
+char	*get_next_token(char **line, t_test *test);
+char	*find_variable(t_list *env_lst, char *to_find);
+char	*modify_token(char *line, t_list *env_lst);
+char	*verify_token(char *line, t_list *env_lst);
+char	*remove_quote(char *str);
+int		count_available(char *str);
+char	*dollar_to_end(char *line);
+char	*dollar_to_dollar(char *line);
+char	*start_to_dollar(char *line);
+
+void	print(void *str);
+int		is_dollar_operator(char *line);
+char	*verify_token(char *line, t_list *env_lst);
+int		count_dollars(char *line);
+
+t_list	*init_parsing(char *line, t_list *env_lst);
+t_list	*wildcard_search(char *search);
+t_list	*create_env_list(char **env);
+int		wildcard_checker(char *search, char *content);
 
 /*    Manage env    */
 t_list	*env_getlist(t_string *envp);

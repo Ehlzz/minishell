@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_wildcard.c                                    :+:      :+:    :+:   */
+/*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 17:45:52 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/03/27 14:53:06 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
+/*   Updated: 2024/05/06 16:01:01 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
+#include <stdio.h>
 #include <dirent.h>
 
-#include "minishell.h"
-
-int	wildcard(char *wildcard)
+t_list	*wildcard(void)
 {
 	DIR		*dir;
 	t_dir	*entry;
@@ -30,7 +30,7 @@ int	wildcard(char *wildcard)
 	while (entry)
 	{
 		str = wati_strdup(entry->d_name);
-		if (str)
+		if (str && *str != '.')
 		{
 			list = wati_lstnew(str);
 			if (list)
@@ -39,4 +39,26 @@ int	wildcard(char *wildcard)
 		entry = readdir(dir);
 	}
 	return (strs);
+}
+
+t_list	*wildcard_search(char *search)
+{
+	t_list	*start;
+	t_list	*lst0;
+	t_list	*new_lst;
+
+	start = wildcard();
+	lst0 = start;
+	new_lst = NULL;
+	while (start)
+	{
+		if (wildcard_checker(search, start->content))
+			wati_lstadd_back(&new_lst, \
+				wati_lstnew(wati_strdup(start->content)));
+		start = start->next;
+	}
+	wati_lstclear(&lst0, free);
+	if (!new_lst)
+		wati_lstadd_back(&new_lst, wati_lstnew(wati_strdup(search)));
+	return (new_lst);
 }
