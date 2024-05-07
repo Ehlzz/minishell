@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:56:40 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/03 12:49:35 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:47:00 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 #include "minishell.h"
 
-t_bool	open_write(t_fds *fds, t_string str, int flags)
+t_fd	open_write(t_string str, int flags)
 {
-	wati_close(fds->out);
-	fds->out = -1;
-	fds->out = open(str, flags, 0644);
-	if (fds->out < 0)
+	t_fd	file;
+
+	file = -1;
+	file = open(str, flags, 0644);
+	if (file < 0)
 		return (wati_error("permission denied: %s", str));
-	free(str);
-	return (TRUE);
+	return (file);
 }

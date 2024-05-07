@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:58:14 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/05 20:35:30 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:29:47 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
-static t_bool	_btree_cmd(t_cmd *cmd, t_list **list, t_fds fds);
+static t_bool	_btree_cmd(t_cmd *cmd, t_list **list);
 
-t_bool	btree_cmd(t_btree **node, t_list **list, t_fds fds)
+t_bool	btree_cmd(t_btree **node, t_list **list)
 {
 	t_cmd	*cmd;
 
@@ -28,7 +28,8 @@ t_bool	btree_cmd(t_btree **node, t_list **list, t_fds fds)
 		return (FALSE);
 	}
 	cmd->oper = NO;
-	if (!_btree_cmd(cmd, list, fds))
+	cmd->files = files_build(NULL, -1, NULL, NULL);
+	if (!_btree_cmd(cmd, list))
 	{
 		free(cmd);
 		return (FALSE);
@@ -42,9 +43,9 @@ t_bool	btree_cmd(t_btree **node, t_list **list, t_fds fds)
 	return (TRUE);
 }
 
-static t_bool	cmd_parse_token(t_list **new, t_list **list, t_fds *fds);
+static t_bool	cmd_parse_token(t_cmd *cmd, t_list **list, t_list **new);
 
-static t_bool	_btree_cmd(t_cmd *cmd, t_list **list, t_fds fds)
+static t_bool	_btree_cmd(t_cmd *cmd, t_list **list)
 {
 	t_list		*lst;
 	t_list		*new;
@@ -52,7 +53,7 @@ static t_bool	_btree_cmd(t_cmd *cmd, t_list **list, t_fds fds)
 	lst = NULL;
 	while (*list && is_opercmd(get_token(*list)->oper))
 	{
-		if (!cmd_parse_token(&new, list, &fds))
+		if (!cmd_parse_token(cmd, list, &new))
 		{
 			wati_lstclear(&lst, free);
 			return (FALSE);
@@ -62,13 +63,12 @@ static t_bool	_btree_cmd(t_cmd *cmd, t_list **list, t_fds fds)
 		(*list) = (*list)->next;
 	}
 	cmd->strs = lst;
-	cmd->fds = fds;
 	return (TRUE);
 }
 
-static t_bool	cmd_parse_redirect(t_list **list, t_fds *fds);
+static t_bool	cmd_parse_redirect(t_cmd *cmd, t_list **list);
 
-static t_bool	cmd_parse_token(t_list **new, t_list **list, t_fds *fds)
+static t_bool	cmd_parse_token(t_cmd *cmd, t_list **list, t_list **new)
 {
 	t_token	*token;
 
@@ -81,10 +81,10 @@ static t_bool	cmd_parse_token(t_list **new, t_list **list, t_fds *fds)
 			return (wati_error("alloc fail"));
 		return (TRUE);
 	}
-	return (cmd_parse_redirect(list, fds));
+	return (cmd_parse_redirect(cmd, list));
 }
 
-static t_bool	cmd_parse_redirect(t_list **list, t_fds *fds)
+static t_bool	cmd_parse_redirect(t_cmd *cmd, t_list **list)
 {
 	t_token	*token;
 	t_token	*name;
@@ -97,12 +97,12 @@ static t_bool	cmd_parse_redirect(t_list **list, t_fds *fds)
 	name = (*list)->content;
 	if (name->oper != NO)
 		wati_error("syntax error near unexpected token '%s'", token->str);
-	if (token->oper == R_IN)
-		return (open_read(fds, name->str, O_RDONLY));
-	if (token->oper == R_OUT)
-		return (open_write(fds, name->str, O_WRONLY | O_CREAT | O_TRUNC));
-	if (token->oper == H_OUT)
-		return (open_write(fds, name->str, O_WRONLY | O_CREAT | O_APPEND));
+	else if (token->oper == R_IN)
+		return (files_newin(&cmd->files, name->str, -1));
+	else if (token->oper == R_OUT)
+		return (files_newout(&cmd->files, name->str, NULL));
+	else if (token->oper == H_OUT)
+		return (files_newout(&cmd->files, NULL, name->str));
 	return (FALSE);
 }
 

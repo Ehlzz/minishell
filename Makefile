@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/05/05 19:51:44 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/05/06 14:32:03 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,10 +40,11 @@ SRCS = \
 	signal_new.c \
 	parse/parsing.c parse/parsing_utils.c parse/parsing_dollar_quote.c parse/parsing_get_words.c \
 	environnement/variable.c environnement/manage_oper.c \
-	token_cmd/token_manager.c token_cmd/cmd_manager.c \
+	token_cmd/token_manager.c token_cmd/cmd_manager.c token_cmd/print_manager.c \
 	redirect/open_read.c redirect/open_write.c \
 	sys_manager/fds_manager.c sys_manager/pid_manager.c \
 	sys_manager/close_manager.c sys_manager/pipe_manager.c \
+	sys_manager/files_manager.c \
 	btree/btree_build.c \
 	btree/btree_oper.c \
 	btree/btree_pipe.c \
