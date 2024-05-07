@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:18:26 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/07 16:24:43 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:01:44 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	free_exec(void *ptr)
 	t_exec	*exec;
 
 	exec = ptr;
-	wati_free_tab(exec->envp);
+	free(exec->envp);
 	wati_free_tab(exec->strs);
 	free(exec->path);
 }

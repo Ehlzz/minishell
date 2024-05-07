@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/07 16:57:21 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:27:57 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 #include <unistd.h>
 
-void	_execve(char *path, char **argv, char **envp);
+t_bool	_execve(char **argv, t_list **env);
+void	__execve(char *path, char **argv, char **envp);
 
 pid_t	wati_execve(t_cmd *cmd, t_pipe *fd, t_shell *shell)
 {
@@ -24,23 +25,28 @@ pid_t	wati_execve(t_cmd *cmd, t_pipe *fd, t_shell *shell)
 
 	if (!cmd || !cmd->strs || !cmd->strs->content)
 		return (0);
-	pid = fork();
+	lst = convert_strs(cmd->strs, shell->env);
+	exec.strs = wati_lstsplit(lst);
+	if (!_execve(exec.strs, &shell->env))
+		pid = fork();
+	else
+		pid = 1;
 	if (!pid)
 	{
 		exec.path = get_path(cmd->strs->content, shell->env);
-		lst = convert_strs(cmd->strs, shell->env);
-		exec.strs = wati_lstsplit(lst);
 		exec.envp = wati_lstsplit(shell->env);
 		wati_dup_files(cmd->files, fd);
 		close_spipe(*fd);
 		if (exec.path && exec.envp)
-			_execve(exec.path, exec.strs, exec.envp);
+			__execve(exec.path, exec.strs, exec.envp);
 		free_exec(&exec);
 		btree_clear(shell->root, free_cmd);
-		wati_lstclean(&shell->env);
+		wati_lstclear(&shell->env, free);
 		wati_lstclean(&lst);
 		exit(EXIT_FAILURE);
 	}
+	wati_free_tab(exec.strs);
+	wati_lstclean(&lst);
 	return (pid);
 }
 
@@ -63,7 +69,19 @@ static int	is_builtin(char *path)
 	return (0);
 }
 
-void	_execve(char *path, char **argv, char **envp)
+t_bool	_execve(char **argv, t_list **env)
+{
+	int	id;
+
+	id = is_builtin(*argv);
+	if (id == CD)
+		wati_chdir(env, *(argv + 1));
+	else
+		return (FALSE);
+	return (TRUE);
+}
+
+void	__execve(char *path, char **argv, char **envp)
 {
 	int	id;
 

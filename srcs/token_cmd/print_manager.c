@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:30:16 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/07 16:44:55 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:17:04 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,14 @@ void	print_cmd_by_level(void *ptr, int level, int is_first_elem)
 void	print_n(void *str)
 {
 	wati_putstr_fd(str, 1);
+	wati_putchar_fd(' ', 1);
 }
 
 static void	print_no(t_cmd *cmd)
 {
 	if (cmd->strs)
 		wati_lstiter(cmd->strs, print_n);
-	wati_putstr_fd(" files: ", 1);
+	wati_putstr_fd("files: ", 1);
 	if (cmd->files.h_in > 2)
 		wati_printf("i:%i ", cmd->files.h_in);
 	if (cmd->files.r_in)
