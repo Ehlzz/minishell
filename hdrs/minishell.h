@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/06 22:44:08 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:48:32 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,9 @@ void	free_cmd(void *ptr);
 
 /*    Binary Tree    */
 t_bool	btree_build(t_btree **root, t_list *list);
-t_bool	btree_oper(t_btree **root, t_list **list, t_fds fds);
-t_bool	btree_pipe(t_btree **root, t_list **list, t_fds fds);
-t_bool	btree_cmd(t_btree **root, t_list **list, t_fds fds);
+t_bool	btree_oper(t_btree **root, t_list **list);
+t_bool	btree_pipe(t_btree **root, t_list **list);
+t_bool	btree_cmd(t_btree **root, t_list **list);
 	/*    Tools    */
 t_bool	is_opercmd(t_oper oper);
 t_btree	*new_root(t_btree **root, t_btree *node);
@@ -123,18 +123,23 @@ t_btree	*add_cmd(t_btree **root, t_btree *node);
 t_bool	in_command(t_token *token);
 
 /*    Open Read    */
-t_bool	open_read(t_fds *fds, t_string str, int flags);
+t_fd	open_read(t_string str, int flags);
 /*    Open Write    */
-t_bool	open_write(t_fds *fds, t_string str, int flags);
+t_fd	open_write(t_string str, int flags);
 
 void	wati_close(t_fd fd);
 void	close_fds(t_fds fds);
 void	close_pipe(int pipe[2]);
 void	close_spipe(t_pipe fd);
 
+t_files	files_build(t_string r_in, t_fd h_in,
+			t_string r_out, t_string h_out);
+t_bool	files_newin(t_files *files, t_string r_in, t_fd h_in);
+t_bool	files_newout(t_files *files, t_string r_out, t_string h_out);
+
 void	swap_spipe(t_pipe *fd);
 
-t_bool	wati_dup2(t_fds fds, t_pipe *fd);
+t_bool	wati_dup_files(t_files files, t_pipe *fd);
 t_pipe	reset_pipe(void);
 
 t_list	*add_pid(t_list **list, pid_t pid);

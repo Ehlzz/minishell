@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/05 20:28:33 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:58:49 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ typedef struct s_token
 	t_oper		oper;
 }	t_token;
 
+typedef struct s_files
+{
+	t_string	r_in;
+	t_fd		h_in;
+	t_string	r_out;
+	t_string	h_out;
+}	t_files;
+
 typedef struct s_fds
 {
 	t_fd	in;
@@ -39,7 +47,7 @@ typedef struct s_cmd
 {
 	t_oper	oper;
 	t_list	*strs;
-	t_fds	fds;
+	t_files	files;
 }	t_cmd;
 
 typedef struct s_exec

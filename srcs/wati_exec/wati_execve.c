@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_execve.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/06 22:52:03 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:12:29 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,21 +104,14 @@ pid_t	wati_execve(t_cmd *cmd, t_pipe *fd, t_shell *shell)
 
 	if (!cmd || !cmd->strs || !cmd->strs->content)
 		return (0);
-	exec.path = get_path(cmd->strs->content, shell->env);
-	cmd->strs = convert_strs(cmd->strs, shell->env);
-	exec.strs = wati_lstsplit(cmd->strs);
-	exec.envp = wati_lstsplit(shell->env);
-	if (is_builtin(exec.strs))
-	{
-		exec_builtin(exec, is_builtin(exec.strs), shell);
-		printf("executed builtin\n");
-		return (0);
-	}
 	pid = fork();
 	if (!pid)
 	{
-		wati_dup2(cmd->fds, fd);
-		close_fds(cmd->fds);
+		exec.path = get_path(cmd->strs->content, shell->env);
+		cmd->strs = convert_strs(cmd->strs, shell->env);
+		exec.strs = wati_lstsplit(cmd->strs);
+		exec.envp = wati_lstsplit(shell->env);
+		wati_dup_files(cmd->files, fd);
 		close_spipe(*fd);
 		if (exec.path && exec.envp)
 			execve(exec.path, exec.strs, exec.envp);
@@ -127,6 +120,7 @@ pid_t	wati_execve(t_cmd *cmd, t_pipe *fd, t_shell *shell)
 		free(exec.envp);
 		btree_clear(shell->root, free_cmd);
 		wati_lstclear(&shell->env, free);
+		wati_lstclear(&cmd->strs, free);
 		exit(EXIT_FAILURE);
 	}
 	return (pid);
