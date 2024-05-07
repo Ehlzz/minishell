@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:18:26 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/06 15:03:51 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:24:43 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,14 @@ void	free_cmd(void *ptr)
 	if (cmd->files.h_out)
 		free(cmd->files.h_out);
 	free(cmd);
+}
+
+void	free_exec(void *ptr)
+{
+	t_exec	*exec;
+
+	exec = ptr;
+	wati_free_tab(exec->envp);
+	wati_free_tab(exec->strs);
+	free(exec->path);
 }

@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/07 13:48:32 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:32:31 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,12 @@ t_list	*init_parsing(char *line, t_list *env_lst);
 t_list	*wildcard_search(char *search);
 t_list	*create_env_list(char **env);
 int		wildcard_checker(char *search, char *content);
+int		is_star(char *str);
+t_list	*convert_strs(t_list *strs, t_list *env);
 
 /*    Manage env    */
 t_list	*env_getlist(t_string *envp);
-void	env_print(t_list *env);
+void	env_print(t_string *env);
 char	*env_search(t_list *env, t_string var);
 t_list	*env_add(t_list **env, t_string str);
 void	env_delete(t_list	**env, t_string find);
@@ -107,6 +109,7 @@ t_cmd	*get_cmd(t_btree *node);
 void	print_cmd(void *ptr);
 void	print_cmd_by_level(void *ptr, int level, int is_first_elem);
 void	free_cmd(void *ptr);
+void	free_exec(void *ptr);
 
 /*    Binary Tree    */
 t_bool	btree_build(t_btree **root, t_list *list);

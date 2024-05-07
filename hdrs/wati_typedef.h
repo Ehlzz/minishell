@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_typedef.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:28:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/06 21:25:56 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:19:24 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,17 @@ typedef int				t_fd;
 typedef struct stat		t_stat;
 typedef struct dirent	t_dir;
 
-# define ECHO 1
-# define CD 2
-# define PWD 3
-# define EXPORT 4
-# define UNSET 5
-# define ENV 6
-# define EXIT 7
+typedef enum s_builtin
+{
+	CMD,
+	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT,
+}	t_builtin;
 
 typedef enum s_bool
 {

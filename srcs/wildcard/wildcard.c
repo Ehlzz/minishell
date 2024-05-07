@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/06 16:01:01 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:12:37 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,50 @@ t_list	*wildcard_search(char *search)
 	if (!new_lst)
 		wati_lstadd_back(&new_lst, wati_lstnew(wati_strdup(search)));
 	return (new_lst);
+}
+
+int	is_star(char *str)
+{
+	while (*str)
+	{
+		if (*str == '*')
+			return (1);
+		str++;
+	}
+	return (0);
+}
+
+void	__convert_strs(char *str, t_list *result)
+{
+	t_list	*wildcard;
+
+	wildcard = wildcard_search(str);
+	while (wildcard)
+	{
+		wati_lstadd_back(&result, wati_lstnew(wati_strdup(wildcard->content)));
+		wildcard = wildcard->next;
+	}
+	wati_lstclear(&wildcard, free);
+}
+
+t_list	*convert_strs(t_list *strs, t_list *env)
+{
+	t_list	*result;
+	char	*str;
+
+	result = NULL;
+	while (strs)
+	{
+		str = (char *)strs->content;
+		if (is_star(str))
+		{
+			__convert_strs(str, result);
+			strs = strs->next;
+			continue ;
+		}
+		wati_lstadd_back(&result, \
+		wati_lstnew(verify_token(wati_strdup(str), env)));
+		strs = strs->next;
+	}
+	return (result);
 }
