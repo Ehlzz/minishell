@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/07 16:48:01 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:57:21 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include <unistd.h>
 
-void	_execve(const char *path, const char **argv, const char **envp);
+void	_execve(char *path, char **argv, char **envp);
 
 pid_t	wati_execve(t_cmd *cmd, t_pipe *fd, t_shell *shell)
 {
@@ -63,7 +63,7 @@ static int	is_builtin(char *path)
 	return (0);
 }
 
-void	_execve(const char *path, const char **argv, const char **envp)
+void	_execve(char *path, char **argv, char **envp)
 {
 	int	id;
 

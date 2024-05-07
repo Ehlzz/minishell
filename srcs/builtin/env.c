@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 19:05:09 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/07 16:33:12 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:56:28 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	env_print(t_string *env)
 		return ;
 	while (*env)
 	{
-		wati_putendl_fd(*env, 1);
+		if (is_char_equal(*env))
+			wati_putendl_fd(*env, 1);
 		env++;
 	}
 }
