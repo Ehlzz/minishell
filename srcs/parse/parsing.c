@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:39:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/06 16:01:15 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:02:16 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*verify_token(char *line, t_list *env_lst)
 	return (modify_token(line, env_lst));
 }
 
-t_list	*init_parsing(t_string line, t_list *env_lst)
+t_list	*init_parsing(t_string line)
 {
 	t_string	str;
 	t_token		*token;

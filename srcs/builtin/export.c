@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 19:20:58 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/06 22:35:26 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:02:37 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,55 +135,3 @@ void	export(t_list *env, char **strs)
 		return (export_getlist(env));
 	env_add(&env, wati_strdup(strs[1]));
 }
-
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	// char	*str;
-// 	// t_list	*lst;
-// 	t_list	*env;
-
-// 	env = env_getlist(envp);
-// 	// set_readline_signal();
-// 	// (void)argc;
-// 	// while (1)
-// 	// {
-// 	// 	str = wati_readline(env, argv[0]);
-// 	// 	add_history(str);
-// 	// 	while (str != NULL && *str == '\0')
-// 	// 	{
-// 	// 		free(str);
-// 	// 		str = wati_readline(env, argv[0]);
-// 	// 	}
-// 	// 	if (str == NULL)
-// 	// 		break ;
-// 	// 	lst = init_parsing(str, env);
-// 	// 	wati_env(env);
-// 	// 	wati_lstiter(lst, print);
-// 	// 	wati_lstclear(&lst, free);
-// 	// }
-// 	// if (argc != 3)
-// 	// 	return (1);
-// 	// if (atoi(argv[1]) == 1)
-// 	// {
-// 	// 	char	*arg = wati_strdup(argv[2]);
-// 	// 	env_add(&env, arg);
-// 	// 	export_getlist(env);
-// 	// 	wati_printf("\n\n");
-// 	// 	env_delete(&env, "neuille");
-// 	// 	export_getlist(env);
-// 	// }
-// 	// if (atoi(argv[1]) == 2)
-// 	// {
-// 	// 	char	*arg = wati_strdup(argv[2]);
-// 	// 	env_add(&env, arg);
-// 	// 	env_print(env);
-// 	// 	wati_printf("\n\n");
-// 	// 	env_delete(&env, "neuille");
-// 	// 	env_print(env);
-// 	// }
-// 	wati_printf("%d\n", strlen_to_char(argv[1], '='));
-// 	wati_lstclear(&env, free);
-// 	// return (0);
-// 	// add_to_env(argv[1], &env);
-// 	// wati_env(env);
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/07 16:32:31 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:02:25 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		is_dollar_operator(char *line);
 char	*verify_token(char *line, t_list *env_lst);
 int		count_dollars(char *line);
 
-t_list	*init_parsing(char *line, t_list *env_lst);
+t_list	*init_parsing(char *line);
 t_list	*wildcard_search(char *search);
 t_list	*create_env_list(char **env);
 int		wildcard_checker(char *search, char *content);
