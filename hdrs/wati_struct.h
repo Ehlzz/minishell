@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/06 14:58:49 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:46:00 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_shell
 	t_list	*env;
 	char	**envp;
 	t_pipe	fd;
+	t_list	*pids;
 }	t_shell;
 
 #endif

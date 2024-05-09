@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/08 15:02:25 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:40:56 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int		count_available(char *str);
 char	*dollar_to_end(char *line);
 char	*dollar_to_dollar(char *line);
 char	*start_to_dollar(char *line);
+
+// ### TRIE ### //
 
 void	print(void *str);
 int		is_dollar_operator(char *line);
@@ -104,9 +106,6 @@ t_token	*new_token(t_string token);
 t_token	*get_token(t_list *list);
 void	free_token(void *ptr);
 /*    Manage CMD    */
-t_cmd	*new_cmd(t_list **lst, t_fds fds);
-t_cmd	*get_cmd(t_btree *node);
-void	print_cmd(void *ptr);
 void	print_cmd_by_level(void *ptr, int level, int is_first_elem);
 void	free_cmd(void *ptr);
 void	free_exec(void *ptr);
@@ -120,7 +119,6 @@ t_bool	btree_cmd(t_btree **root, t_list **list);
 t_bool	is_opercmd(t_oper oper);
 t_btree	*new_root(t_btree **root, t_btree *node);
 t_btree	*add_root(t_btree **root, t_btree *node);
-		/*    OPER    */
 		/*    CMD    */
 t_btree	*add_cmd(t_btree **root, t_btree *node);
 t_bool	in_command(t_token *token);
@@ -146,12 +144,12 @@ t_bool	wati_dup_files(t_files files, t_pipe *fd);
 t_pipe	reset_pipe(void);
 
 t_list	*add_pid(t_list **list, pid_t pid);
-void	wait_pids(t_list *list);
+t_bool	wait_pids(t_list *list);
 
 /*    EXEC    */
 t_bool	wati_exec(t_shell shell);
-pid_t	wati_execve(t_cmd *cmd, t_pipe *fd, t_shell *shell);
-t_bool	wati_pipe(t_btree *node, t_shell *shell);
+t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell);
+t_bool	wati_pipe(t_btree *node, t_list **pids, t_shell *shell);
 char	*get_path(t_string cmd, t_list *env);
 
 #endif

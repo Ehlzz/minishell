@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:06:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/07 17:23:06 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:47:01 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,23 @@ t_string	get_path(t_string cmd, t_list *env)
 	t_string	path;
 
 	path = lf_current(cmd);
+	paths = NULL;
 	if (path)
 		return (path);
 	path = env_search(env, "PATH");
-	if (!path)
-		return (NULL);
-	paths = wati_split(path, ':');
-	if (!paths)
-		return (NULL);
+	if (path)
+	{
+		paths = wati_split(path, ':');
+		if (!paths)
+			return (NULL);
+	}
+	else
+	{
+		paths = malloc(sizeof(char *));
+		if (!paths)
+			return (NULL);
+		*paths = NULL;
+	}
 	free(path);
 	path = lf_path(paths, cmd);
 	wati_free_tab(paths);
@@ -44,7 +53,6 @@ static char	*lf_path(t_string *paths, t_string cmd)
 	while (*paths)
 	{
 		str = wati_joinf(3, *paths, "/", cmd);
-		// if (!access(str, X_OK) || (*cmd == '*' && wati_strlen(cmd) == 1))
 		if (!access(str, X_OK))
 			return (str);
 		free(str);

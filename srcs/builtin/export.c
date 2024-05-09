@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 19:20:58 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/08 15:02:37 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/09 12:38:31 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*__export_getline(char *str)
 
 void	swap_content(t_list **export)
 {
-	t_list  *ptr1;
+	t_list	*ptr1;
 	char	*tmp;
 
 	ptr1 = *export;
@@ -68,12 +68,12 @@ void	swap_content(t_list **export)
 void	export_sortlist(t_list **export)
 {
 	int		finish;
-    t_list  *ptr1;
-    t_list  *ptr2;
+	t_list	*ptr1;
+	t_list	*ptr2;
 
-    if (*export == NULL)
-        return ;
-    ptr2 = NULL;
+	if (*export == NULL)
+		return ;
+	ptr2 = NULL;
 	finish = 0;
 	while (!finish)
 	{
@@ -117,11 +117,11 @@ void	export_getlist(t_list *env)
 	wati_lstclear(&export, free);
 }
 
-int		strlen_to_char(char *str, int c)
+int	strlen_to_char(char *str, int c)
 {
 	int	i;
 
-	i =	0;
+	i = 0;
 	while (*str++ && *str != c)
 		i++;
 	if (*str == c)
