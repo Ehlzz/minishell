@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/05/08 15:30:15 by ehalliez         ###   ########.fr       */
-=======
-/*   Updated: 2024/05/09 12:28:12 by bedarenn         ###   ########.fr       */
->>>>>>> bedarenn-btree
+/*   Updated: 2024/05/09 17:10:28 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

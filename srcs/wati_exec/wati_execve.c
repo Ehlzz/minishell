@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/09 17:07:54 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:28:29 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 #include <unistd.h>
 
-t_bool	_execve(char **argv, t_list **env);
-void	__execve(char *path, char **argv, char **envp);
+static t_bool	_execve(char **argv, t_list **env);
+static void		__execve(t_exec exec, t_list *env);
 
 t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 {
@@ -33,11 +33,10 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 		if (!pid)
 		{
 			exec.path = get_path(cmd->strs->content, shell->env);
-			exec.envp = wati_lstsplit(shell->env);
 			wati_dup_files(cmd->files, fd);
 			close_spipe(*fd);
 			if (exec.path && exec.envp)
-				__execve(exec.path, exec.strs, exec.envp);
+				__execve(exec, shell->env);
 			free_exec(&exec);
 			btree_clear(shell->root, free_cmd);
 			wati_lstclear(&shell->env, free);
@@ -96,23 +95,26 @@ t_bool	_execve(char **argv, t_list **env)
 		}
 	}
 	else if (id == EXPORT && *(argv + 1))
-		export(env, *(argv + 1));
+		export(*env, argv);
 	else
 		return (FALSE);
 	return (TRUE);
 }
 
-void	__execve(char *path, char **argv, char **envp)
+static void	__execve(t_exec exec, t_list *env)
 {
 	int	id;
 
-	id = is_builtin(path);
+	exec.envp = wati_lstsplit(env);
+	id = is_builtin(exec.path);
 	if (id == ECHO)
-		wati_echo(argv);
+		wati_echo(exec.strs);
 	else if (id == PWD)
 		print_pwd();
 	else if (id == ENV)
-		env_print(envp);
+		env_print(exec.strs);
+	else if (id == EXPORT)
+		export(env, exec.strs);
 	else
-		execve(path, argv, envp);
+		execve(exec.path, exec.strs, exec.envp);
 }
