@@ -6,45 +6,11 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 19:20:58 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/08 15:02:37 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/09 13:48:15 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-char	*add_quote(char *str)
-{
-	int		i;
-	int		len;
-	char	*str0;
-	char	*result;
-
-	i = 0;
-	str0 = str;
-	len = wati_strlen(str) + 2;
-	result = malloc(len + 1);
-	while (*str && *str != '=')
-	{
-		result[i] = *str;
-		i++;
-		str++;
-	}
-	result[i] = *str;
-	i++;
-	str++;
-	result[i] = '"';
-	i++;
-	while (*str)
-	{
-		result[i] = *str;
-		i++;
-		str++;
-	}
-	result[i] = '"';
-	result[i + 1] = 0;
-	free(str0);
-	return (result);
-}
 
 char	*__export_getline(char *str)
 {
@@ -56,7 +22,7 @@ char	*__export_getline(char *str)
 
 void	swap_content(t_list **export)
 {
-	t_list  *ptr1;
+	t_list	*ptr1;
 	char	*tmp;
 
 	ptr1 = *export;
@@ -68,12 +34,12 @@ void	swap_content(t_list **export)
 void	export_sortlist(t_list **export)
 {
 	int		finish;
-    t_list  *ptr1;
-    t_list  *ptr2;
+	t_list	*ptr1;
+	t_list	*ptr2;
 
-    if (*export == NULL)
-        return ;
-    ptr2 = NULL;
+	if (*export == NULL)
+		return ;
+	ptr2 = NULL;
 	finish = 0;
 	while (!finish)
 	{
@@ -81,7 +47,8 @@ void	export_sortlist(t_list **export)
 		ptr1 = *export;
 		while (ptr1->next != ptr2)
 		{
-			if (wati_strncmp(ptr1->content, ptr1->next->content, wati_strlen(ptr1->content) + 1) > 0)
+			if (wati_strncmp(ptr1->content, ptr1->next->content, \
+					wati_strlen(ptr1->content) + 1) > 0)
 			{
 				swap_content(&ptr1);
 				finish = 0;
@@ -117,21 +84,28 @@ void	export_getlist(t_list *env)
 	wati_lstclear(&export, free);
 }
 
-int		strlen_to_char(char *str, int c)
-{
-	int	i;
-
-	i =	0;
-	while (*str++ && *str != c)
-		i++;
-	if (*str == c)
-		i++;
-	return (i);
-}
+// export test$USER=test NON FONCTIONNEL
 
 void	export(t_list *env, char **strs)
 {
+	int	verif;
+
 	if (!strs[1])
 		return (export_getlist(env));
-	env_add(&env, wati_strdup(strs[1]));
+	strs++;
+	verif = is_char_before_char(*strs, '+', '=');
+	while (*strs)
+	{
+		if (!verif_identifier(*strs))
+		{
+			printf("bash: export: `%s': not a valid identifier\n", *strs);
+			strs++;
+			continue ;
+		}
+		if (!verif)
+			env_add(&env, verify_token(wati_strdup(*strs), env));
+		else
+			export_concat(env, *strs);
+		strs++;
+	}
 }

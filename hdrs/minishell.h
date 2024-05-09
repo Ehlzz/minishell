@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/08 15:02:25 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:48:55 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_list	*get_var(t_list *list, t_string var);
 t_list	*get_var_not_assigned(const t_list *list, t_string find);
 char	*get_name(const t_string str);
 t_list	*get_vat_prev(const t_list *list, t_string find);
+t_list	*get_vat_prev_w_equal(const t_list *list, t_string find);
 
 /*    Manage dir    */
 void	wati_chdir(t_list **env, const t_string dir_name);
@@ -82,6 +83,13 @@ void	print_pwd(void);
 
 /* Builtin export */
 void	export(t_list *env, char **strs);
+int		verif_identifier(char *str);
+void	export_concat(t_list *env, char *str);
+void	__export_concat(t_list *env, char *name, char *str);
+int		is_char_before_char(char *str, int find, int until);
+int		strlen_to_char(char *str, int c);
+char	*add_quote(char *str);
+int		is_char_equal(char *str);
 
 /*    Builtin echo    */
 void	wati_echo(t_string *strs);

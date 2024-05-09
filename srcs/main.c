@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/05 20:49:50 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:30:15 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 1)
 	{
 		str = argv[1];
-		lst = init_parsing(str, shell.env);
+		lst = init_parsing(str);
 		shell.root = NULL;
 		wati_lstiter(lst, print_token);
 		wati_printf("\n-----\n");
@@ -44,6 +44,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = wati_readline(shell.env);
+		add_history(str);
 		while (str != NULL && *str == '\0')
 		{
 			free(str);
@@ -51,7 +52,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (str == NULL)
 			break ;
-		lst = init_parsing(str, shell.env);
+		lst = init_parsing(str);
 		free(str);
 		shell.root = NULL;
 		is_work = btree_build(&shell.root, lst);

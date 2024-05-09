@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:39:27 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/06 22:37:22 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:34:11 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static t_bool	_wati_exec(t_btree *node, t_shell *shell)
 	int		r;
 
 	cmd = node->item;
+	r = 0;
 	if (cmd->oper == AND)
 		return (_wati_and(node, shell));
 	if (cmd->oper == OR)

@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:24:22 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/06 22:50:23 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:44:08 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ t_list	*env_add(t_list **env, t_string str)
 	new = get_var(*env, name);
 	if (!new)
 		new = get_var_not_assigned(*env, name);
+	if (new && !is_char_equal(str))
+		return (new);
 	free(name);
 	if (new)
 	{
@@ -86,19 +88,21 @@ void	env_delete(t_list	**env, t_string find)
 	if (!env || !*env || !(*env)->content || !find || !*find)
 		return ;
 	str = wati_strjoin(find, "=");
-	if (!wati_memcmp(str, (*env)->content, wati_strlen((*env)->content)))
-	{
-		next = (*env);
-		(*env) = (*env)->next;
-		wati_lstdelone(next, free);
-		return ;
-	}
+	list = get_vat_prev_w_equal(*env, str);
 	free(str);
-	list = get_vat_prev(*env, find);
-	if (list)
+	if (!list->next)
+		list = get_vat_prev(*env, find);
+	if (list && list->next && list->next->next)
 	{
 		next = list->next;
 		list->next = list->next->next;
+		wati_lstdelone(next, free);
+		return ;
+	}
+	if (list && list->next)
+	{
+		next = list->next;
+		list->next = NULL;
 		wati_lstdelone(next, free);
 	}
 }

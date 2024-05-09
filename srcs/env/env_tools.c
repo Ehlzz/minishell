@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:29:49 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/06 22:44:37 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:55:45 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,13 @@ t_list	*get_var_not_assigned(const t_list *list, t_string find)
 	size_t	len;
 
 	len = wati_strlen(find);
-	while (list && wati_memcmp(find, list->content, len))
+	while (list)
+	{
+		if (!wati_memcmp(find, list->content, len) && \
+			len == wati_strlen(list->content))
+			break ;
 		list = list->next;
+	}
 	return ((t_list *)list);
 }
 
@@ -38,8 +43,12 @@ t_list	*get_var(const t_list *list, t_string find)
 	if (!find)
 		return (NULL);
 	len = wati_strlen(find);
-	while (list && wati_memcmp(find, list->content, len))
+	while (list)
+	{
+		if (!wati_memcmp(find, list->content, len))
+			break ;
 		list = list->next;
+	}
 	free(find);
 	return ((t_list *)list);
 }
@@ -60,14 +69,40 @@ t_list	*get_vat_prev(const t_list *list, t_string find)
 
 	if (!list)
 		return (NULL);
-	find = wati_strjoin(find, "=");
-	if (!find)
+	len = wati_strlen(find);
+	if (list)
+	{
+		if (!wati_memcmp(find, list->content, len) && \
+			wati_strlen(list->content) == len)
+			return ((t_list *)list);
+	}
+	while (list->next)
+	{
+		if (!wati_memcmp(find, list->next->content, len) && \
+			wati_strlen(list->next->content) == len)
+			break ;
+		list = list->next;
+	}
+	return ((t_list *)list);
+}
+
+t_list	*get_vat_prev_w_equal(const t_list *list, t_string find)
+{
+	size_t	len;
+
+	if (!list)
 		return (NULL);
 	len = wati_strlen(find);
-	while (list->next && wati_memcmp(find, list->next->content, len))
+	if (list)
+	{
+		if (!wati_memcmp(find, list->content, len))
+			return ((t_list *)list);
+	}
+	while (list->next)
+	{
+		if (!wati_memcmp(find, list->next->content, len))
+			break ;
 		list = list->next;
-	free(find);
-	if (!list->next)
-		return (NULL);
+	}
 	return ((t_list *)list);
 }

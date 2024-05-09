@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_execve.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/07 17:27:57 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:52:50 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ pid_t	wati_execve(t_cmd *cmd, t_pipe *fd, t_shell *shell)
 		pid = 1;
 	if (!pid)
 	{
-		exec.path = get_path(cmd->strs->content, shell->env);
+		exec.path = get_path(*exec.strs, shell->env);
 		exec.envp = wati_lstsplit(shell->env);
 		wati_dup_files(cmd->files, fd);
 		close_spipe(*fd);
@@ -52,19 +52,26 @@ pid_t	wati_execve(t_cmd *cmd, t_pipe *fd, t_shell *shell)
 
 static int	is_builtin(char *path)
 {
-	if (!wati_strncmp(path, "echo", wati_strlen(path)))
+	if (!wati_strncmp(path, "echo", wati_strlen(path)) \
+			&& wati_strlen(path) == 4)
 		return (ECHO);
-	if (!wati_strncmp(path, "cd", wati_strlen(path)))
+	if (!wati_strncmp(path, "cd", wati_strlen(path)) \
+			&& wati_strlen(path) == 2)
 		return (CD);
-	if (!wati_strncmp(path, "pwd", wati_strlen(path)))
+	if (!wati_strncmp(path, "pwd", wati_strlen(path)) \
+			&& wati_strlen(path) == 3)
 		return (PWD);
-	if (!wati_strncmp(path, "export", wati_strlen(path)))
+	if (!wati_strncmp(path, "export", wati_strlen(path)) \
+			&& wati_strlen(path) == 6)
 		return (EXPORT);
-	if (!wati_strncmp(path, "unset", wati_strlen(path)))
+	if (!wati_strncmp(path, "unset", wati_strlen(path)) \
+			&& wati_strlen(path) == 5)
 		return (UNSET);
-	if (!wati_strncmp(path, "env", wati_strlen(path)))
+	if (!wati_strncmp(path, "env", wati_strlen(path)) \
+			&& wati_strlen(path) == 3)
 		return (ENV);
-	if (!wati_strncmp(path, "exit", wati_strlen(path)))
+	if (!wati_strncmp(path, "exit", wati_strlen(path)) \
+			&& wati_strlen(path) == 4)
 		return (EXIT);
 	return (0);
 }
@@ -72,10 +79,21 @@ static int	is_builtin(char *path)
 t_bool	_execve(char **argv, t_list **env)
 {
 	int	id;
-
+	
 	id = is_builtin(*argv);
 	if (id == CD)
 		wati_chdir(env, *(argv + 1));
+	else if (id == EXPORT)
+		export(*env, argv);
+	else if (id == UNSET)
+	{
+		argv++;
+		while (*argv)
+		{
+			env_delete(env, *argv);
+			argv++;
+		}
+	}
 	else
 		return (FALSE);
 	return (TRUE);
