@@ -3,16 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   btree_oper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:57:07 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/06 15:29:17 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/10 11:44:51 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
 #include "minishell.h"
+
+t_bool	_btree_build_oper(t_btree **root, t_list **list)
+{
+	t_token	*token;
+
+	if (!*list)
+		return (TRUE);
+	token = (*list)->content;
+	if (token->oper == AND || token->oper == OR)
+	{
+		if (!btree_oper(root, list))
+			return (FALSE);
+	}
+	return (TRUE);
+}
 
 t_bool	btree_oper(t_btree **root, t_list **list)
 {
@@ -30,6 +45,7 @@ t_bool	btree_oper(t_btree **root, t_list **list)
 	cmd->oper = token->oper;
 	cmd->strs = NULL;
 	cmd->files = files_build(NULL, -1, NULL, NULL);
+	cmd->is_sub = FALSE;
 	new = btree_create_node(cmd);
 	if (!new)
 	{

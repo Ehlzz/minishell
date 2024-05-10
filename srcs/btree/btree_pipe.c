@@ -3,16 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   btree_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:49:29 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/06 15:29:28 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/10 11:45:07 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_bool	_btree_pipe(t_btree **root, t_btree *node);
+static t_bool	_btree_pipe(t_btree **root, t_btree *node);
+
+t_bool	_btree_build_pipe(t_btree **root, t_list **list)
+{
+	t_token	*token;
+	t_btree	*node;
+
+	node = NULL;
+	if (!*list)
+		return (TRUE);
+	token = (*list)->content;
+	if (is_opercmd(token->oper))
+	{
+		if (!btree_cmd(&node, list))
+			return (FALSE);
+	}
+	if (*list)
+		token = (*list)->content;
+	if (token->oper == PIPE)
+	{
+		if (!btree_pipe(&node, list))
+			return (FALSE);
+	}
+	if (node)
+		add_root(root, node);
+	return (TRUE);
+}
 
 t_bool	btree_pipe(t_btree **root, t_list **list)
 {
@@ -34,7 +60,7 @@ t_bool	btree_pipe(t_btree **root, t_list **list)
 	return (TRUE);
 }
 
-t_bool	_btree_pipe(t_btree **root, t_btree *node)
+static t_bool	_btree_pipe(t_btree **root, t_btree *node)
 {
 	t_btree	*new;
 	t_cmd	*cmd;
@@ -45,6 +71,7 @@ t_bool	_btree_pipe(t_btree **root, t_btree *node)
 	cmd->oper = PIPE;
 	cmd->strs = NULL;
 	cmd->files = files_build(NULL, -1, NULL, NULL);
+	cmd->is_sub = FALSE;
 	new = btree_create_node(cmd);
 	if (!new)
 	{

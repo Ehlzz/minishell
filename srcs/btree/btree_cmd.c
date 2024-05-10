@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   btree_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:58:14 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/06 15:29:47 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/10 11:44:31 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,15 @@ t_bool	btree_cmd(t_btree **node, t_list **list)
 {
 	t_cmd	*cmd;
 
+	if (get_token(*list)->oper == P_IN)
+		return (btree_par(node, list));
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 	{
 		free(cmd);
 		return (FALSE);
 	}
+	cmd->is_sub = FALSE;
 	cmd->oper = NO;
 	cmd->files = files_build(NULL, -1, NULL, NULL);
 	if (!_btree_cmd(cmd, list))
@@ -112,5 +115,6 @@ t_bool	is_opercmd(t_oper oper)
 		|| oper == H_IN
 		|| oper == H_OUT
 		|| oper == R_IN
-		|| oper == R_OUT);
+		|| oper == R_OUT
+		|| oper == P_IN);
 }

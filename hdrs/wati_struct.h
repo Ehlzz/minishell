@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/09 14:46:00 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/10 09:24:47 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_cmd
 	t_oper	oper;
 	t_list	*strs;
 	t_files	files;
+	t_bool	is_sub;
 }	t_cmd;
 
 typedef struct s_exec

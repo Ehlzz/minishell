@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
+#    By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/05/09 16:30:45 by ehalliez         ###   ########.fr        #
+#    Updated: 2024/05/10 10:01:21 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ SRCS = \
 	btree/btree_build.c \
 	btree/btree_oper.c \
 	btree/btree_pipe.c \
-	btree/btree_cmd.c\
+	btree/btree_cmd.c \
+	btree/btree_par.c \
 	btree/btree_root.c \
 	wati_exec/wati_exec.c wati_exec/wati_execve.c \
 	wati_exec/wati_pipe.c \
