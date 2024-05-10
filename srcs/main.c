@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/09 17:10:28 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:49:14 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int argc, char **argv, char **envp)
 		str = argv[1];
 		lst = init_parsing(str);
 		shell.root = NULL;
+		shell.fd = reset_pipe();
 		wati_lstiter(lst, print_token);
 		wati_printf("\n-----\n");
 		is_work = btree_build(&shell.root, lst);
@@ -44,7 +45,6 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = wati_readline(shell.env);
-		add_history(str);
 		while (str != NULL && *str == '\0')
 		{
 			free(str);
@@ -52,6 +52,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (str == NULL)
 			break ;
+		add_history(str);
 		lst = init_parsing(str);
 		free(str);
 		shell.root = NULL;

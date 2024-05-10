@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/10 11:14:30 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/10 16:44:38 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,8 +160,11 @@ t_bool	wait_pids(t_list *list);
 
 /*    EXEC    */
 t_bool	wati_exec(t_shell shell);
+t_bool	_wati_exec(t_btree *node, t_pipe *fd, t_list **pids, t_shell *shell);
 t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell);
-t_bool	wati_pipe(t_btree *node, t_list **pids, t_shell *shell);
+t_bool	wati_pipe(t_btree *node, t_pipe *fd, t_list **pids, t_shell *shell);
+t_bool	_wati_pipe_oper(t_btree *node, t_pipe *fd,
+			t_list **pids, t_shell *shell);
 char	*get_path(t_string cmd, t_list *env);
 
 #endif
