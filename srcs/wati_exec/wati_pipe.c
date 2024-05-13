@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:59:30 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/10 16:42:50 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:10:01 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,28 @@ static t_bool	_wati_pipe_o(t_btree *node, t_pipe *fd,
 static t_bool	_wati_pipe_l(t_btree *node, t_pipe *fd,
 					t_list **pids, t_shell *shell);
 
-t_bool	wati_pipe(t_btree *node, t_pipe *fd, t_list **pids, t_shell *shell)
+t_bool	wati_pipe(t_btree *node, t_pipe *fd, t_shell *shell)
 {
+	t_list	*pids;
+	t_cmd	*cmd;
+
 	*fd = reset_pipe();
-	fd->in = -1;
-	_wati_pipe_o(node->left, fd, pids, shell);
-	_wati_pipe_l(node->right, fd, pids, shell);
-	return (wait_pids(shell->pids));
+	pids = NULL;
+	cmd = node->item;
+	if (cmd->oper == NO)
+	{
+		wati_execve(cmd, fd, &pids, shell);
+		return (wait_pids(pids));
+	}
+	else if (cmd->oper == PIPE)
+	{
+		_wati_pipe_o(node->left, fd, &pids, shell);
+		_wati_pipe_l(node->right, fd, &pids, shell);
+		return (wait_pids(pids));
+	}
+	else
+		return (FALSE);
+	return (TRUE);
 }
 
 static t_bool	_wati_pipe(t_btree *node, t_pipe *fd,
