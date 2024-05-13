@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/13 15:22:33 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:07:18 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,15 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 		{
 			exec.path = get_path(cmd->strs->content, shell->env);
 			wati_dup_files(cmd->files, fd);
-			close_spipe(*fd);
 			if (exec.path)
 				__execve(exec, shell->env);
-			free(exec.path);
 			free(exec.strs);
+			free(exec.path);
 			btree_clear(shell->root, free_cmd);
 			wati_lstclear(&shell->env, free);
 			if (*pids)
-				wati_lstclear(&shell->pids, free);
-			wati_lstclean(&lst);
+				wati_lstclear(pids, free);
+			wati_lstclear(&lst, free);
 			exit(EXIT_FAILURE);
 		}
 		if (pids)

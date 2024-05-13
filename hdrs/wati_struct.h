@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/10 09:24:47 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:12:44 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ typedef struct s_shell
 	t_btree	*root;
 	t_list	*env;
 	char	**envp;
-	t_pipe	fd;
-	t_list	*pids;
 }	t_shell;
 
 #endif
