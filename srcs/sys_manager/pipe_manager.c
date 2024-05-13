@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_manager.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 13:07:56 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/01 13:28:36 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:32:49 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ void	swap_spipe(t_pipe *fd)
 	wati_close(fd->in);
 	wati_close(fd->pipe[1]);
 	fd->in = fd->pipe[0];
+	fd->pipe[0] = -1;
 	fd->pipe[1] = -1;
 }

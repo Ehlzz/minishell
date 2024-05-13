@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:40:47 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/07 16:44:35 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:28:21 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	is_char_operator(char c)
 {
-	return (c == '|' || c == '&' || c == '<' || c == '>');
+	return (c == '|' || c == '&'
+		|| c == '<' || c == '>'
+		|| c == '(' || c == ')');
 }
 
 char	*ft_join_args(char **argv)

@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/06 16:02:10 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:17:39 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_word(char **line, t_test *test)
 	str = *line;
 	str0 = str;
 	quote_c = 0;
-	while (*str && !is_char_operator(*str))
+	while (*str)
 	{
 		if ((*str == '"' || *str == 39) && !quote_c)
 		{
@@ -65,6 +65,8 @@ char	*get_word(char **line, t_test *test)
 			quote_c = 0;
 			test->quote = !test->quote;
 		}
+		else if (is_char_operator(*str) && !test->quote)
+			break ;
 		else if ((!quote_c || (quote_c && !test->quote)) && *str == ' ')
 			break ;
 		str++;

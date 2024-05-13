@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/09 14:46:00 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:15:46 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 typedef struct s_test
 {
 	bool	quote;
+	char	quote_c;
 }	t_test;
 
 typedef struct s_token
@@ -48,6 +49,7 @@ typedef struct s_cmd
 	t_oper	oper;
 	t_list	*strs;
 	t_files	files;
+	t_bool	is_sub;
 }	t_cmd;
 
 typedef struct s_exec
@@ -68,8 +70,6 @@ typedef struct s_shell
 	t_btree	*root;
 	t_list	*env;
 	char	**envp;
-	t_pipe	fd;
-	t_list	*pids;
 }	t_shell;
 
 #endif

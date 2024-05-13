@@ -6,7 +6,7 @@
 #    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/05/09 16:30:45 by ehalliez         ###   ########.fr        #
+#    Updated: 2024/05/13 18:00:54 by ehalliez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,17 +48,19 @@ SRCS = \
 	btree/btree_build.c \
 	btree/btree_oper.c \
 	btree/btree_pipe.c \
-	btree/btree_cmd.c\
+	btree/btree_cmd.c \
+	btree/btree_par.c \
 	btree/btree_root.c \
 	wati_exec/wati_exec.c wati_exec/wati_execve.c \
 	wati_exec/wati_pipe.c \
+	wati_exec/wati_pipe_oper.c \
 	wati_exec/parsing/get_path.c \
 	main.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 
 #################################### FLAGS #####################################
-CFLAGS := -Wall -Wextra #-Werror
+CFLAGS := -Wall -Wextra -Werror
 LFLAGS := -L$(DIR_LIBS) -lreadline -lwati
 IFLAGS := -I$(DIR_HDRS)
 
