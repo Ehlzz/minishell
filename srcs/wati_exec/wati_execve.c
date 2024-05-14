@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   wati_execve.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: bedarenn < bedarenn@student.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/13 17:07:18 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/14 12:43:49 by bedarenn         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -16,6 +16,8 @@
 
 static t_bool	_execve(char **argv, t_list **env);
 static void		__execve(t_exec exec, t_list *env);
+static t_bool	exec_builtin(t_exec exec, t_list *env, t_list *lst);
+int		is_builtin(char *path);
 
 t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 {
@@ -32,8 +34,10 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 		pid = fork();
 		if (!pid)
 		{
-			exec.path = get_path(cmd->strs->content, shell->env);
+			exec.path = get_path(*exec.strs, shell->env);
 			wati_dup_files(cmd->files, fd);
+			if (is_builtin(*exec.strs))
+				return (exec_builtin(exec, shell->env, lst));
 			if (exec.path)
 				__execve(exec, shell->env);
 			free(exec.strs);
@@ -53,7 +57,26 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 	return (TRUE);
 }
 
-static int	is_builtin(char *path)
+static t_bool	exec_builtin(t_exec exec, t_list *env, t_list *lst)
+{
+	int	id;
+
+	id = is_builtin(*exec.strs);
+	if (id == ECHO)
+		wati_echo(exec.strs);
+	else if (id == PWD)
+		print_pwd();
+	else if (id == ENV)
+		env_print(env);
+	else if (id == EXPORT)
+		export(env, exec.strs);
+		
+	wati_free_tab(exec.strs);
+	wati_lstclean(&lst);
+	return (TRUE);
+}
+
+int	is_builtin(char *path)
 {
 	if (!wati_strncmp(path, "echo", wati_strlen(path)) \
 			&& wati_strlen(path) == 4)
@@ -104,18 +127,6 @@ t_bool	_execve(char **argv, t_list **env)
 
 static void	__execve(t_exec exec, t_list *env)
 {
-	int	id;
-
 	exec.envp = wati_lstsplit(env);
-	id = is_builtin(exec.path);
-	if (id == ECHO)
-		wati_echo(exec.strs);
-	else if (id == PWD)
-		print_pwd();
-	else if (id == ENV)
-		env_print(exec.strs);
-	else if (id == EXPORT)
-		export(env, exec.strs);
-	else
-		execve(exec.path, exec.strs, exec.envp);
+	execve(exec.path, exec.strs, exec.envp);
 }

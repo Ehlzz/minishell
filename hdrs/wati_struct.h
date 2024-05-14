@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wati_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/05/13 16:12:44 by bedarenn         ###   ########.fr       */
+=======
+/*   Updated: 2024/05/13 21:15:46 by ehalliez         ###   ########.fr       */
+>>>>>>> ehalliez
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +25,7 @@
 typedef struct s_test
 {
 	bool	quote;
+	char	quote_c;
 }	t_test;
 
 typedef struct s_token

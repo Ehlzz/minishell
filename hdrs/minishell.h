@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/05/13 15:04:36 by bedarenn         ###   ########.fr       */
+=======
+/*   Updated: 2024/05/13 21:56:31 by ehalliez         ###   ########.fr       */
+>>>>>>> ehalliez
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +70,7 @@ t_list	*convert_strs(t_list *strs, t_list *env);
 
 /*    Manage env    */
 t_list	*env_getlist(t_string *envp);
-void	env_print(t_string *env);
+void	env_print(t_list *env);
 char	*env_search(t_list *env, t_string var);
 t_list	*env_add(t_list **env, t_string str);
 void	env_delete(t_list	**env, t_string find);
