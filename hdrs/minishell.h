@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/14 15:16:57 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:20:59 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ char	*quote_manager(t_string *ptr);
 int		is_operator_char(char c);
 
 void	set_readline_signal(void);
+void	set_signal_fork(void);
 
 /*    Manage Token    */
 t_token	*new_token(t_string token);

@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:39:27 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/14 15:17:10 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:23:13 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_bool	wati_exec(t_shell shell)
 {
 	t_pipe	fd;
 
+	set_signal_fork();
 	if (!shell.root)
 		return (FALSE);
 	fd = reset_pipe();

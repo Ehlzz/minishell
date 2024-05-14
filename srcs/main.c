@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/14 15:17:05 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:23:23 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int	main(int argc, char **argv, char **envp)
 		wati_lstclear(&shell.env, free);
 		return (0);
 	}
-	set_readline_signal();
 	while (1)
 	{
+		set_readline_signal();
 		str = wati_readline(shell.env);
 		while (str != NULL && *str == '\0')
 		{
