@@ -6,7 +6,7 @@
 /*   By: bedarenn < bedarenn@student.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/14 12:43:49 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/14 13:20:53 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -17,7 +17,7 @@
 static t_bool	_execve(char **argv, t_list **env);
 static void		__execve(t_exec exec, t_list *env);
 static t_bool	exec_builtin(t_exec exec, t_list *env, t_list *lst);
-int		is_builtin(char *path);
+int				is_builtin(char *path);
 
 t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 {
@@ -70,7 +70,6 @@ static t_bool	exec_builtin(t_exec exec, t_list *env, t_list *lst)
 		env_print(env);
 	else if (id == EXPORT)
 		export(env, exec.strs);
-		
 	wati_free_tab(exec.strs);
 	wati_lstclean(&lst);
 	return (TRUE);

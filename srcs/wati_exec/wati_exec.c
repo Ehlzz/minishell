@@ -1,21 +1,21 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   wati_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: bedarenn < bedarenn@student.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:39:27 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/13 17:07:49 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/14 12:51:43 by bedarenn         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
 #include <sys/wait.h>
 
-static t_bool	_wati_and(t_btree *node, t_pipe *fd, t_shell *shell);
-static t_bool	_wati_or(t_btree *node, t_pipe *fd, t_shell *shell);
+static t_bool	_wati_and(t_btree *node, t_pipe fd, t_shell *shell);
+static t_bool	_wati_or(t_btree *node, t_pipe fd, t_shell *shell);
 
 t_bool	wati_exec(t_shell shell)
 {
@@ -24,10 +24,10 @@ t_bool	wati_exec(t_shell shell)
 	if (!shell.root)
 		return (FALSE);
 	fd = reset_pipe();
-	return (_wati_exec(shell.root, &fd, &shell));
+	return (_wati_exec(shell.root, fd, &shell));
 }
 
-t_bool	_wati_exec(t_btree *node, t_pipe *fd, t_shell *shell)
+t_bool	_wati_exec(t_btree *node, t_pipe fd, t_shell *shell)
 {
 	t_cmd	*cmd;
 
@@ -41,7 +41,7 @@ t_bool	_wati_exec(t_btree *node, t_pipe *fd, t_shell *shell)
 	return (TRUE);
 }
 
-static t_bool	_wati_and(t_btree *node, t_pipe *fd, t_shell *shell)
+static t_bool	_wati_and(t_btree *node, t_pipe fd, t_shell *shell)
 {
 	if (_wati_exec(node->left, fd, shell))
 		return (_wati_exec(node->right, fd, shell));
@@ -49,7 +49,7 @@ static t_bool	_wati_and(t_btree *node, t_pipe *fd, t_shell *shell)
 		return (FALSE);
 }
 
-static t_bool	_wati_or(t_btree *node, t_pipe *fd, t_shell *shell)
+static t_bool	_wati_or(t_btree *node, t_pipe fd, t_shell *shell)
 {
 	if (!_wati_exec(node->left, fd, shell))
 		return (_wati_exec(node->right, fd, shell));

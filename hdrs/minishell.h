@@ -1,18 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn < bedarenn@student.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/05/13 15:04:36 by bedarenn         ###   ########.fr       */
-=======
-/*   Updated: 2024/05/13 21:56:31 by ehalliez         ###   ########.fr       */
->>>>>>> ehalliez
+/*   Updated: 2024/05/14 12:50:31 by bedarenn         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -164,9 +160,9 @@ t_bool	wait_pids(t_list *list);
 
 /*    EXEC    */
 t_bool	wati_exec(t_shell shell);
-t_bool	_wati_exec(t_btree *node, t_pipe *fd, t_shell *shell);
+t_bool	_wati_exec(t_btree *node, t_pipe fd, t_shell *shell);
 t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell);
-t_bool	wati_pipe(t_btree *node, t_pipe *fd, t_shell *shell);
+t_bool	wati_pipe(t_btree *node, t_pipe fd, t_shell *shell);
 t_bool	_wati_pipe_oper(t_btree *node, t_pipe *fd,
 			t_list **pids, t_shell *shell);
 char	*get_path(t_string cmd, t_list *env);

@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   wati_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: bedarenn < bedarenn@student.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:59:30 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/13 17:07:45 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/14 13:17:16 by bedarenn         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -23,7 +23,7 @@ static t_bool	_wati_pipe_o(t_btree *node, t_pipe *fd,
 static t_bool	_wati_pipe_l(t_btree *node, t_pipe *fd,
 					t_list **pids, t_shell *shell);
 
-t_bool	wati_pipe(t_btree *node, t_pipe *fd, t_shell *shell)
+t_bool	wati_pipe(t_btree *node, t_pipe fd, t_shell *shell)
 {
 	t_list	*pids;
 	t_cmd	*cmd;
@@ -32,14 +32,14 @@ t_bool	wati_pipe(t_btree *node, t_pipe *fd, t_shell *shell)
 	cmd = node->item;
 	if (cmd->oper == NO)
 	{
-		wati_execve(cmd, fd, &pids, shell);
-		close_spipe(*fd);
+		wati_execve(cmd, &fd, &pids, shell);
+		close_spipe(fd);
 		return (wait_pids(pids));
 	}
 	else if (cmd->oper == PIPE)
 	{
-		_wati_pipe_o(node->left, fd, &pids, shell);
-		_wati_pipe_l(node->right, fd, &pids, shell);
+		_wati_pipe_o(node->left, &fd, &pids, shell);
+		_wati_pipe_l(node->right, &fd, &pids, shell);
 		return (wait_pids(pids));
 	}
 	else
@@ -61,10 +61,10 @@ static t_bool	_wati_pipe_o(t_btree *node, t_pipe *fd,
 	t_cmd	*cmd;
 
 	cmd = node->item;
-	if (cmd->oper == PIPE)
-		return (_wati_pipe(node, fd, pids, shell));
 	if (cmd->oper == AND || cmd->oper == OR)
 		_wati_pipe_oper(node, fd, pids, shell);
+	if (cmd->oper == PIPE)
+		return (_wati_pipe(node, fd, pids, shell));
 	pipe(fd->pipe);
 	if (cmd->oper == NO)
 		wati_execve(cmd, fd, pids, shell);
@@ -78,10 +78,10 @@ static t_bool	_wati_pipe_l(t_btree *node, t_pipe *fd,
 	t_cmd	*cmd;
 
 	cmd = node->item;
-	if (cmd->oper == PIPE)
-		return (_wati_pipe(node, fd, pids, shell));
 	if (cmd->oper == AND || cmd->oper == OR)
 		_wati_pipe_oper(node, fd, pids, shell);
+	if (cmd->oper == PIPE)
+		return (_wati_pipe(node, fd, pids, shell));
 	if (cmd->oper == NO)
 		wati_execve(cmd, fd, pids, shell);
 	wati_close(fd->in);
