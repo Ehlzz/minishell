@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_typedef.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:28:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/07 16:19:24 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:16:53 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
