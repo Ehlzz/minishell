@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:06:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/13 22:31:19 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:49:50 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,13 @@ static char	*lf_path(t_string *paths, t_string cmd)
 {
 	char	*str;
 
+	if (cmd && !*cmd)
+	{
+		wati_error("command not found: ''");
+		return (NULL);
+	}
 	if (*cmd && !access(cmd, X_OK))
-			return (cmd);
+		return (cmd);
 	while (*paths)
 	{
 		str = wati_joinf(3, *paths, "/", cmd);

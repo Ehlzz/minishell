@@ -3,4 +3,4 @@
 *.a
 minishell
 .nfs*
-test
+test*

@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/14 15:17:09 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:58:22 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 	t_exec	exec;
 	t_list	*lst;
 
+	pid = 0;
 	if (!cmd || !cmd->strs || !cmd->strs->content)
 		return (0);
 	lst = convert_strs(cmd->strs, shell->env);
@@ -37,7 +38,7 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 			exec.path = get_path(*exec.strs, shell->env);
 			wati_dup_files(cmd->files, fd);
 			if (is_builtin(*exec.strs))
-				return (exec_builtin(exec, shell->env, lst));
+				exec_builtin(exec, shell->env, lst);
 			if (exec.path)
 				__execve(exec, shell->env);
 			free(exec.strs);
@@ -49,7 +50,7 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 			wati_lstclear(&lst, free);
 			exit(EXIT_FAILURE);
 		}
-		if (pids)
+		if (pid)
 			add_pid(pids, pid);
 	}
 	wati_free_tab(exec.strs);
@@ -72,6 +73,7 @@ static t_bool	exec_builtin(t_exec exec, t_list *env, t_list *lst)
 		export(env, exec.strs);
 	wati_free_tab(exec.strs);
 	wati_lstclean(&lst);
+	exit(EXIT_SUCCESS);
 	return (TRUE);
 }
 
