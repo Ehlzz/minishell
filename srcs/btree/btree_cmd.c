@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:58:14 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/10 11:44:31 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:36:00 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,11 @@ static t_bool	cmd_parse_redirect(t_cmd *cmd, t_list **list)
 		return (files_newin(&cmd->files, name->str, -1));
 	else if (token->oper == R_OUT)
 		return (files_newout(&cmd->files, name->str, NULL));
+	else if (token->oper == H_IN)
+	{
+			/*    HERE_DOC    */
+		return (files_newin(&cmd->files, NULL, 15));
+	}
 	else if (token->oper == H_OUT)
 		return (files_newout(&cmd->files, NULL, name->str));
 	return (FALSE);
