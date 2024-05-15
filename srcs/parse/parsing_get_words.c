@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/15 12:27:37 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:09:43 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	is_quoted(char *str)
 	return (verif);
 }
 
-char	*get_line(int verif_quote)
+char	*get_line(int verif_quote, t_list *env)
 {
 	char	*line;
 	char	*tmp;
@@ -129,18 +129,22 @@ char	*get_line(int verif_quote)
 	line = readline(0);
 	if (!line)
 		return (NULL);
+	if (!verif_quote)
+	{
+		tmp = line;
+		line = verify_token(tmp, env);
+		tmp = line;
+		line = wati_strjoin(line, "\n");
+		free(tmp);
+		return (line);
+	}
 	tmp = line;
 	line = wati_strjoin(line, "\n");
 	free(tmp);
-	if (verif_quote)
-	{
-		tmp = line;
-		line = verify_token(line)
-	}
 	return (line);	
 }
 
-int __here_doc(char *limiter, int fd)
+int __here_doc(char *limiter, int fd, t_shell *shell)
 {
 	char	*line;
 	int		size_limiter;
@@ -148,11 +152,13 @@ int __here_doc(char *limiter, int fd)
 	int		verif_quote;
 
 	verif_quote = is_quoted(limiter);
+	if (verif_quote)
+		limiter = remove_quote(limiter);
 	size_limiter = wati_strlen(limiter);
 	while (1)
 	{
 		wati_putstr_fd("> ", 1);
-		line = get_line(verif_quote);
+		line = get_line(verif_quote, shell->env);
 		if (!line)
 			break;
 		size_line = wati_strlen(line);
@@ -162,13 +168,18 @@ int __here_doc(char *limiter, int fd)
 		write(fd, line, size_line);
 		free(line);
 	}
+	btree_clear(shell->root, free_cmd);
+	wati_lstclear(&shell->env, free);
+	wati_lstclear(&shell->list, free);
+	wati_lstclean(&shell->env);
+	wati_lstclean(&shell->list);
 	free(line);
 	free(limiter);
 	close (fd);
 	exit(EXIT_SUCCESS);
 }
 
-int	here_doc(char *limiter)
+int	here_doc(char *limiter, t_shell *shell)
 {
 	int		fd;
 	int		r;
@@ -180,11 +191,14 @@ int	here_doc(char *limiter)
 		return (-1);
 	pid = fork();
 	if (!pid)
-		__here_doc(limiter, fd);
+		__here_doc(limiter, fd, shell);
 	else
 		waitpid(pid, &r, 0);
 	error_code = r;
 	free(limiter);
+	close(fd);
+	fd = open("/tmp/output", O_RDONLY);
+	unlink("/tmp/output");
 	return (fd);
 }
 

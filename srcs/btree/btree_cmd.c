@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   btree_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:58:14 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 12:32:41 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:44:28 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ static t_bool	cmd_parse_redirect(t_cmd *cmd, t_list **list, t_shell *shell)
 	else if (token->oper == H_IN)
 	{
 		(void)shell;
-		return (add_fd(&cmd->files, token->oper, here_doc(name->str)));
+		return (add_fd(&cmd->files, token->oper, here_doc(name->str, shell)));
 	}
 	else if (token->oper == H_OUT)
 		return (add_file(&cmd->files, token->oper, name->str));
