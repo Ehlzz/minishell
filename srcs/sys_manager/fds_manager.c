@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:27:56 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 11:18:11 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:50:18 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,41 @@ t_bool	wati_dup_files(t_list *files, t_pipe *fd)
 		files = files->next;
 	}
 	if (fds.in > 2)
+	{
 		wati_dup2(fds.in, STDIN_FILENO);
+		close(fds.in);
+	}
 	if (fds.out > 2)
+	{
 		wati_dup2(fds.out, STDOUT_FILENO);
+		close(fds.out);
+	}
 	return (TRUE);
 }
 
 static t_bool	open_file(t_file *file, t_fds *fds)
 {
 	if (file->oper == R_IN)
+	{
+		wati_close(fds->in);
 		fds->in = open_read(file->name, O_RDONLY);
+	}
 	else if (file->oper == H_IN)
 	{
+		wati_close(fds->in);
 		fds->in = file->fd;
 		file->fd = -1;
 	}
 	else if (file->oper == R_OUT)
+	{
+		wati_close(fds->out);
 		fds->out = open_write(file->name, O_WRONLY | O_CREAT | O_TRUNC);
+	}
 	else if (file->oper == H_OUT)
+	{
+		wati_close(fds->out);
 		fds->out = open_write(file->name, O_WRONLY | O_CREAT | O_APPEND);
+	}
 	if (fds->in < 0 | fds->out < 0)
 		return (FALSE);
 	return (TRUE);
