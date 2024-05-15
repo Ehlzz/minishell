@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/14 16:20:59 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:02:18 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -49,6 +50,7 @@ int		count_available(char *str);
 char	*dollar_to_end(char *line);
 char	*dollar_to_dollar(char *line);
 char	*start_to_dollar(char *line);
+int		here_doc(char *limiter);
 
 // ### TRIE ### //
 

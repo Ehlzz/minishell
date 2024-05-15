@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_execve.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/14 16:23:04 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:16:20 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static t_bool	_execve(char **argv, t_list **env);
 static void		__execve(t_exec exec, t_list *env);
 static t_bool	exec_builtin(t_exec exec, t_list *env, t_list *lst);
 int				is_builtin(char *path);
+extern int error_code;
 
 t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 {

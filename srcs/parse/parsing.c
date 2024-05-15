@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:39:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/13 21:16:58 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:17:22 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_list	*init_parsing(t_string line)
 	while (*line)
 	{
 		str = get_next_token(&line, &test);
+		printf("[%s]\n", str);
 		if (!str)
 			break ;
 		token = new_token(str);

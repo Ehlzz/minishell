@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/14 16:23:23 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:00:37 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
 #include "minishell.h"
+
+int error_code;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -22,6 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	t_bool	is_work;
 
 	shell.env = env_getlist(envp);
+	error_code = 0;
 	if (argc != 1)
 	{
 		str = argv[1];

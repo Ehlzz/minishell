@@ -6,11 +6,13 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:56:35 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/08 16:17:01 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:58:23 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int error_code;
 
 t_string	find_variable(t_list *env_lst, t_string to_find)
 {
@@ -22,6 +24,8 @@ t_string	find_variable(t_list *env_lst, t_string to_find)
 	str0 = to_find;
 	if (*to_find == '$')
 		to_find++;
+	if (*to_find == '?' && wati_strlen(to_find) == 1)
+		return (wati_itoa(error_code));
 	while (env_lst)
 	{
 		variable = wati_strjoin(to_find, "=");

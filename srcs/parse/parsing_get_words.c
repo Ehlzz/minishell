@@ -6,11 +6,13 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/13 21:17:39 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:39:47 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <sys/wait.h>
+extern int error_code;
 
 char	*get_operator_line(char **line)
 {
@@ -93,32 +95,66 @@ char	*get_next_token(char **line, t_test *test)
 	return (token);
 }
 
-// void	here_doc(char *limiter)
-// {
-// 	int		fd;
-// 	int		size_limiter;
-// 	int		size_line;
-// 	char	*line;
+#include "fcntl.h"
 
-// 	fd = open("testoutput", O_RDWR | O_CREAT | O_TRUNC, 0644);
-// 	if (!fd)
-// 		return ;
-// 	size_limiter = wati_strlen(limiter);
-// 	while (1)
-// 	{
-// 		wati_putstr_fd("> ", 1);
-// 		line = get_next_line(0);
-// 		size_line = wati_strlen(line);
-// 		if (!wati_strncmp(limiter, line, size_limiter) && \
-//				size_line - 1 == size_limiter)
-// 			break ;
-// 		write(fd, line, size_line);
-// 		free(line);
-// 	}
-// 	free(line);
-// 	get_next_line(-1);
-// 	close (fd);
-// }
+char	*get_line()
+{
+	char	*line;
+	char	*tmp;
+
+	line = readline(0);
+	if (!line)
+		return (NULL);
+	tmp = line;
+	line = wati_strjoin(line, "\n");
+	free(tmp);
+	return (line);	
+}
+
+int __here_doc(char *limiter, int fd)
+{
+	char	*line;
+	int		size_limiter;
+	int		size_line;
+	size_limiter = wati_strlen(limiter);
+	while (1)
+	{
+		wati_putstr_fd("> ", 1);
+		line = get_line();
+		if (!line)
+			break;
+		size_line = wati_strlen(line);
+		if (!wati_strncmp(limiter, line, size_limiter) && \
+				size_line - 1 == size_limiter)
+			break ;
+		write(fd, line, size_line);
+		free(line);
+	}
+	free(line);
+	free(limiter);
+	close (fd);
+	exit(EXIT_SUCCESS);
+}
+
+int	here_doc(char *limiter)
+{
+	int		fd;
+	int		r;
+	pid_t	pid;	
+
+	fd = open("/tmp/output", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	r = 0;
+	if (!fd)
+		return (-1);
+	pid = fork();
+	if (!pid)
+		__here_doc(limiter, fd);
+	else
+		waitpid(pid, &r, 0);
+	error_code = r;
+	free(limiter);
+	return (fd);
+}
 
 // int main(int argc, char **argv)
 // {
