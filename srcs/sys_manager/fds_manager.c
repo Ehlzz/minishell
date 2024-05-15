@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:27:56 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/13 16:22:13 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:18:11 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,50 @@
 #include <fcntl.h>
 
 static t_bool	wati_dup2(t_fd fd, t_fd std);
+static t_bool	open_file(t_file *file, t_fds *fds);
 
-t_bool	wati_dup_files(t_files files, t_pipe *fd)
+t_bool	wati_dup_files(t_list *files, t_pipe *fd)
 {
 	t_fds	fds;
 
-	if (files.r_in)
-		fds.in = open_read(files.r_in, O_RDONLY);
-	else if (files.h_in > 2)
-		fds.in = files.h_in;
-	else if (fd->in > 2)
+	fds.in = 0;
+	fds.out = 1;
+	if (fd->in > 2)
 		fds.in = fd->in;
-	else
-		fds.in = STDIN_FILENO;
-	if (files.r_out)
-		fds.out = open_write(files.r_out, O_WRONLY | O_CREAT | O_TRUNC);
-	else if (files.h_out)
-		fds.out = open_write(files.h_out, O_WRONLY | O_CREAT | O_APPEND);
-	else if (fd->pipe[1] > 2)
-		fds.out = fd->pipe[1];
-	else
-		fds.out = STDOUT_FILENO;
+	if (fd->pipe[0] > 2)
+		fds.out = fd->pipe[0];
+	while (files)
+	{
+		if (!open_file(files->content, &fds))
+		{
+			wati_close(fds.in);
+			wati_close(fds.out);
+			return (FALSE);
+		}
+		files = files->next;
+	}
 	if (fds.in > 2)
 		wati_dup2(fds.in, STDIN_FILENO);
 	if (fds.out > 2)
 		wati_dup2(fds.out, STDOUT_FILENO);
+	return (TRUE);
+}
+
+static t_bool	open_file(t_file *file, t_fds *fds)
+{
+	if (file->oper == R_IN)
+		fds->in = open_read(file->name, O_RDONLY);
+	else if (file->oper == H_IN)
+	{
+		fds->in = file->fd;
+		file->fd = -1;
+	}
+	else if (file->oper == R_OUT)
+		fds->out = open_write(file->name, O_WRONLY | O_CREAT | O_TRUNC);
+	else if (file->oper == H_OUT)
+		fds->out = open_write(file->name, O_WRONLY | O_CREAT | O_APPEND);
+	if (fds->in < 0 | fds->out < 0)
+		return (FALSE);
 	return (TRUE);
 }
 

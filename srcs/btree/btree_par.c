@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 09:28:49 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/10 11:44:14 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:33:10 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 #include "minishell.h"
 
-static t_bool	_btree_par(t_btree **root, t_list **list);
+static t_bool	_btree_par(t_btree **root, t_list **list, t_shell *shell);
 
-t_bool	btree_par(t_btree **root, t_list **list)
+t_bool	btree_par(t_btree **root, t_list **list, t_shell *shell)
 {
 	t_token	*token;
 	t_btree	*node;
@@ -34,24 +34,23 @@ t_bool	btree_par(t_btree **root, t_list **list)
 	if (token->oper == P_OUT)
 		return (wati_error("empty parenthesis"));
 	node = NULL;
-	if (!_btree_par(&node, list))
+	if (!_btree_par(&node, list, shell))
 		return (FALSE);
 	if (get_token(*list)->oper == P_OUT)
 		free(get_token(*list)->str);
 	*root = node;
-	get_cmd(node)->is_sub = TRUE;
 	*list = (*list)->next;
 	return (TRUE);
 }
 
-static t_bool	_btree_par(t_btree **root, t_list **list)
+static t_bool	_btree_par(t_btree **root, t_list **list, t_shell *shell)
 {
 	if (!_btree_build_oper(root, list))
 		return (FALSE);
-	if (!_btree_build_pipe(root, list))
+	if (!_btree_build_pipe(root, list, shell))
 		return (FALSE);
 	if (*list && get_token(*list)->oper != P_OUT)
-		return (_btree_par(root, list));
+		return (_btree_par(root, list, shell));
 	if (!*list)
 		return (wati_error("parenthesis not close"));
 	return (TRUE);
