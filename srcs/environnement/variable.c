@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   variable.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:56:35 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/14 16:58:23 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:51:35 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern int error_code;
 
 t_string	find_variable(t_list *env_lst, t_string to_find)
 {

@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:28:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/14 15:16:53 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:21:39 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 typedef char *			t_string;
 typedef int				t_fd;
+
+typedef int				gtype_t;
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dir;

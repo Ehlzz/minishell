@@ -6,15 +6,17 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/15 12:33:53 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:17:25 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
-#include "minishell.h"
+#include <wati_typedef.h>
 
-int error_code;
+gtype_t	error_code;
+
+#include "minishell.h"
 
 int	main(int argc, char **argv, char **envp)
 {

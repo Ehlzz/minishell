@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 12:42:54 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:18:46 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void		__execve(t_exec exec, t_list *env);
 static t_bool	exec_builtin(t_exec exec, t_list *env, t_list *lst,
 					t_shell *shell);
 int				is_builtin(char *path);
-extern int error_code;
 
 t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 {
@@ -50,7 +49,9 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 			if (*pids)
 				wati_lstclear(pids, free);
 			wati_lstclear(&lst, free);
-			exit(EXIT_FAILURE);
+			error_code = 127;
+			wati_fprintf(2, "%i\n", error_code);
+			exit(error_code);
 		}
 		if (pid)
 			add_pid(pids, pid);

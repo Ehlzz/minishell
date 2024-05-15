@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_itoa.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 13:44:54 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 15:45:26 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:06:30 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

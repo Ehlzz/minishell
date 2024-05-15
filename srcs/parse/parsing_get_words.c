@@ -6,13 +6,12 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/15 13:45:33 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:59:21 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <sys/wait.h>
-extern int error_code;
 
 char	*get_operator_line(char **line)
 {

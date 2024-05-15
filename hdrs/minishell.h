@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 13:30:48 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:17:30 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 # include <wati_const.h>
 # include <wati_struct.h>
+
+extern gtype_t	error_code;
 
 char	*ft_join_args(t_string *argv);
 char	*skip_space(t_string *line);

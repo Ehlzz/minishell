@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:58:14 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 13:39:11 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:32:15 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ static t_bool	cmd_parse_redirect(t_cmd *cmd, t_list **list, t_shell *shell)
 	if (!(*list)->next || !(*list)->next->content)
 		return (wati_error("no file given"));
 	token = (*list)->content;
-	free(token->str);
 	(*list) = (*list)->next;
 	name = (*list)->content;
 	(*list) = (*list)->next;
 	if (name->oper != NO)
 		wati_error("syntax error near unexpected token '%s'", token->str);
-	else if (token->oper == R_IN)
+	free(token->str);
+	if (token->oper == R_IN)
 		return (add_file(&cmd->files, token->oper, name->str));
 	else if (token->oper == R_OUT)
 		return (add_file(&cmd->files, token->oper, name->str));

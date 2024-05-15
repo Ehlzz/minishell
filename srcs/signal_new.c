@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_new.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:54:10 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 12:43:48 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:30:22 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <readline/readline.h>
 #include <stdlib.h>
+#include "minishell.h"
 
 static void	sig_rl(int code);
 static void	sig_fork(int code);
@@ -40,6 +41,7 @@ static void	sig_rl(int code)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		error_code = 130;
 	}
 }
 
