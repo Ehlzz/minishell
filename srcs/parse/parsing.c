@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:39:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/15 13:43:33 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:40:46 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*modify_token(char *line, t_list *env_lst)
 		end = find_variable(env_lst, tmp);
 		free(tmp);
 		tmp = wati_strjoin(start, end);
+		free(end);
 		free(start);
 		start = tmp;
 		end = dollar_to_end(line);

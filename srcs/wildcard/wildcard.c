@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/14 15:50:29 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:46:43 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,11 @@ t_list	*wildcard(void)
 			if (list)
 				wati_lstadd_back(&strs, list);
 		}
+		else
+			free(str);
 		entry = readdir(dir);
 	}
+	closedir(dir);
 	return (strs);
 }
 
@@ -76,15 +79,17 @@ int	is_star(char *str)
 
 void	__convert_strs(char *str, t_list **result)
 {
+	t_list	*lst0;
 	t_list	*wildcard;
 
 	wildcard = wildcard_search(str);
+	lst0 = wildcard;
 	while (wildcard)
 	{
 		wati_lstadd_back(result, wati_lstnew(wati_strdup(wildcard->content)));
 		wildcard = wildcard->next;
 	}
-	wati_lstclear(&wildcard, free);
+	wati_lstclear(&lst0, free);
 }
 
 t_list	*convert_strs(t_list *strs, t_list *env)

@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:24:22 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/09 16:44:08 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:16:28 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_list	*env_add(t_list **env, t_string str)
 	t_string	name;
 	t_list		*new;
 
+	printf("[%s]\n", str);
 	name = get_name(str);
 	if (!str)
 		return (NULL);
@@ -89,9 +90,16 @@ void	env_delete(t_list	**env, t_string find)
 		return ;
 	str = wati_strjoin(find, "=");
 	list = get_vat_prev_w_equal(*env, str);
-	free(str);
 	if (!list->next)
 		list = get_vat_prev(*env, find);
+	if (!wati_strncmp(str, list->content, wati_strlen(str)))
+	{
+		next = list;
+		list = list->next;
+		free(str);
+		return ;
+	}
+	free(str);
 	if (list && list->next && list->next->next)
 	{
 		next = list->next;
