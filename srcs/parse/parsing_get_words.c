@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/14 17:39:47 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:27:37 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,31 @@ char	*get_next_token(char **line, t_test *test)
 
 #include "fcntl.h"
 
-char	*get_line()
+int	is_quoted(char *str)
+{	
+	int	verif;
+	int quote;
+
+	quote = 0;
+	verif = 0;
+	while (*str)
+	{
+		if ((*str == '\'' || *str == '"') && !quote)
+		{
+			quote = *str;
+			str++;
+		}
+		if (*str == quote && quote)
+		{
+			verif = 1;
+			quote = 0;
+		}
+		str++;
+	}
+	return (verif);
+}
+
+char	*get_line(int verif_quote)
 {
 	char	*line;
 	char	*tmp;
@@ -108,6 +132,11 @@ char	*get_line()
 	tmp = line;
 	line = wati_strjoin(line, "\n");
 	free(tmp);
+	if (verif_quote)
+	{
+		tmp = line;
+		line = verify_token(line)
+	}
 	return (line);	
 }
 
@@ -116,11 +145,14 @@ int __here_doc(char *limiter, int fd)
 	char	*line;
 	int		size_limiter;
 	int		size_line;
+	int		verif_quote;
+
+	verif_quote = is_quoted(limiter);
 	size_limiter = wati_strlen(limiter);
 	while (1)
 	{
 		wati_putstr_fd("> ", 1);
-		line = get_line();
+		line = get_line(verif_quote);
 		if (!line)
 			break;
 		size_line = wati_strlen(line);
