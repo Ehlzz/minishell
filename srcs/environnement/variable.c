@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:56:35 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/15 17:40:23 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/15 19:00:38 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ t_string	find_variable(t_list *env_lst, t_string to_find)
 	int			len;
 	t_string	line;
 	t_string	variable;
-	t_string	str0;
 
-	str0 = to_find;
 	if (*to_find == '$')
 		to_find++;
 	if (!*to_find)

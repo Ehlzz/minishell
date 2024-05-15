@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:59:00 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/06 15:59:59 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/15 19:41:43 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,20 @@ char	*get_pattern(char *content, char *search)
 	return (content);
 }
 
+int	last_char_check(char *search, char *content)
+{
+	search++;
+	if (*search == '*')
+		return (1);
+	if (content[wati_strlen(content) -1] == *search)
+		return (1);
+	return (0);
+}
+
 int	wildcard_checker(char *search, char *content)
 {
+	if (*search == '*' && wati_strlen(search) == 2)
+		return (last_char_check(search, content));
 	while (*search || *content)
 	{
 		if (*search == '*')
