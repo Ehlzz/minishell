@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:18:26 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/10 15:54:59 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:23:14 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_cmd	*get_cmd(t_btree *node)
 	return (node->item);
 }
 
+static void	free_file(void *ptr);
+
 void	free_cmd(void *ptr)
 {
 	t_cmd	*cmd;
@@ -27,15 +29,21 @@ void	free_cmd(void *ptr)
 	cmd = ptr;
 	if (cmd->strs)
 		wati_lstclear(&cmd->strs, free);
-	if (cmd->files.r_in)
-		free(cmd->files.r_in);
-	if (cmd->files.h_in > 2)
-		close(cmd->files.h_in);
-	if (cmd->files.r_out)
-		free(cmd->files.r_out);
-	if (cmd->files.h_out)
-		free(cmd->files.h_out);
+	if (cmd->files)
+		wati_lstclear(&cmd->files, free_file);
 	free(cmd);
+}
+
+static void	free_file(void *ptr)
+{
+	t_file	*file;
+
+	file = ptr;
+	if (file->fd > 2)
+		wati_close(file->fd);
+	if (file->name)
+		free(file->name);
+	free(file);
 }
 
 void	free_exec(void *ptr)

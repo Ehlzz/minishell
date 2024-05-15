@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:57:07 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/10 11:44:51 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:18:52 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ t_bool	btree_oper(t_btree **root, t_list **list)
 	free(token->str);
 	cmd->oper = token->oper;
 	cmd->strs = NULL;
-	cmd->files = files_build(NULL, -1, NULL, NULL);
-	cmd->is_sub = FALSE;
+	cmd->files = NULL;
 	new = btree_create_node(cmd);
 	if (!new)
 	{

@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:49:29 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/10 11:45:07 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:19:27 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ static t_bool	_btree_pipe(t_btree **root, t_btree *node)
 		return (wati_error("alloc fail"));
 	cmd->oper = PIPE;
 	cmd->strs = NULL;
-	cmd->files = files_build(NULL, -1, NULL, NULL);
-	cmd->is_sub = FALSE;
+	cmd->files = NULL;
 	new = btree_create_node(cmd);
 	if (!new)
 	{
