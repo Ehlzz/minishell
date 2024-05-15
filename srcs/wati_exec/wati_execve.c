@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 14:18:46 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:05:37 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 		pid = fork();
 		if (!pid)
 		{
+			if (*pids)
+				wati_lstclear(pids, free);
 			exec.path = get_path(*exec.strs, shell->env);
 			wati_dup_files(cmd->files, fd);
 			if (is_builtin(*exec.strs))
@@ -46,11 +48,8 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 			free(exec.path);
 			btree_clear(shell->root, free_cmd);
 			wati_lstclear(&shell->env, free);
-			if (*pids)
-				wati_lstclear(pids, free);
 			wati_lstclear(&lst, free);
 			error_code = 127;
-			wati_fprintf(2, "%i\n", error_code);
 			exit(error_code);
 		}
 		if (pid)
@@ -75,11 +74,13 @@ static t_bool	exec_builtin(t_exec exec, t_list *env, t_list *lst,
 		env_print(env);
 	else if (id == EXPORT)
 		export(env, exec.strs);
+	free(exec.strs);
+	free(exec.path);
 	btree_clear(shell->root, free_cmd);
 	wati_lstclear(&shell->env, free);
-	wati_free_tab(exec.strs);
-	wati_lstclean(&lst);
-	exit(EXIT_SUCCESS);
+	wati_lstclear(&lst, free);
+	error_code = 127;
+	exit(error_code);
 	return (TRUE);
 }
 
