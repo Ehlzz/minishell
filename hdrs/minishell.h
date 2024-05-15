@@ -6,13 +6,12 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 12:12:06 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:28:48 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -123,13 +122,13 @@ void	free_cmd(void *ptr);
 void	free_exec(void *ptr);
 
 /*    Binary Tree    */
-t_bool	btree_build(t_btree **root, t_list *list);
+t_bool	btree_build(t_btree **root, t_list *list, t_shell *shell);
 t_bool	_btree_build_oper(t_btree **root, t_list **list);
-t_bool	_btree_build_pipe(t_btree **root, t_list **list);
-t_bool	btree_par(t_btree **root, t_list **list);
+t_bool	_btree_build_pipe(t_btree **root, t_list **list, t_shell *shell);
+t_bool	btree_par(t_btree **root, t_list **list, t_shell *shell);
 t_bool	btree_oper(t_btree **root, t_list **list);
-t_bool	btree_pipe(t_btree **root, t_list **list);
-t_bool	btree_cmd(t_btree **root, t_list **list);
+t_bool	btree_pipe(t_btree **root, t_list **list, t_shell *shell);
+t_bool	btree_cmd(t_btree **root, t_list **list, t_shell *shell);
 	/*    Tools    */
 t_bool	is_opercmd(t_oper oper);
 t_btree	*new_root(t_btree **root, t_btree *node);

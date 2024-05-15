@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:58:14 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 12:12:00 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:32:41 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
-static t_bool	_btree_cmd(t_cmd *cmd, t_list **list);
+static t_bool	_btree_cmd(t_cmd *cmd, t_list **list, t_shell *shell);
 
-t_bool	btree_cmd(t_btree **node, t_list **list)
+t_bool	btree_cmd(t_btree **node, t_list **list, t_shell *shell)
 {
 	t_cmd	*cmd;
 
 	if (get_token(*list)->oper == P_IN)
-		return (btree_par(node, list));
+		return (btree_par(node, list, shell));
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 	{
@@ -31,7 +31,7 @@ t_bool	btree_cmd(t_btree **node, t_list **list)
 	}
 	cmd->oper = NO;
 	cmd->files = NULL;
-	if (!_btree_cmd(cmd, list))
+	if (!_btree_cmd(cmd, list, shell))
 	{
 		free(cmd);
 		return (FALSE);
@@ -45,9 +45,10 @@ t_bool	btree_cmd(t_btree **node, t_list **list)
 	return (TRUE);
 }
 
-static t_bool	cmd_parse_token(t_cmd *cmd, t_list **list, t_list **new);
+static t_bool	cmd_parse_token(t_cmd *cmd, t_list **list, t_list **new,
+					t_shell *shell);
 
-static t_bool	_btree_cmd(t_cmd *cmd, t_list **list)
+static t_bool	_btree_cmd(t_cmd *cmd, t_list **list, t_shell *shell)
 {
 	t_list		*lst;
 	t_list		*new;
@@ -55,7 +56,7 @@ static t_bool	_btree_cmd(t_cmd *cmd, t_list **list)
 	lst = NULL;
 	while (*list && is_opercmd(get_token(*list)->oper))
 	{
-		if (!cmd_parse_token(cmd, list, &new))
+		if (!cmd_parse_token(cmd, list, &new, shell))
 		{
 			wati_lstclear(&lst, free);
 			return (FALSE);
@@ -68,9 +69,10 @@ static t_bool	_btree_cmd(t_cmd *cmd, t_list **list)
 	return (TRUE);
 }
 
-static t_bool	cmd_parse_redirect(t_cmd *cmd, t_list **list);
+static t_bool	cmd_parse_redirect(t_cmd *cmd, t_list **list, t_shell *shell);
 
-static t_bool	cmd_parse_token(t_cmd *cmd, t_list **list, t_list **new)
+static t_bool	cmd_parse_token(t_cmd *cmd, t_list **list, t_list **new,
+					t_shell *shell)
 {
 	t_token	*token;
 
@@ -83,10 +85,10 @@ static t_bool	cmd_parse_token(t_cmd *cmd, t_list **list, t_list **new)
 			return (wati_error("alloc fail"));
 		return (TRUE);
 	}
-	return (cmd_parse_redirect(cmd, list));
+	return (cmd_parse_redirect(cmd, list, shell));
 }
 
-static t_bool	cmd_parse_redirect(t_cmd *cmd, t_list **list)
+static t_bool	cmd_parse_redirect(t_cmd *cmd, t_list **list, t_shell *shell)
 {
 	t_token	*token;
 	t_token	*name;
@@ -105,7 +107,7 @@ static t_bool	cmd_parse_redirect(t_cmd *cmd, t_list **list)
 		return (add_file(&cmd->files, token->oper, name->str));
 	else if (token->oper == H_IN)
 	{
-		/** H_IN replace '-1' **/
+		(void)shell;
 		return (add_fd(&cmd->files, token->oper, here_doc(name->str)));
 	}
 	else if (token->oper == H_OUT)

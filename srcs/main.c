@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/14 17:00:37 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:33:53 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int error_code;
 int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
-	t_list	*lst;
 	t_shell	shell;
 	t_bool	is_work;
 
@@ -28,12 +27,12 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 1)
 	{
 		str = argv[1];
-		lst = init_parsing(str);
-		shell.root = NULL;	
-		wati_lstiter(lst, print_token);
+		shell.list = init_parsing(str);
+		shell.root = NULL;
+		wati_lstiter(shell.list, print_token);
 		wati_printf("\n-----\n");
-		is_work = btree_build(&shell.root, lst);
-		wati_lstclear(&lst, free);
+		is_work = btree_build(&shell.root, shell.list, &shell);
+		wati_lstclear(&shell.list, free);
 		if (is_work)
 		{
 			btree_apply_by_level(shell.root, print_cmd_by_level);
@@ -56,11 +55,11 @@ int	main(int argc, char **argv, char **envp)
 		if (str == NULL)
 			break ;
 		add_history(str);
-		lst = init_parsing(str);
+		shell.list = init_parsing(str);
 		free(str);
 		shell.root = NULL;
-		is_work = btree_build(&shell.root, lst);
-		wati_lstclear(&lst, free);
+		is_work = btree_build(&shell.root, shell.list, &shell);
+		wati_lstclear(&shell.list, free);
 		if (is_work)
 		{
 			btree_apply_by_level(shell.root, print_cmd_by_level);

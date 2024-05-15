@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:49:29 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 11:19:27 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:31:57 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_bool	_btree_pipe(t_btree **root, t_btree *node);
 
-t_bool	_btree_build_pipe(t_btree **root, t_list **list)
+t_bool	_btree_build_pipe(t_btree **root, t_list **list, t_shell *shell)
 {
 	t_token	*token;
 	t_btree	*node;
@@ -25,14 +25,14 @@ t_bool	_btree_build_pipe(t_btree **root, t_list **list)
 	token = (*list)->content;
 	if (is_opercmd(token->oper))
 	{
-		if (!btree_cmd(&node, list))
+		if (!btree_cmd(&node, list, shell))
 			return (FALSE);
 	}
 	if (*list)
 		token = (*list)->content;
 	if (token->oper == PIPE)
 	{
-		if (!btree_pipe(&node, list))
+		if (!btree_pipe(&node, list, shell))
 			return (FALSE);
 	}
 	if (node)
@@ -40,7 +40,7 @@ t_bool	_btree_build_pipe(t_btree **root, t_list **list)
 	return (TRUE);
 }
 
-t_bool	btree_pipe(t_btree **root, t_list **list)
+t_bool	btree_pipe(t_btree **root, t_list **list, t_shell *shell)
 {
 	t_btree	*node;
 
@@ -52,7 +52,7 @@ t_bool	btree_pipe(t_btree **root, t_list **list)
 			return (wati_error("parse error near '%s'", get_token(*list)->str));
 		free(get_token(*list)->str);
 		(*list) = (*list)->next;
-		if (!btree_cmd(&node, list))
+		if (!btree_cmd(&node, list, shell))
 			return (FALSE);
 		if (!_btree_pipe(root, node))
 			return (FALSE);
