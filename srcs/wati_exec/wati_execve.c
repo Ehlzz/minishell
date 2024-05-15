@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_execve.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/14 18:16:20 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:42:54 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 static t_bool	_execve(char **argv, t_list **env);
 static void		__execve(t_exec exec, t_list *env);
-static t_bool	exec_builtin(t_exec exec, t_list *env, t_list *lst);
+static t_bool	exec_builtin(t_exec exec, t_list *env, t_list *lst,
+					t_shell *shell);
 int				is_builtin(char *path);
 extern int error_code;
 
@@ -39,7 +40,7 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 			exec.path = get_path(*exec.strs, shell->env);
 			wati_dup_files(cmd->files, fd);
 			if (is_builtin(*exec.strs))
-				exec_builtin(exec, shell->env, lst);
+				exec_builtin(exec, shell->env, lst, shell);
 			if (exec.path)
 				__execve(exec, shell->env);
 			free(exec.strs);
@@ -59,7 +60,8 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 	return (TRUE);
 }
 
-static t_bool	exec_builtin(t_exec exec, t_list *env, t_list *lst)
+static t_bool	exec_builtin(t_exec exec, t_list *env, t_list *lst,
+					t_shell *shell)
 {
 	int	id;
 
@@ -72,6 +74,8 @@ static t_bool	exec_builtin(t_exec exec, t_list *env, t_list *lst)
 		env_print(env);
 	else if (id == EXPORT)
 		export(env, exec.strs);
+	btree_clear(shell->root, free_cmd);
+	wati_lstclear(&shell->env, free);
 	wati_free_tab(exec.strs);
 	wati_lstclean(&lst);
 	exit(EXIT_SUCCESS);
