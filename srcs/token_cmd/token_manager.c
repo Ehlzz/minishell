@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:31:28 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/05 12:43:58 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:41:56 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

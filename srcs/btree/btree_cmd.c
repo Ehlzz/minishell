@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   btree_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:58:14 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 12:44:28 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:39:11 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,19 @@ static t_bool	cmd_parse_token(t_cmd *cmd, t_list **list, t_list **new,
 
 static t_bool	_btree_cmd(t_cmd *cmd, t_list **list, t_shell *shell)
 {
-	t_list		*lst;
 	t_list		*new;
 
-	lst = NULL;
+	cmd->strs = NULL;
 	while (*list && is_opercmd(get_token(*list)->oper))
 	{
 		if (!cmd_parse_token(cmd, list, &new, shell))
 		{
-			wati_lstclear(&lst, free);
+			wati_lstclear(&cmd->strs, free);
 			return (FALSE);
 		}
 		if (new)
-			wati_lstadd_back(&lst, new);
-		(*list) = (*list)->next;
+			wati_lstadd_back(&cmd->strs, new);
 	}
-	cmd->strs = lst;
 	return (TRUE);
 }
 
@@ -83,6 +80,7 @@ static t_bool	cmd_parse_token(t_cmd *cmd, t_list **list, t_list **new,
 		*new = wati_lstnew(token->str);
 		if (!*new)
 			return (wati_error("alloc fail"));
+		(*list) = (*list)->next;
 		return (TRUE);
 	}
 	return (cmd_parse_redirect(cmd, list, shell));
@@ -99,6 +97,7 @@ static t_bool	cmd_parse_redirect(t_cmd *cmd, t_list **list, t_shell *shell)
 	free(token->str);
 	(*list) = (*list)->next;
 	name = (*list)->content;
+	(*list) = (*list)->next;
 	if (name->oper != NO)
 		wati_error("syntax error near unexpected token '%s'", token->str);
 	else if (token->oper == R_IN)
@@ -106,10 +105,8 @@ static t_bool	cmd_parse_redirect(t_cmd *cmd, t_list **list, t_shell *shell)
 	else if (token->oper == R_OUT)
 		return (add_file(&cmd->files, token->oper, name->str));
 	else if (token->oper == H_IN)
-	{
-		(void)shell;
-		return (add_fd(&cmd->files, token->oper, here_doc(name->str, shell)));
-	}
+		return (add_fd(&cmd->files, token->oper,
+				here_doc(name->str, cmd, list, shell)));
 	else if (token->oper == H_OUT)
 		return (add_file(&cmd->files, token->oper, name->str));
 	return (FALSE);
