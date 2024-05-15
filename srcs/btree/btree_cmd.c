@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:58:14 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/14 16:36:00 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:25:40 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ t_bool	btree_cmd(t_btree **node, t_list **list)
 		free(cmd);
 		return (FALSE);
 	}
-	cmd->is_sub = FALSE;
 	cmd->oper = NO;
-	cmd->files = files_build(NULL, -1, NULL, NULL);
+	cmd->files = NULL;
 	if (!_btree_cmd(cmd, list))
 	{
 		free(cmd);
@@ -101,16 +100,16 @@ static t_bool	cmd_parse_redirect(t_cmd *cmd, t_list **list)
 	if (name->oper != NO)
 		wati_error("syntax error near unexpected token '%s'", token->str);
 	else if (token->oper == R_IN)
-		return (files_newin(&cmd->files, name->str, -1));
+		return (add_file(&cmd->files, token->oper, name->str));
 	else if (token->oper == R_OUT)
-		return (files_newout(&cmd->files, name->str, NULL));
+		return (add_file(&cmd->files, token->oper, name->str));
 	else if (token->oper == H_IN)
 	{
-			/*    HERE_DOC    */
-		return (files_newin(&cmd->files, NULL, 15));
+		/** H_IN replace '-1' **/
+		return (add_fd(&cmd->files, token->oper, /**/-1/**/));
 	}
 	else if (token->oper == H_OUT)
-		return (files_newout(&cmd->files, NULL, name->str));
+		return (add_file(&cmd->files, token->oper, name->str));
 	return (FALSE);
 }
 
