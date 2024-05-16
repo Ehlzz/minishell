@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 18:08:50 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:12:07 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ char	*modify_token(char *line, t_list *env_lst);
 char	*verify_token(char *line, t_list *env_lst);
 char	*remove_quote(char *str);
 int		count_available(char *str);
-char	*dollar_to_end(char *line);
-char	*dollar_to_dollar(char *line);
-char	*start_to_dollar(char *line);
+char	*dollar_to_end(char *line, int i);
+char	*dollar_to_dollar(char *line, int i);
+char	*start_to_dollar(char *line, int i);
 int		here_doc(char *limiter, t_cmd *cmd, t_list **list, t_shell *shell);
 
 // ### TRIE ### //
