@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:59:28 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/16 18:02:15 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/16 19:56:46 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*get_line(int verif_quote, t_list *env)
 	char	*tmp;
 
 	line = readline("> ");
+	if (*line == '\0')
+		return (line);
 	if (!line)
 		return (NULL);
 	if (!verif_quote)
