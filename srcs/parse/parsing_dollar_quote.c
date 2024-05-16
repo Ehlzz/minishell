@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:32:55 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/16 15:51:54 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:57:57 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*dollar_to_dollar(char *line, int i)
 	}
 	len_start = str - line;
 	str++;
-	while (*str && wati_isalnum(*str))
+	while (*str && (wati_isalnum(*str) || *str == '_' || *str == '?'))
 		str++;
 	len_end = str - line;
 	return (wati_substr(line, len_start, len_end - len_start));
@@ -92,7 +92,7 @@ char	*dollar_to_end(char *line, int i)
 	}
 	if (*str == '$')
 		str++;
-	while (*str && wati_isalnum(*str))
+	while (*str && (wati_isalnum(*str) || *str == '_' || *str == '?'))
 		str++;
 	return (wati_substr(line, str - line, wati_strlen(line)));
 }
