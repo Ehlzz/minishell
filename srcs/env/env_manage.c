@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:24:22 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 18:16:28 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:06:32 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_list	*env_add(t_list **env, t_string str)
 	t_string	name;
 	t_list		*new;
 
-	printf("[%s]\n", str);
 	name = get_name(str);
 	if (!str)
 		return (NULL);
@@ -63,7 +62,11 @@ t_list	*env_add(t_list **env, t_string str)
 	if (!new)
 		new = get_var_not_assigned(*env, name);
 	if (new && !is_char_equal(str))
+	{
+		free(str);
+		free(name);
 		return (new);
+	}
 	free(name);
 	if (new)
 	{
