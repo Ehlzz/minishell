@@ -6,17 +6,30 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:54:25 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/16 19:59:35 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:22:45 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <sys/wait.h>
+#include <signal.h>
 #include "fcntl.h"
 
 void	close_free_utils(char *limiter, char *line, int fd);
 void	free_in_fork(t_cmd *cmd, t_list **list, t_shell *shell);
 char	*get_line(int verif_quote, t_list *env);
+// void	set_signal_here_doc(void);
+
+// void	sig_here_doc(int code)
+// {
+// 	if (code == SIGINT)
+// 	{
+// 		error_code = 130;
+// 	}	
+// 	else if (code == SIGQUIT)
+// 	{
+// 	}
+// }
 
 int	is_quoted(char *str)
 {
@@ -80,7 +93,10 @@ int	here_doc(char *limiter, t_cmd *cmd, t_list **list, t_shell *shell)
 	r = 0;
 	pid = fork();
 	if (!pid)
+	{
+		set_signal_here_doc();
 		__here_doc(limiter, cmd, list, shell);
+	}
 	else
 		waitpid(pid, &r, 0);
 	error_code = r;
