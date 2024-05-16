@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:27:56 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 12:55:33 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/16 12:27:26 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_bool	wati_dup_files(t_list *files, t_pipe *fd)
 	fds.out = 1;
 	if (fd->in > 2)
 		fds.in = fd->in;
-	if (fd->pipe[0] > 2)
-		fds.out = fd->pipe[0];
+	if (fd->pipe[1] > 2)
+		fds.out = fd->pipe[1];
 	while (files)
 	{
 		if (!open_file(files->content, &fds))
