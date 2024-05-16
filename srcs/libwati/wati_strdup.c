@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_strdup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:14:02 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 15:46:43 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:02:07 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

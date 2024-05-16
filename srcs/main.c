@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/15 14:17:25 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/16 13:59:41 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	main(int argc, char **argv, char **envp)
 			wati_exec(shell);
 			btree_clear(shell.root, free_cmd);
 		}
+		else
+			wati_fprintf(2, "EXEC_NOTHING\n");
 		wati_lstclear(&shell.env, free);
 		return (0);
 	}

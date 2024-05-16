@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:58:14 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 14:32:15 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:08:29 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static t_bool	cmd_parse_token(t_cmd *cmd, t_list **list, t_list **new,
 
 	token = (*list)->content;
 	*new = NULL;
+	if (!is_opercmd(token->oper) || token->oper == P_IN)
+		return (wati_error("parse error near '%s'", get_token(*list)->str));
 	if (token->oper == NO)
 	{
 		*new = wati_lstnew(token->str);

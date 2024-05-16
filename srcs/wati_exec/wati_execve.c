@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/16 12:27:39 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:06:26 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 
 static t_bool	_execve(char **argv, t_list **env);
 static void		__execve(t_exec exec, t_list *env);
-static t_bool	exec_builtin(t_exec exec, t_list *env, t_list *lst,
-					t_shell *shell);
+static t_bool	exec_builtin(t_exec exec, t_list *env);
 int				is_builtin(char *path);
 
 t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
@@ -31,6 +30,7 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 		return (0);
 	lst = convert_strs(cmd->strs, shell->env);
 	exec.strs = wati_lstsplit(lst);
+	wati_lstclean(&lst);
 	if (!_execve(exec.strs, &shell->env))
 	{
 		pid = fork();
@@ -39,34 +39,34 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 			exec.path = get_path(*exec.strs, shell->env);
 			wati_dup_files(cmd->files, fd);
 			if (is_builtin(*exec.strs))
-				exec_builtin(exec, shell->env, lst, shell);
-			if (exec.path)
+				exec_builtin(exec, shell->env);
+			else if (exec.path)
 				__execve(exec, shell->env);
-			free(exec.strs);
-			free(exec.path);
-			btree_clear(shell->root, free_cmd);
+			else
+			{
+				error_code = 127;
+				free(exec.path);
+			}
+			wati_free_tab(exec.strs);
 			wati_lstclear(&shell->env, free);
+			btree_clear(shell->root, free_cmd);
 			if (*pids)
 				wati_lstclear(pids, free);
-			wati_lstclear(&lst, free);
-			error_code = 127;
-			wati_fprintf(2, "%i\n", error_code);
 			exit(error_code);
 		}
 		if (pid)
 			add_pid(pids, pid);
 	}
 	wati_free_tab(exec.strs);
-	wati_lstclean(&lst);
 	return (TRUE);
 }
 
-static t_bool	exec_builtin(t_exec exec, t_list *env, t_list *lst,
-					t_shell *shell)
+static t_bool	exec_builtin(t_exec exec, t_list *env)
 {
 	int	id;
 
 	id = is_builtin(*exec.strs);
+	error_code = 0;
 	if (id == ECHO)
 		wati_echo(exec.strs);
 	else if (id == PWD)
@@ -75,11 +75,6 @@ static t_bool	exec_builtin(t_exec exec, t_list *env, t_list *lst,
 		env_print(env);
 	else if (id == EXPORT)
 		export(env, exec.strs);
-	btree_clear(shell->root, free_cmd);
-	wati_lstclear(&shell->env, free);
-	wati_free_tab(exec.strs);
-	wati_lstclean(&lst);
-	exit(EXIT_SUCCESS);
 	return (TRUE);
 }
 
@@ -134,6 +129,8 @@ t_bool	_execve(char **argv, t_list **env)
 
 static void	__execve(t_exec exec, t_list *env)
 {
-	exec.envp = wati_lstsplit(env);
-	execve(exec.path, exec.strs, exec.envp);
+	char	**envp;
+
+	envp = wati_lstsplit(env);
+	execve(exec.path, exec.strs, envp);
 }
