@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+         #
+#    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/05/15 13:32:19 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/05/16 18:16:58 by ehalliez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,12 +34,13 @@ DIR := \
 
 SRCS = \
 	wati_std/wati_readline.c wati_std/wati_prompt.c wati_std/wati_error.c \
-	env/env_manage.c env/env_tools.c \
+	env/env_manage.c env/env_tools.c env/env_delete.c \
 	dir/dir_manage.c \
-	builtin/echo.c builtin/env.c builtin/export/export_concat.c builtin/export/export_utils.c builtin/export/export.c\
+	builtin/echo.c builtin/env.c builtin/export/export_concat.c builtin/export/export_utils.c builtin/export/export.c builtin/exit.c builtin/cd.c \
 	signal_new.c \
-	parse/parsing.c parse/parsing_utils.c parse/parsing_dollar_quote.c parse/parsing_get_words.c \
-	environnement/variable.c environnement/manage_oper.c wildcard/wildcard.c wildcard/wildcard_utils.c \
+	here_doc/here_doc_utils.c here_doc/here_doc.c \
+	parse/parsing.c parse/parsing_utils.c parse/parsing_dollar_quote.c parse/parsing_get_words.c parse/parsing_dollar_utils.c \
+	environnement/variable.c environnement/manage_oper.c wildcard/wildcard.c wildcard/get_current_dir.c wildcard/wildcard_utils.c \
 	token_cmd/token_manager.c token_cmd/cmd_manager.c token_cmd/print_manager.c \
 	redirect/open_read.c redirect/open_write.c \
 	sys_manager/fds_manager.c sys_manager/pid_manager.c \
@@ -51,7 +52,7 @@ SRCS = \
 	btree/btree_cmd.c \
 	btree/btree_par.c \
 	btree/btree_root.c \
-	wati_exec/wati_exec.c wati_exec/wati_execve.c \
+	wati_exec/wati_exec.c wati_exec/wati_execve.c wati_exec/execve_utils.c \
 	wati_exec/wati_pipe.c \
 	wati_exec/wati_pipe_oper.c \
 	wati_exec/parsing/get_path.c \

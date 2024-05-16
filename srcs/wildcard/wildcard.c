@@ -6,43 +6,11 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/15 19:51:02 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/16 18:03:58 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
-#include <dirent.h>
-
-t_list	*wildcard(void)
-{
-	DIR		*dir;
-	t_dir	*entry;
-	t_list	*strs;
-	char	*str;
-	t_list	*list;
-
-	dir = opendir(".");
-	if (dir == NULL)
-		return (NULL);
-	strs = NULL;
-	entry = readdir(dir);
-	while (entry)
-	{
-		str = wati_strdup(entry->d_name);
-		if (str && *str != '.')
-		{
-			list = wati_lstnew(str);
-			if (list)
-				wati_lstadd_back(&strs, list);
-		}
-		else
-			free(str);
-		entry = readdir(dir);
-	}
-	closedir(dir);
-	return (strs);
-}
 
 t_list	*wildcard_search(char *search)
 {
@@ -50,7 +18,7 @@ t_list	*wildcard_search(char *search)
 	t_list	*lst0;
 	t_list	*new_lst;
 
-	start = wildcard();
+	start = get_current_dir();
 	lst0 = start;
 	new_lst = NULL;
 	while (start)

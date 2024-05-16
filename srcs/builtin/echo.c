@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:19:19 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/16 12:50:47 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/16 19:45:13 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	wati_echo(t_string *strs)
 
 static t_bool	check_first_arg(t_string str)
 {
+	if (*str == '-' && *(str + 1) == '\0')
+		return (TRUE);
 	if (*str != '-')
 		return (TRUE);
 	str++;

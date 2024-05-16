@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:29:49 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/09 16:55:45 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/16 18:18:40 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 #include "libwati.h"
 #include "wati_typedef.h"
-
-void	print_endl(void *ptr)
-{
-	wati_putendl_fd((t_string)ptr, 1);
-}
 
 t_list	*get_var_not_assigned(const t_list *list, t_string find)
 {

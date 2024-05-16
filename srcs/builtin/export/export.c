@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 19:20:58 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/15 18:23:21 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/16 18:51:00 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*__export_getline(char *str)
 {
 	char	*result;
 
+	if (wati_strlen(str) == 1)
+		return (wati_strjoin("declare -x ", str));
 	result = wati_strjoin("declare -x ", str);
 	return (add_quote(result));
 }
@@ -100,6 +102,7 @@ void	export(t_list *env, char **strs)
 		{
 			printf("bash: export: `%s': not a valid identifier\n", *strs);
 			strs++;
+			error_code = 1;
 			continue ;
 		}
 		if (!verif)

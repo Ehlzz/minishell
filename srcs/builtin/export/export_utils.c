@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:48:21 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/09 16:50:01 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/16 18:46:17 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*_add_quote(char *str, char *result, char *str0, int i)
 {
-	while (*str)
+	while (str && *str)
 	{
 		result[i] = *str;
 		i++;
@@ -36,7 +36,7 @@ char	*add_quote(char *str)
 	i = 0;
 	str0 = str;
 	len = wati_strlen(str) + 2;
-	result = malloc(len + 1);
+	result = malloc(len + 2);
 	while (*str && *str != '=')
 	{
 		result[i] = *str;

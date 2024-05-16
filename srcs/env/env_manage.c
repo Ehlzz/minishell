@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:24:22 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/16 16:06:32 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/16 18:18:58 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,23 @@ t_string	env_search(t_list *env, t_string var)
 	return (str);
 }
 
+t_list	*__env_add(char *str, t_list **env, t_list *new)
+{
+	if (new)
+	{
+		if (new->content)
+			free(new->content);
+		new->content = str;
+	}
+	else
+	{
+		new = wati_lstnew(str);
+		if (new)
+			wati_lstadd_back(env, new);
+	}
+	return (new);
+}
+
 t_list	*env_add(t_list **env, t_string str)
 {
 	t_string	name;
@@ -68,52 +85,11 @@ t_list	*env_add(t_list **env, t_string str)
 		return (new);
 	}
 	free(name);
-	if (new)
-	{
-		if (new->content)
-			free(new->content);
-		new->content = str;
-	}
-	else
-	{
-		new = wati_lstnew(str);
-		if (new)
-			wati_lstadd_back(env, new);
-	}
+	new = __env_add(str, env, new);
 	return (new);
 }
 
-void	env_delete(t_list	**env, t_string find)
+void	print_endl(void *ptr)
 {
-	t_string	str;
-	t_list		*list;
-	t_list		*next;
-
-	if (!env || !*env || !(*env)->content || !find || !*find)
-		return ;
-	str = wati_strjoin(find, "=");
-	list = get_vat_prev_w_equal(*env, str);
-	if (!list->next)
-		list = get_vat_prev(*env, find);
-	if (!wati_strncmp(str, list->content, wati_strlen(str)))
-	{
-		next = list;
-		list = list->next;
-		free(str);
-		return ;
-	}
-	free(str);
-	if (list && list->next && list->next->next)
-	{
-		next = list->next;
-		list->next = list->next->next;
-		wati_lstdelone(next, free);
-		return ;
-	}
-	if (list && list->next)
-	{
-		next = list->next;
-		list->next = NULL;
-		wati_lstdelone(next, free);
-	}
+	wati_putendl_fd((t_string)ptr, 1);
 }

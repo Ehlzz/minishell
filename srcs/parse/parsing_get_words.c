@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_get_words.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/15 13:59:21 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:58:12 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,10 @@ char	*skip_space(char **line)
 	return (str0);
 }
 
-char	*get_word(char **line, t_test *test)
+char	*__get_word(char *str, t_test *test)
 {
-	char	*str0;
-	char	*str;
 	char	quote_c;
 
-	str = *line;
-	str0 = str;
 	quote_c = 0;
 	while (*str)
 	{
@@ -72,6 +68,17 @@ char	*get_word(char **line, t_test *test)
 			break ;
 		str++;
 	}
+	return (str);
+}
+
+char	*get_word(char **line, t_test *test)
+{
+	char	*str0;
+	char	*str;
+
+	str = *line;
+	str0 = str;
+	str = __get_word(str, test);
 	*line += str - str0;
 	return (wati_substr(str0, 0, str - str0));
 }
@@ -93,113 +100,3 @@ char	*get_next_token(char **line, t_test *test)
 	skip_space(line);
 	return (token);
 }
-
-#include "fcntl.h"
-
-int	is_quoted(char *str)
-{	
-	int	verif;
-	int quote;
-
-	quote = 0;
-	verif = 0;
-	while (*str)
-	{
-		if ((*str == '\'' || *str == '"') && !quote)
-		{
-			quote = *str;
-			str++;
-		}
-		if (*str == quote && quote)
-		{
-			verif = 1;
-			quote = 0;
-		}
-		str++;
-	}
-	return (verif);
-}
-
-char	*get_line(int verif_quote, t_list *env)
-{
-	char	*line;
-	char	*tmp;
-
-	line = readline("> ");
-	if (!line)
-		return (NULL);
-	if (!verif_quote)
-	{
-		tmp = line;
-		line = verify_token(tmp, env);
-		tmp = line;
-		line = wati_strjoin(line, "\n");
-		free(tmp);
-		return (line);
-	}
-	tmp = line;
-	line = wati_strjoin(line, "\n");
-	free(tmp);
-	return (line);	
-}
-
-int __here_doc(char *limiter, t_cmd *cmd, t_list **list, t_shell *shell)
-{
-	char	*line;
-	int		size_limiter;
-	int		size_line;
-	int		verif_quote;
-	int		fd;
-
-	fd = open("/tmp/output", O_RDWR | O_CREAT | O_TRUNC, 0644);
-	verif_quote = is_quoted(limiter);
-	if (verif_quote)
-		limiter = remove_quote(limiter);
-	size_limiter = wati_strlen(limiter);
-	while (1)
-	{
-		line = get_line(verif_quote, shell->env);
-		if (!line)
-			break ;
-		size_line = wati_strlen(line);
-		if (!wati_strncmp(limiter, line, size_limiter) && \
-				size_line - 1 == size_limiter)
-			break ;
-		write(fd, line, size_line);
-		free(line);
-	}
-	btree_clear(shell->root, free_cmd);
-	wati_lstclear(&shell->env, free);
-	free_cmd(cmd);
-	wati_lstiter(*list, free_token);
-	wati_lstclear(&shell->list, free);
-	free(line);
-	free(limiter);
-	close (fd);
-	exit(EXIT_SUCCESS);
-}
-
-int	here_doc(char *limiter, t_cmd *cmd, t_list **list, t_shell *shell)
-{
-	t_fd	fd;
-	int		r;
-	pid_t	pid;
-
-	r = 0;
-	pid = fork();
-	if (!pid)
-		__here_doc(limiter, cmd, list, shell);
-	else
-		waitpid(pid, &r, 0);
-	error_code = r;
-	free(limiter);
-	fd = open("/tmp/output", O_RDONLY);
-	unlink("/tmp/output");
-	return (fd);
-}
-
-// int main(int argc, char **argv)
-// {
-// 	if (argc != 1)
-// 		here_doc(argv[1]);
-// }
