@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:54:25 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/16 20:22:45 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:08:43 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	here_doc(char *limiter, t_cmd *cmd, t_list **list, t_shell *shell)
 	pid = fork();
 	if (!pid)
 	{
-		set_signal_here_doc();
+		//set_signal_here_doc();
 		__here_doc(limiter, cmd, list, shell);
 	}
 	else
