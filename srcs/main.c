@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/17 13:39:30 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/17 17:17:45 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #include "minishell.h"
 
-t_gtype	error_code;
+int	error_code;
 
 int	main(int argc, char **argv, char **envp)
 {

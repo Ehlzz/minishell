@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:54:25 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/17 12:08:43 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/17 17:36:20 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,23 @@ void	__here_doc(char *limiter, t_cmd *cmd, t_list **list, t_shell *shell)
 int	here_doc(char *limiter, t_cmd *cmd, t_list **list, t_shell *shell)
 {
 	t_fd	fd;
+	t_fd	fd_dup;
 	int		r;
 	pid_t	pid;
 
 	r = 0;
+	set_signal_fork();
 	pid = fork();
 	if (!pid)
 	{
-		//set_signal_here_doc();
+		fd_dup = dup(0);
+		error_code = 0;
+		set_signal_here_doc();
 		__here_doc(limiter, cmd, list, shell);
+		close(fd_dup);
+		exit(EXIT_SUCCESS);
 	}
-	else
-		waitpid(pid, &r, 0);
+	waitpid(pid, &r, 0);
 	error_code = r;
 	free(limiter);
 	fd = open("/tmp/output", O_RDONLY);
