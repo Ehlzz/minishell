@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 14:17:30 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/16 19:46:14 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <wati_const.h>
 # include <wati_struct.h>
 
-extern gtype_t	error_code;
+extern t_gtype	error_code;
 
 char	*ft_join_args(t_string *argv);
 char	*skip_space(t_string *line);
@@ -48,9 +48,9 @@ char	*modify_token(char *line, t_list *env_lst);
 char	*verify_token(char *line, t_list *env_lst);
 char	*remove_quote(char *str);
 int		count_available(char *str);
-char	*dollar_to_end(char *line);
-char	*dollar_to_dollar(char *line);
-char	*start_to_dollar(char *line);
+char	*dollar_to_end(char *line, int i);
+char	*dollar_to_dollar(char *line, int i);
+char	*start_to_dollar(char *line, int i);
 int		here_doc(char *limiter, t_cmd *cmd, t_list **list, t_shell *shell);
 
 // ### TRIE ### //
@@ -62,6 +62,7 @@ int		count_dollars(char *line);
 
 t_list	*init_parsing(char *line);
 t_list	*wildcard_search(char *search);
+t_list	*get_current_dir(void);
 t_list	*create_env_list(char **env);
 int		wildcard_checker(char *search, char *content);
 int		is_star(char *str);
@@ -85,6 +86,9 @@ t_list	*get_vat_prev_w_equal(const t_list *list, t_string find);
 void	wati_chdir(t_list **env, const t_string dir_name);
 void	update_pwd(t_list **env);
 void	print_pwd(void);
+char	*get_dir(t_list **env, const t_string dir_name);
+char	*check_tild(char *dir, t_list *env);
+int		is_directory(const t_string dir_name);
 
 /* Builtin export */
 void	export(t_list *env, char **strs);
@@ -95,6 +99,10 @@ int		is_char_before_char(char *str, int find, int until);
 int		strlen_to_char(char *str, int c);
 char	*add_quote(char *str);
 int		is_char_equal(char *str);
+
+/* 	  Builtin exit	*/
+
+void	ft_exit(t_shell *shell, char **strs);
 
 /*    Builtin echo    */
 void	wati_echo(t_string *strs);

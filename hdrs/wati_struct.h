@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 12:16:58 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:44:51 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_exec
 {
 	t_string	path;
 	t_string	*strs;
-	t_string	*envp;
 }	t_exec;
 
 typedef struct s_pipe

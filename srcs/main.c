@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/15 14:17:25 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:17:00 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 #include <wati_typedef.h>
 
-gtype_t	error_code;
-
 #include "minishell.h"
+
+t_gtype	error_code;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -42,6 +42,8 @@ int	main(int argc, char **argv, char **envp)
 			wati_exec(shell);
 			btree_clear(shell.root, free_cmd);
 		}
+		else
+			wati_fprintf(2, "EXEC_NOTHING\n");
 		wati_lstclear(&shell.env, free);
 		return (0);
 	}
@@ -60,17 +62,19 @@ int	main(int argc, char **argv, char **envp)
 		shell.list = init_parsing(str);
 		free(str);
 		shell.root = NULL;
+		wati_lstiter(shell.list, print_token);
+		wati_printf("\n-----\n");
 		is_work = btree_build(&shell.root, shell.list, &shell);
 		wati_lstclear(&shell.list, free);
 		if (is_work)
 		{
 			btree_apply_by_level(shell.root, print_cmd_by_level);
-			wati_printf("-----\n");
+			wati_printf("\n-----\n");
 			wati_exec(shell);
 			btree_clear(shell.root, free_cmd);
 		}
 		else
-			btree_clear(shell.root, free_cmd);
+			wati_fprintf(2, "EXEC_NOTHING\n");
 	}
 	wati_lstclear(&shell.env, free);
 	return (0);

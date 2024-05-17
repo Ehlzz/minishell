@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_lstsplit.c                                    :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:34:47 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 19:00:18 by ehalliez         ###   ########.fr       */
+/*   Created: 2024/05/16 17:44:31 by ehalliez          #+#    #+#             */
+/*   Updated: 2024/05/16 18:04:31 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libwati.h>
-#include <stdlib.h>
+#include <minishell.h>
 
-char	**wati_lstsplit(t_list *list)
+void	wati_chdir(t_list **env, const t_string dir_name)
 {
-	char	**strs0;
-	char	**strs;
-	size_t	size;
+	char	*new_dir;
 
-	size = wati_lstsize(list);
-	strs0 = malloc(sizeof(char *) * (size + 1));
-	if (!strs0)
-		return (NULL);
-	strs0[size] = NULL;
-	strs = strs0;
-	while (list)
+	if (!env || !*env)
+		return ;
+	new_dir = get_dir(env, dir_name);
+	new_dir = check_tild(new_dir, *env);
+	if (!new_dir)
+		return ;
+	if (is_directory(new_dir) > 0)
 	{
-		*strs = list->content;
-		list = list->next;
-		strs++;
+		chdir(new_dir);
+		update_pwd(env);
 	}
-	return (strs0);
+	else
+		wati_fprintf(2, "cd: %s: No such file or directory\n", dir_name);
+	free(new_dir);
 }

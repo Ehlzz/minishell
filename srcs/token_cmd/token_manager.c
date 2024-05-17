@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:31:28 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 13:41:56 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:10:01 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ void	print_token(void *ptr)
 	token = ptr;
 	fprint_operator(token->oper, 1);
 	if (token->oper == NO)
-		wati_printf(" %s ", token->str);
+		wati_printf("%s ", token->str);
 }

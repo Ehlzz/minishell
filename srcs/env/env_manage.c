@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:24:22 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/09 16:44:08 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/16 18:18:58 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,8 @@ t_string	env_search(t_list *env, t_string var)
 	return (str);
 }
 
-t_list	*env_add(t_list **env, t_string str)
+t_list	*__env_add(char *str, t_list **env, t_list *new)
 {
-	t_string	name;
-	t_list		*new;
-
-	name = get_name(str);
-	if (!str)
-		return (NULL);
-	new = get_var(*env, name);
-	if (!new)
-		new = get_var_not_assigned(*env, name);
-	if (new && !is_char_equal(str))
-		return (new);
-	free(name);
 	if (new)
 	{
 		if (new->content)
@@ -79,30 +67,29 @@ t_list	*env_add(t_list **env, t_string str)
 	return (new);
 }
 
-void	env_delete(t_list	**env, t_string find)
+t_list	*env_add(t_list **env, t_string str)
 {
-	t_string	str;
-	t_list		*list;
-	t_list		*next;
+	t_string	name;
+	t_list		*new;
 
-	if (!env || !*env || !(*env)->content || !find || !*find)
-		return ;
-	str = wati_strjoin(find, "=");
-	list = get_vat_prev_w_equal(*env, str);
-	free(str);
-	if (!list->next)
-		list = get_vat_prev(*env, find);
-	if (list && list->next && list->next->next)
+	name = get_name(str);
+	if (!str)
+		return (NULL);
+	new = get_var(*env, name);
+	if (!new)
+		new = get_var_not_assigned(*env, name);
+	if (new && !is_char_equal(str))
 	{
-		next = list->next;
-		list->next = list->next->next;
-		wati_lstdelone(next, free);
-		return ;
+		free(str);
+		free(name);
+		return (new);
 	}
-	if (list && list->next)
-	{
-		next = list->next;
-		list->next = NULL;
-		wati_lstdelone(next, free);
-	}
+	free(name);
+	new = __env_add(str, env, new);
+	return (new);
+}
+
+void	print_endl(void *ptr)
+{
+	wati_putendl_fd((t_string)ptr, 1);
 }

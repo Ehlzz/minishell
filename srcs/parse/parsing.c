@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:39:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/15 13:43:33 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:49:55 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@ char	*modify_token(char *line, t_list *env_lst)
 	dollar_count = count_dollars(line);
 	while (dollar_count)
 	{
-		start = start_to_dollar(line);
-		tmp = dollar_to_dollar(line);
+		start = start_to_dollar(line, count_dollars(line) - dollar_count);
+		tmp = dollar_to_dollar(line, count_dollars(line) - dollar_count);
 		end = find_variable(env_lst, tmp);
 		free(tmp);
 		tmp = wati_strjoin(start, end);
+		free(end);
 		free(start);
 		start = tmp;
-		end = dollar_to_end(line);
+		end = dollar_to_end(line, count_dollars(line) - dollar_count);
 		tmp = wati_strjoin(start, end);
 		free(start);
 		free(end);
@@ -69,7 +70,7 @@ t_list	*init_parsing(t_string line)
 	if (test.quote)
 	{
 		wati_lstclean(&lst);
-		wati_putstr_fd("error: quote (test)\n", 2);
+		wati_putstr_fd("error: missing quote\n", 2);
 		return (NULL);
 	}
 	return (lst);

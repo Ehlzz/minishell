@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_new.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:54:10 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 14:30:22 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:22:33 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 static void	sig_rl(int code);
 static void	sig_fork(int code);
+// void		sig_here_doc(int code);
 
 void	set_readline_signal(void)
 {
@@ -32,6 +33,13 @@ void	set_signal_fork(void)
 	signal(SIGINT, sig_fork);
 	signal(SIGQUIT, sig_fork);
 }
+
+// void	set_signal_here_doc(void)
+// {
+// 	rl_catch_signals = 0;
+// 	signal(SIGINT, sig_here_doc);
+// 	signal(SIGQUIT, sig_here_doc);
+// }
 
 static void	sig_rl(int code)
 {

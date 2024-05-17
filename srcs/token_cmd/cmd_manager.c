@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:18:26 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 11:23:14 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:45:26 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	free_exec(void *ptr)
 	t_exec	*exec;
 
 	exec = ptr;
-	free(exec->envp);
 	free(exec->strs);
 	free(exec->path);
 }

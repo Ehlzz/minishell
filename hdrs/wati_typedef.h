@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_typedef.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:28:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 14:21:39 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:42:24 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 typedef char *			t_string;
 typedef int				t_fd;
 
-typedef int				gtype_t;
+typedef int				t_gtype;
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dir;
