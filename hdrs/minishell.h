@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/16 19:46:14 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/17 13:36:51 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ t_list	*add_pid(t_list **list, pid_t pid);
 t_bool	wait_pids(t_list *list);
 
 /*    EXEC    */
-t_bool	wati_exec(t_shell shell);
+t_bool	wati_exec(t_shell *shell);
 t_bool	_wati_exec(t_btree *node, t_pipe fd, t_shell *shell);
 t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell);
 t_bool	wati_pipe(t_btree *node, t_pipe fd, t_shell *shell);

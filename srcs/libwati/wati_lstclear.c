@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_lstclear.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 19:44:07 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 15:40:01 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/17 13:36:30 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

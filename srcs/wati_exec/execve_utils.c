@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 18:05:18 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/16 19:43:31 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/17 13:39:25 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
