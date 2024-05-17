@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:54:10 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/17 17:38:04 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/17 17:50:32 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	sig_here_doc(int code);
 
 void	set_readline_signal(void)
 {
+	rl_catch_signals = 0;
 	signal(SIGINT, sig_rl);
 	signal(SIGQUIT, sig_rl);
 }
