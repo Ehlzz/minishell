@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 19:20:58 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/16 18:51:00 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/18 12:17:06 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ void	export(t_list *env, char **strs)
 	if (!strs[1])
 		return (export_getlist(env));
 	strs++;
-	verif = is_char_before_char(*strs, '+', '=');
 	while (*strs)
 	{
+		verif = is_char_before_char(*strs, '+', '=');
 		if (!verif_identifier(*strs))
 		{
 			printf("bash: export: `%s': not a valid identifier\n", *strs);
