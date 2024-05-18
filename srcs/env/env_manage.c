@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:24:22 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/16 18:18:58 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:43:20 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ t_string	env_search(t_list *env, t_string var)
 	t_string	str;
 
 	list = get_var(env, var);
+	if (!list)
+	{
+		list = get_var_not_assigned(env, var);
+		if (!list)
+			return (NULL);
+		return (wati_strdup(list->content));
+	}
 	if (!list || !list->content)
 		return (NULL);
 	str = wati_strdup(list->content + wati_strlen(var) + 1);

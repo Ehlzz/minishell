@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 18:16:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/18 15:04:15 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:42:43 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,9 @@ void	_env_delete(t_list	**env, t_string find);
 
 void	env_delete(t_list	**env, t_string find)
 {
-	t_string	str;
-
 	if (!env || !*env || !(*env)->content || !find || !*find)
 		return ;
-	str = wati_strjoin(find, "=");
-	_env_delete(env, str);
-	free(str);
+	_env_delete(env, find);
 }
 
 void	_env_delete(t_list	**env, t_string find)
@@ -33,6 +29,9 @@ void	_env_delete(t_list	**env, t_string find)
 
 	list = *env;
 	prev = env;
+	find = env_search(*env, find);
+	if (!find)
+		return ;
 	size = wati_strlen(find);
 	while (list && wati_strncmp(list->content, find, size))
 	{
@@ -45,4 +44,5 @@ void	_env_delete(t_list	**env, t_string find)
 		free(list->content);
 		free(list);
 	}
+	free(find);
 }
