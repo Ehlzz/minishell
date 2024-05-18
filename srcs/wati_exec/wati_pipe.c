@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:59:30 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/17 13:16:44 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/18 18:45:10 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static t_bool	wati_pipe_o(t_btree *node, t_pipe *fd,
 {
 	if (get_cmd(node)->oper == PIPE)
 	{
-		_wati_pipe_o(node->left, fd, pids, shell);
-		_wati_pipe_o(node->right, fd, pids, shell);
+		wati_pipe_o(node->left, fd, pids, shell);
+		wati_pipe_o(node->right, fd, pids, shell);
 	}
 	else
 		return (_wati_pipe_o(node, fd, pids, shell));
@@ -67,11 +67,13 @@ static t_bool	wati_pipe_l(t_btree *node, t_pipe *fd,
 {
 	if (get_cmd(node)->oper == PIPE)
 	{
-		_wati_pipe_o(node->left, fd, pids, shell);
-		_wati_pipe_l(node->right, fd, pids, shell);
+		wati_pipe_o(node->left, fd, pids, shell);
+		wati_pipe_l(node->right, fd, pids, shell);
 	}
 	else
+	{
 		return (_wati_pipe_l(node, fd, pids, shell));
+	}
 	return (TRUE);
 }
 

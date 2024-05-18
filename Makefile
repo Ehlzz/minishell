@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/05/18 14:04:18 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/05/18 18:39:44 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ SRCS = \
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 
 #################################### FLAGS #####################################
-CFLAGS := -Wall -Wextra #-Werror
+CFLAGS := -Wall -Wextra -Werror
 LFLAGS := -L$(DIR_LIBS) -lreadline -lwati
 IFLAGS := -I$(DIR_HDRS)
 
