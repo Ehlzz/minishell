@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:06:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/16 18:12:45 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:37:10 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ t_string	get_path(t_string cmd, t_list *env)
 		return (NULL);
 	path = lf_path(paths, cmd);
 	wati_free_tab(paths);
+	if (!path)
+		g_err = 127;
 	return (path);
 }
 

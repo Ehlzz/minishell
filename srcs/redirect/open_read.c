@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_read.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:56:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/06 15:21:34 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:23:19 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ t_fd	open_read(t_string str, int flags)
 	if (file < 0)
 	{
 		if (!access(str, F_OK))
-			return (wati_error("permission denied: %s", str));
-		return (wati_error("no such file or directory: %s", str));
+			wati_error("permission denied: %s", str);
+		else
+			wati_error("no such file or directory: %s", str);
 	}
 	return (file);
 }
