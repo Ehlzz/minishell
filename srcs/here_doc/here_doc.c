@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:54:25 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/17 17:36:20 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/18 12:32:49 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,6 @@
 void	close_free_utils(char *limiter, char *line, int fd);
 void	free_in_fork(t_cmd *cmd, t_list **list, t_shell *shell);
 char	*get_line(int verif_quote, t_list *env);
-// void	set_signal_here_doc(void);
-
-// void	sig_here_doc(int code)
-// {
-// 	if (code == SIGINT)
-// 	{
-// 		error_code = 130;
-// 	}	
-// 	else if (code == SIGQUIT)
-// 	{
-// 	}
-// }
 
 int	is_quoted(char *str)
 {
