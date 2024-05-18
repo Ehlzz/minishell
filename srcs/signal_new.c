@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:54:10 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/17 17:50:32 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/18 12:30:24 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 static void	sig_rl(int code);
 static void	sig_here_doc(int code);
+static void	sig_fork(int code);
 
 void	set_readline_signal(void)
 {
@@ -28,8 +29,8 @@ void	set_readline_signal(void)
 
 void	set_signal_fork(void)
 {
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, sig_fork);
+	signal(SIGQUIT, sig_fork);
 }
 
 void	set_signal_here_doc(void)
@@ -42,7 +43,7 @@ static void	sig_rl(int code)
 {
 	if (code == SIGINT)
 	{
-		printf("\n");
+		printf("^C\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -58,5 +59,19 @@ static void	sig_here_doc(int code)
 		rl_replace_line("", 0);
 		error_code = 130;
 		close(0);
+	}
+}
+
+static void	sig_fork(int code)
+{
+	if (code == SIGINT)
+	{
+		printf("\n");
+		error_code = 130;
+	}
+	if (code == SIGQUIT)
+	{
+		error_code = 131;
+		printf("Quit (core dumped)\n");
 	}
 }
