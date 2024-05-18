@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/16 17:58:12 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/18 12:47:42 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,21 @@ char	*get_operator_line(char **line)
 {
 	char	*str0;
 	char	*str;
+	int		i;
 	int		len;
 
 	str = *line;
+	i = 1;
 	if (!is_char_operator(*str))
 		return (NULL);
 	str0 = str;
 	while (*str == *str0)
+	{
+		i++;
 		str++;
+		if (i == 3 || *str == '(' || *str == ')')
+			break;
+	}
 	len = str - str0;
 	*line += len;
 	return (wati_substr(str0, 0, len));
