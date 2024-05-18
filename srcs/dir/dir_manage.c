@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:02:06 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/16 17:45:33 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:31:06 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*check_tild(char *dir, t_list *env)
 	home = env_search(env, "HOME");
 	if (!home)
 	{
+		free(dir);
 		wati_fprintf(2, "cd: HOME not set\n");
 		return (NULL);
 	}

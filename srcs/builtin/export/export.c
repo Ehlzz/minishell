@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 19:20:58 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/18 14:11:53 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/18 14:44:58 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*__export_getline(char *str)
 {
 	char	*result;
 
-	if (wati_strlen(str) == 1)
+	if (!is_char_equal(str))
 		return (wati_strjoin("declare -x ", str));
 	result = wati_strjoin("declare -x ", str);
 	return (add_quote(result));
@@ -85,8 +85,6 @@ void	export_getlist(t_list *env)
 	wati_lstiter(export, print);
 	wati_lstclear(&export, free);
 }
-
-// export test$USER=test NON FONCTIONNEL
 
 void	export(t_list *env, char **strs)
 {

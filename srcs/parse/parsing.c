@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:39:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/18 12:23:26 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:32:40 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,21 @@ char	*verify_token(char *line, t_list *env_lst)
 	return (modify_token(line, env_lst));
 }
 
+void	free_list(t_list *lst)
+{
+	t_token	*token;
+	t_list	*lst0;
+
+	lst0 = lst;
+	while (lst)
+	{
+		token = lst->content;
+		free(token->str);
+		lst = lst->next;
+	}
+	wati_lstclear(&lst0, free);
+}
+
 t_list	*init_parsing(t_string line)
 {
 	t_string	str;
@@ -69,7 +84,7 @@ t_list	*init_parsing(t_string line)
 	}
 	if (test.quote)
 	{
-		wati_lstclean(&lst);
+		free_list(lst);
 		wati_putstr_fd("error: missing quote\n", 2);
 		return (NULL);
 	}

@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/16 18:03:58 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:03:36 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	__convert_strs(char *str, t_list **result)
 	wati_lstclear(&lst0, free);
 }
 
+int	is_quoted(char *str);
+
 t_list	*convert_strs(t_list *strs, t_list *env)
 {
 	t_list	*result;
@@ -69,7 +71,7 @@ t_list	*convert_strs(t_list *strs, t_list *env)
 	while (strs)
 	{
 		str = (char *)strs->content;
-		if (is_star(str))
+		if (is_star(str) && !is_quoted(str))
 		{
 			__convert_strs(str, &result);
 			strs = strs->next;
