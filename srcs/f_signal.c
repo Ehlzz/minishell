@@ -1,47 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wati_readline.c                                    :+:      :+:    :+:   */
+/*   f_signal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 13:02:29 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/18 14:24:10 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/05/18 14:04:23 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/05/18 14:11:54 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <signal.h>
+#include <stdio.h>
 #include <readline/readline.h>
 #include <stdlib.h>
-#include <stdio.h>
-
 #include "minishell.h"
 
-static char	*_wati_readline(t_list *env);
-
-char	*wati_readline(t_list *env)
+void	sig_rl(int code)
 {
-	t_string	str;
-
-	set_readline_signal();
-	str = _wati_readline(env);
-	while (str != NULL && *str == '\0')
+	if (code == SIGINT)
 	{
-		free(str);
-		str = _wati_readline(env);
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		g_err = 130;
 	}
-	return (str);
 }
 
-static char	*_wati_readline(t_list *env)
+void	sig_here_doc(int code)
 {
-	char	*prompt;
-	char	*line;
+	if (code == SIGINT)
+	{
+		g_err = 130;
+		printf("\n");
+		close(0);
+	}
+}
 
-	prompt = wati_prompt(env);
-	if (prompt)
-		line = readline(prompt);
-	else
-		line = readline("Minishell>");
-	free(prompt);
-	return (line);
+void	sig_fork(int code)
+{
+	if (code == SIGINT)
+	{
+		printf("\n");
+		g_err = 130;
+	}
+	if (code == SIGQUIT)
+	{
+		g_err = 131;
+		printf("Quit (core dumped)\n");
+	}
 }

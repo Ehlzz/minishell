@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
+#    By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/05/16 18:16:58 by ehalliez         ###   ########.fr        #
+#    Updated: 2024/05/18 14:04:18 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRCS = \
 	env/env_manage.c env/env_tools.c env/env_delete.c \
 	dir/dir_manage.c \
 	builtin/echo.c builtin/env.c builtin/export/export_concat.c builtin/export/export_utils.c builtin/export/export.c builtin/exit.c builtin/cd.c \
-	signal_new.c \
+	set_signal.c f_signal.c \
 	here_doc/here_doc_utils.c here_doc/here_doc.c \
 	parse/parsing.c parse/parsing_utils.c parse/parsing_dollar_quote.c parse/parsing_get_words.c parse/parsing_dollar_utils.c \
 	environnement/variable.c environnement/manage_oper.c wildcard/wildcard.c wildcard/get_current_dir.c wildcard/wildcard_utils.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 19:20:58 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/18 12:17:06 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/18 14:11:53 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	export(t_list *env, char **strs)
 		{
 			printf("bash: export: `%s': not a valid identifier\n", *strs);
 			strs++;
-			error_code = 1;
+			g_err = 1;
 			continue ;
 		}
 		if (!verif)

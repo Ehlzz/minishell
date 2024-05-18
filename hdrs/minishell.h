@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/17 16:14:46 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/18 14:11:53 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <wati_const.h>
 # include <wati_struct.h>
 
-extern t_gtype	error_code;
+extern t_gtype	g_err;
 
 char	*ft_join_args(t_string *argv);
 char	*skip_space(t_string *line);
@@ -121,6 +121,7 @@ int		is_operator_char(char c);
 void	set_readline_signal(void);
 void	set_signal_fork(void);
 void	set_signal_here_doc(void);
+void	set_signal_ign(void);
 
 /*    Manage Token    */
 t_token	*new_token(t_string token);

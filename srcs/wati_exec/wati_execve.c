@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/17 13:15:43 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/18 14:11:53 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	__wati_execve(t_exec exec, t_shell *shell, t_list **pids)
 		__execve(exec, shell->env);
 	else
 	{
-		error_code = 127;
+		g_err = 127;
 		free(exec.path);
 	}
 	wati_free_tab(exec.strs);
@@ -35,7 +35,7 @@ void	__wati_execve(t_exec exec, t_shell *shell, t_list **pids)
 	btree_clear(shell->root, free_cmd);
 	if (*pids)
 		wati_lstclear(pids, free);
-	exit(error_code);
+	exit(g_err);
 }
 
 t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)

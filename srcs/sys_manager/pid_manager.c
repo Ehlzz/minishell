@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:06:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/17 17:49:25 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/18 14:11:53 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ t_bool	wait_pids(t_list *list)
 		wait_pids(list->next);
 	waitpid(*ptr, &r, 0);
 	if (WIFEXITED(r))
-		error_code = WEXITSTATUS(r);
+		g_err = WEXITSTATUS(r);
 	free(ptr);
 	free(list);
-	if (error_code > 0)
+	if (g_err > 0)
 		return (FALSE);
 	return (TRUE);
 }

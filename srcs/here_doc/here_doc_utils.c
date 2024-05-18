@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:59:28 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/17 17:38:05 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/18 14:11:53 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_line(int verif_quote, t_list *env)
 	char	*tmp;
 
 	line = readline("> ");
-	if (!line || error_code == 130)
+	if (!line || g_err == 130)
 		return (NULL);
 	if (*line == '\0')
 		return (line);

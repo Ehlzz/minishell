@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:56:35 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/15 19:00:38 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/18 14:11:53 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_string	find_variable(t_list *env_lst, t_string to_find)
 	if (!*to_find)
 		return (wati_strdup("$"));
 	if (*to_find == '?' && wati_strlen(to_find) == 1)
-		return (wati_itoa(error_code));
+		return (wati_itoa(g_err));
 	while (env_lst)
 	{
 		variable = wati_strjoin(to_find, "=");

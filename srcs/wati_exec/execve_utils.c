@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 18:05:18 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/17 13:39:25 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/18 14:11:53 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_bool	exec_builtin(t_exec exec, t_list *env)
 	int	id;
 
 	id = is_builtin(*exec.strs);
-	error_code = 0;
+	g_err = 0;
 	if (id == ECHO)
 		wati_echo(exec.strs);
 	else if (id == PWD)
