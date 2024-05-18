@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 09:28:49 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/16 14:10:44 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/18 13:26:55 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ t_bool	btree_par(t_btree **root, t_list **list, t_shell *shell)
 		return (wati_error("empty parenthesis"));
 	node = NULL;
 	if (!_btree_par(&node, list, shell))
+	{
+		if (node)
+			btree_clear(node, free_cmd);
 		return (FALSE);
+	}
 	if (get_token(*list)->oper == P_OUT)
 		free(get_token(*list)->str);
 	*root = node;
