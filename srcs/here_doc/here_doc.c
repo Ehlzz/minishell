@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:54:25 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/18 14:11:53 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:55:33 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,11 @@ int	here_doc(char *limiter, t_cmd *cmd, t_list **list, t_shell *shell)
 		g_err = 0;
 		set_signal_here_doc();
 		__here_doc(limiter, cmd, list, shell);
-		exit(EXIT_SUCCESS);
+		exit(g_err);
 	}
-	waitpid(pid, &r, 0);
-	g_err = r;
+	waitpid(pid, &g_err, 0);
+	if (g_err != 0)
+		g_err = 130;
 	free(limiter);
 	fd = open("/tmp/output", O_RDONLY);
 	unlink("/tmp/output");
