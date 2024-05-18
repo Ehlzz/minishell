@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:31:32 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/18 12:47:42 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/18 12:53:42 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_operator_line(char **line)
 		i++;
 		str++;
 		if (i == 3 || *str == '(' || *str == ')')
-			break;
+			break ;
 	}
 	len = str - str0;
 	*line += len;
