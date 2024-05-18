@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:57:07 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/18 13:18:02 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:43:05 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_bool	btree_oper(t_btree **root, t_list **list)
 	t_btree	*new;
 	t_cmd	*cmd;
 
-	if (!(*list)->next || get_token((*list)->next)->oper == P_OUT || !*root)
+	if (!(*list)->next || !is_opercmd(get_token((*list)->next)->oper) || !*root)
 		return (wati_error("parse error near '%s'", get_token(*list)->str));
 	token = (*list)->content;
 	cmd = malloc(sizeof(t_cmd));
