@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_signal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:54:10 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/18 14:10:51 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:26:14 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	set_signal_fork(void)
 void	set_signal_here_doc(void)
 {
 	signal(SIGINT, sig_here_doc);
-	signal(SIGQUIT, sig_here_doc);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	set_signal_ign(void)

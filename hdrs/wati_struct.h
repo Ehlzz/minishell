@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/16 14:44:51 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:14:29 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,11 @@ typedef struct s_shell
 	t_list	*env;
 	char	**envp;
 }	t_shell;
+
+typedef struct s_heredoc
+{
+	t_string	limiter;
+	t_string	file;
+}	t_heredoc;
 
 #endif

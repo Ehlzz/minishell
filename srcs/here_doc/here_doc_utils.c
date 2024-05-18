@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:59:28 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/18 14:11:53 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:17:27 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ void	free_in_fork(t_cmd *cmd, t_list **list, t_shell *shell)
 	wati_lstclear(&shell->list, free);
 }
 
-void	close_free_utils(char *limiter, char *line, int fd)
+void	close_free_utils(t_heredoc *heredoc, char *line, int fd)
 {
-	free(limiter);
+	free(heredoc->file);
+	free(heredoc->limiter);
 	free(line);
 	close(fd);
 }
