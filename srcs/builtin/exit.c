@@ -6,29 +6,21 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:21:56 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/16 18:04:20 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:45:08 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	is_number(char **str)
+int	is_number(char *str)
 {
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
-	str++;
 	while (str[i])
 	{
-		j = 0;
-		while (str[i][j])
-		{
-			if (!wati_isdigit(str[i][j]))
-				return (0);
-			j++;
-		}
+		if (!wati_isdigit(str[i]))
+			return (0);
 		i++;
 	}
 	return (1);
@@ -49,11 +41,14 @@ void	ft_exit(t_shell *shell, char **strs)
 	if (!strs[1])
 	{
 		ft_free_before_exit(shell, strs);
-		exit(0);
+		exit(g_err);
 	}
-	if (is_number(strs) && strs[2])
+	if (is_number(strs[1]) && strs[2])
+	{
+		g_err = 127;
 		return (wati_putstr_fd("minishell: exit: too many arguments\n", 2));
-	if (!is_number(strs) || (strs[1] && wati_strlen(strs[1]) > 19))
+	}
+	if (!is_number(strs[1]) || (strs[1] && wati_strlen(strs[1]) > 19))
 	{
 		wati_putstr_fd("minishell: exit: ", 2);
 		wati_putstr_fd(strs[1], 2);
