@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 18:05:18 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/19 18:03:25 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/19 18:12:20 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,16 @@ t_bool	exec_builtin(t_exec exec, t_list *env)
 	return (TRUE);
 }
 
+static void	_env_delete(t_list **env, t_string *argv)
+{
+	argv++;
+	while (*argv)
+	{
+		env_delete(env, *argv);
+		argv++;
+	}
+}
+
 t_bool	_execve(char **argv, t_pipe *fd, t_list **pids, t_shell *shell)
 {
 	int	id;
@@ -63,14 +73,7 @@ t_bool	_execve(char **argv, t_pipe *fd, t_list **pids, t_shell *shell)
 	if (id == CD)
 		wati_chdir(&shell->env, *(argv + 1));
 	else if (id == UNSET)
-	{
-		argv++;
-		while (*argv)
-		{
-			env_delete(&shell->env, *argv);
-			argv++;
-		}
-	}
+		_env_delete(&shell->env, argv);
 	else if (id == EXPORT && *(argv + 1))
 		export(shell->env, argv);
 	else if (id == EXIT)
