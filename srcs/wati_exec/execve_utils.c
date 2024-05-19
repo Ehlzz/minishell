@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 18:05:18 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/19 18:12:20 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/19 18:45:21 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,5 @@ void	__execve(t_exec exec, t_list *env)
 
 	envp = wati_lstsplit(env);
 	execve(exec.path, exec.strs, envp);
+	free(envp);
 }
