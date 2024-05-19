@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:21:56 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/19 16:10:35 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:01:21 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int	is_number(char *str)
 {
-	int		i;
+	int	i;
 
 	i = 0;
+	if (*str == '-')
+		i++;
 	while (str[i])
 	{
 		if (!wati_isdigit(str[i]))
@@ -24,6 +26,23 @@ int	is_number(char *str)
 		i++;
 	}
 	return (1);
+}
+
+int	check_overflow(char *str)
+{
+	if (!is_number(str))
+		return (1);
+	if (*str != '-' && wati_strlen(str) > 19)
+		return (1);
+	if (*str == '-' && wati_strlen(str) > 20)
+		return (1);
+	if (wati_strlen(str) == 19 && \
+		wati_strncmp(str, "9223372036854775807", 19) > 0)
+		return (1);
+	if (wati_strlen(str) == 20 && \
+		wati_strncmp(str, "-9223372036854775808", 20) > 0)
+		return (1);
+	return (0);
 }
 
 void	ft_free_before_exit(t_shell *shell, char **argv)
@@ -41,14 +60,14 @@ void	ft_exit(t_shell *shell, char **strs)
 	if (!strs[1])
 	{
 		ft_free_before_exit(shell, strs);
-		exit(g_err);
+		exit(0);
 	}
 	if (is_number(strs[1]) && strs[2])
 	{
 		g_err = 1;
 		return (wati_putstr_fd("minishell: exit: too many arguments\n", 2));
 	}
-	if (!is_number(strs[1]) || (strs[1] && wati_strlen(strs[1]) > 19))
+	if (check_overflow(strs[1]))
 	{
 		wati_putstr_fd("minishell: exit: ", 2);
 		wati_putstr_fd(strs[1], 2);
