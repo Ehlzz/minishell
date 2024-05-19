@@ -18,6 +18,6 @@
    readline
    Memcheck:Leak
    ...
-   fun:realloc
+   fun:rl_extend_line_buffer
    ...
 }
