@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 17:52:09 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/19 18:05:05 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 #include <unistd.h>
 
-t_bool		_execve(char **argv, t_shell *shell);
+t_bool		_execve(char **argv, t_pipe *fd, t_list **pids, t_shell *shell);
 void		__execve(t_exec exec, t_list *env);
 t_bool		exec_builtin(t_exec exec, t_list *env);
 int			is_builtin(char *path);
 static void	execve_free(t_exec exec, t_pipe *fd, t_list **pids, t_shell *shell);
 
-void	__wati_execve(t_exec exec, t_shell *shell)
+static void	__wati_execve(t_exec exec, t_shell *shell)
 {
 	if (is_builtin(*exec.strs))
 		exec_builtin(exec, shell->env);
@@ -46,7 +46,7 @@ t_bool	wati_execve_pipe(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 		exec.path = NULL;
 		exec.strs = wati_lstsplit(lst);
 		wati_lstclean(&lst);
-		if (!_execve(exec.strs, shell))
+		if (!_execve(exec.strs, fd, pids, shell))
 		{
 			if (get_path(&exec.path, *exec.strs, shell->env)
 				&& wati_dup_files(cmd->files, fd, shell->env))
@@ -70,7 +70,7 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 	lst = convert_strs(cmd->strs, shell->env);
 	exec.strs = wati_lstsplit(lst);
 	wati_lstclean(&lst);
-	if (!_execve(exec.strs, shell))
+	if (!_execve(exec.strs, fd, pids, shell))
 	{
 		pid = fork();
 		if (!pid)
