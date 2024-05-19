@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:19:19 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/16 19:45:13 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/19 12:58:05 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void		_wati_echo(t_string *strs);
 
 void	wati_echo(t_string *strs)
 {
+	t_bool	skip;
 	t_bool	is_bs;
 
 	if (!*strs)
@@ -29,9 +30,14 @@ void	wati_echo(t_string *strs)
 	strs++;
 	if (!*strs)
 		return ;
-	is_bs = check_first_arg(*strs);
-	if (!is_bs)
+	is_bs = FALSE;
+	skip = check_first_arg(*strs);
+	while (!skip)
+	{
+		is_bs = skip;
 		strs++;
+		skip = check_first_arg(*strs);
+	}
 	_wati_echo(strs);
 	if (is_bs)
 		wati_putchar_fd('\n', 1);
