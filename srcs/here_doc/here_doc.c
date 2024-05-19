@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:54:25 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/18 16:45:39 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/19 14:53:23 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	close_free_utils(t_heredoc *heredoc, char *line, int fd);
 void	free_in_fork(t_cmd *cmd, t_list **list, t_shell *shell);
-char	*get_line(int verif_quote, t_list *env);
+char	*get_line(int verif_quote, t_list *env, t_heredoc *heredoc);
 
 int	is_quoted(char *str)
 {
@@ -86,13 +86,10 @@ t_list **list, t_shell *shell)
 	size_limiter = wati_strlen(heredoc->limiter);
 	while (1)
 	{
-		line = get_line(verif_quote, shell->env);
+		line = get_line(verif_quote, shell->env, heredoc);
 		if (!line)
 			break ;
 		size_line = wati_strlen(line);
-		if (!wati_strncmp(heredoc->limiter, line, size_limiter) && \
-				size_line - 1 == size_limiter)
-			break ;
 		write(fd, line, size_line);
 		free(line);
 	}

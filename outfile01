@@ -1,0 +1,12 @@
+1
+hdrs
+libs
+LICENSE
+Makefile
+minishell
+minishell_minishell
+minishell_tester
+objs
+outfile01
+srcs
+valgrind.supp

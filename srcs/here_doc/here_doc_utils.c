@@ -6,19 +6,22 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:59:28 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/18 16:17:27 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/19 14:54:13 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*get_line(int verif_quote, t_list *env)
+char	*get_line(int verif_quote, t_list *env, t_heredoc *heredoc)
 {
 	char	*line;
 	char	*tmp;
 
 	line = readline("> ");
 	if (!line || g_err == 130)
+		return (NULL);
+	if (!wati_strncmp(heredoc->limiter, line, wati_strlen(heredoc->limiter)) && \
+		wati_strlen(line) == wati_strlen(heredoc->limiter))
 		return (NULL);
 	if (*line == '\0')
 		return (line);

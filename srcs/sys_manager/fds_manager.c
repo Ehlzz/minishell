@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fds_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:27:56 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 12:53:43 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/19 14:34:34 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_bool	wati_dup_files(t_list *files, t_pipe *fd)
 		{
 			wati_close(fds.in);
 			wati_close(fds.out);
-			g_err = 1;
+			g_err = 2;
 			return (FALSE);
 		}
 		files = files->next;
