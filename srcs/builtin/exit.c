@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:21:56 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/19 17:01:21 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/19 18:47:53 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	ft_exit(t_shell *shell, char **strs)
 	if (!strs[1])
 	{
 		ft_free_before_exit(shell, strs);
+		wati_putendl_fd("exit", 2);
 		exit(0);
 	}
 	if (is_number(strs[1]) && strs[2])
