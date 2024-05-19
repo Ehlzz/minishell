@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:21:56 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/19 15:45:08 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/19 16:10:35 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_exit(t_shell *shell, char **strs)
 	}
 	if (is_number(strs[1]) && strs[2])
 	{
-		g_err = 127;
+		g_err = 1;
 		return (wati_putstr_fd("minishell: exit: too many arguments\n", 2));
 	}
 	if (!is_number(strs[1]) || (strs[1] && wati_strlen(strs[1]) > 19))

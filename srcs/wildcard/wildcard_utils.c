@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:59:00 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/15 19:41:43 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/19 16:23:33 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,18 @@ int	wildcard_checker(char *search, char *content)
 				search++;
 			if (!*search)
 				return (1);
-			content = get_pattern(content, search);
-		}
-		if (!content || !*content || (*search++ != *content++))
+			while (*content)
+			{
+				if (wildcard_checker(search, content))
+					return (1);
+				content++;
+			}
 			return (0);
+		}
+		if (!*content || (*search && *search != *content))
+			return (0);
+		search++;
+		content++;
 	}
-	return (1);
+	return (!(*search || *content));
 }
