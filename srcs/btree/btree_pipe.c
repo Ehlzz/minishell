@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:49:29 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/16 14:08:47 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:37:45 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ t_bool	btree_pipe(t_btree **root, t_list **list, t_shell *shell)
 	t_btree	*node;
 
 	if (!*root)
-		return (wati_error("parse error near '%s'", get_token(*list)->str));
+		return (wati_error(2, "parse error near '%s'", get_token(*list)->str));
 	while (*list && get_token(*list)->oper == PIPE)
 	{
 		if (!(*list)->next || !is_opercmd(get_token((*list)->next)->oper))
-			return (wati_error("parse error near '%s'", get_token(*list)->str));
+			return (wati_error(2,
+					"parse error near '%s'", get_token(*list)->str));
 		free(get_token(*list)->str);
 		(*list) = (*list)->next;
 		if (!btree_cmd(&node, list, shell))
@@ -67,7 +68,7 @@ static t_bool	_btree_pipe(t_btree **root, t_btree *node)
 
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
-		return (wati_error("alloc fail"));
+		return (wati_error(3, "alloc fail"));
 	cmd->oper = PIPE;
 	cmd->strs = NULL;
 	cmd->files = NULL;
@@ -75,7 +76,7 @@ static t_bool	_btree_pipe(t_btree **root, t_btree *node)
 	if (!new)
 	{
 		free(cmd);
-		return (wati_error("alloc fail"));
+		return (wati_error(3, "alloc fail"));
 	}
 	new_root(root, new);
 	(*root)->right = node;

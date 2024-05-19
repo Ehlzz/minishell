@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   btree_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:58:14 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 14:33:10 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:39:10 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_bool	btree_cmd(t_btree **node, t_list **list, t_shell *shell)
 	if (!*node)
 	{
 		free_cmd(cmd);
-		return (wati_error("alloc fail"));
+		return (wati_error(3, "alloc fail"));
 	}
 	return (TRUE);
 }
@@ -76,12 +76,12 @@ static t_bool	cmd_parse_token(t_cmd *cmd, t_list **list, t_list **new,
 	token = (*list)->content;
 	*new = NULL;
 	if (!is_opercmd(token->oper) || token->oper == P_IN)
-		return (wati_error("parse error near '%s'", get_token(*list)->str));
+		return (wati_error(2, "parse error near '%s'", get_token(*list)->str));
 	if (token->oper == NO)
 	{
 		*new = wati_lstnew(token->str);
 		if (!*new)
-			return (wati_error("alloc fail"));
+			return (wati_error(3, "alloc fail"));
 		(*list) = (*list)->next;
 		return (TRUE);
 	}
@@ -94,13 +94,13 @@ static t_bool	cmd_parse_redirect(t_cmd *cmd, t_list **list, t_shell *shell)
 	t_token	*name;
 
 	if (!(*list)->next || !(*list)->next->content)
-		return (wati_error("no file given"));
+		return (wati_error(2, "no file given"));
 	token = (*list)->content;
 	(*list) = (*list)->next;
 	name = (*list)->content;
 	(*list) = (*list)->next;
 	if (name->oper != NO)
-		wati_error("syntax error near unexpected token '%s'", token->str);
+		wati_error(2, "syntax error near unexpected token '%s'", name->str);
 	free(token->str);
 	if (token->oper == R_IN)
 		return (add_file(&cmd->files, token->oper, name->str));
