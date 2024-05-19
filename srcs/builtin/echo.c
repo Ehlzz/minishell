@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:19:19 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 12:58:05 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/19 13:02:59 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	wati_echo(t_string *strs)
 	strs++;
 	if (!*strs)
 		return ;
-	is_bs = FALSE;
+	is_bs = TRUE;
 	skip = check_first_arg(*strs);
 	while (!skip)
 	{
