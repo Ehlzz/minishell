@@ -13,3 +13,11 @@
    fun:add_history
    ...
 }
+
+{
+   readline
+   Memcheck:Leak
+   ...
+   fun:realloc
+   ...
+}

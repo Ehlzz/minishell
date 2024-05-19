@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:59:30 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/18 18:45:10 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/19 13:24:07 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static t_bool	_wati_pipe_o(t_btree *node, t_pipe *fd,
 		_wati_pipe_oper(node, fd, pids, shell);
 	pipe(fd->pipe);
 	if (cmd->oper == NO)
-		wati_execve(cmd, fd, pids, shell);
+		wati_execve_pipe(cmd, fd, pids, shell);
 	swap_spipe(fd);
 	return (TRUE);
 }
@@ -101,7 +101,7 @@ static t_bool	_wati_pipe_l(t_btree *node, t_pipe *fd,
 	if (cmd->oper == AND || cmd->oper == OR)
 		_wati_pipe_oper(node, fd, pids, shell);
 	if (cmd->oper == NO)
-		wati_execve(cmd, fd, pids, shell);
+		wati_execve_pipe(cmd, fd, pids, shell);
 	wati_close(fd->in);
 	return (TRUE);
 }
