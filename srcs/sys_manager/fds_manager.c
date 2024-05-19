@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fds_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:27:56 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 14:34:34 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:53:58 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <fcntl.h>
 
 static t_bool	wati_dup2(t_fd fd, t_fd std);
-static t_bool	open_file(t_file *file, t_fds *fds);
+static t_bool	open_file(t_file *file, t_fds *fds, t_list *env);
 
 void	__wati_dup_files(t_fds fds)
 {
@@ -32,7 +32,7 @@ void	__wati_dup_files(t_fds fds)
 	}
 }
 
-t_bool	wati_dup_files(t_list *files, t_pipe *fd)
+t_bool	wati_dup_files(t_list *files, t_pipe *fd, t_list *env)
 {
 	t_fds	fds;
 
@@ -45,11 +45,10 @@ t_bool	wati_dup_files(t_list *files, t_pipe *fd)
 		fds.out = fd->pipe[1];
 	while (files)
 	{
-		if (!open_file(files->content, &fds))
+		if (!open_file(files->content, &fds, env))
 		{
 			wati_close(fds.in);
 			wati_close(fds.out);
-			g_err = 2;
 			return (FALSE);
 		}
 		files = files->next;
@@ -58,8 +57,9 @@ t_bool	wati_dup_files(t_list *files, t_pipe *fd)
 	return (TRUE);
 }
 
-static t_bool	open_file(t_file *file, t_fds *fds)
+static t_bool	open_file(t_file *file, t_fds *fds, t_list *env)
 {
+	file->name = verify_token(file->name, env);
 	if (file->oper == R_IN)
 	{
 		wati_close(fds->in);

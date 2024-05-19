@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:32:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 14:33:26 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:32:49 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include <unistd.h>
 
-t_bool	wati_error(char *format, ...)
+t_bool	wati_error(int code, char *format, ...)
 {
 	va_list	arg;
 
@@ -23,6 +23,6 @@ t_bool	wati_error(char *format, ...)
 	wati_vfprintf(STDERR_FILENO, format, arg);
 	wati_putchar_fd('\n', STDERR_FILENO);
 	va_end(arg);
-	g_err = 2;
+	g_err = code;
 	return (FALSE);
 }

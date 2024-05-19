@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 09:28:49 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/18 13:26:55 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:39:59 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ t_bool	btree_par(t_btree **root, t_list **list, t_shell *shell)
 
 	token = (*list)->content;
 	if (token->oper != P_IN)
-		return (wati_error("parsing"));
+		return (wati_error(2, "parsing"));
 	free(token->str);
 	*list = (*list)->next;
 	if (!*list)
-		return (wati_error("parse error near '('"));
+		return (wati_error(2, "parse error near '('"));
 	token = (*list)->content;
 	if (token->oper == P_OUT)
-		return (wati_error("empty parenthesis"));
+		return (wati_error(2, "empty parenthesis"));
 	node = NULL;
 	if (!_btree_par(&node, list, shell))
 	{
@@ -56,6 +56,6 @@ static t_bool	_btree_par(t_btree **root, t_list **list, t_shell *shell)
 	if (*list && get_token(*list)->oper != P_OUT)
 		return (_btree_par(root, list, shell));
 	if (!*list)
-		return (wati_error("parenthesis not close"));
+		return (wati_error(2, "parenthesis not close"));
 	return (TRUE);
 }

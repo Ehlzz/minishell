@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:08:21 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/18 13:11:47 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:36:03 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static t_bool	_btree_build(t_btree **root, t_list **list, t_shell *shell)
 	if (*list)
 	{
 		if (get_token(*list)->oper == P_OUT)
-			return (wati_error("parse error near '%s'", get_token(*list)->str));
+			return (wati_error(2,
+					"parse error near '%s'", get_token(*list)->str));
 		return (_btree_build(root, list, shell));
 	}
 	return (TRUE);

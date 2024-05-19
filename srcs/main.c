@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/18 18:34:34 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:33:12 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	t_shell	shell;
 
 	if (argc > 1)
-		return (wati_error("can't read script : %s", argv[1]));
+		return (wati_error(1, "can't read script : %s", argv[1]));
 	shell.env = env_getlist(envp);
 	g_err = 0;
 	while (shell_build(&shell))

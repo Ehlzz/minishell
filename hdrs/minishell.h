@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 13:05:42 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:49:49 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	*wati_readline(t_list *env);
 /*    Manage prompt    */
 char	*wati_prompt(t_list *env);
 /*    wati_error    */
-t_bool	wati_error(char *format, ...);
+t_bool	wati_error(int code, char *format, ...);
 
 t_list	*parsing(t_string str);
 char	*quote_manager(t_string *ptr);
@@ -164,7 +164,7 @@ t_bool	add_fd(t_list	**files, t_oper oper, t_fd fd);
 
 void	swap_spipe(t_pipe *fd);
 
-t_bool	wati_dup_files(t_list *files, t_pipe *fd);
+t_bool	wati_dup_files(t_list *files, t_pipe *fd, t_list *env);
 t_pipe	reset_pipe(void);
 
 t_list	*add_pid(t_list **list, pid_t pid);
@@ -178,6 +178,6 @@ t_bool	wati_execve_pipe(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell);
 t_bool	wati_pipe(t_btree *node, t_pipe fd, t_shell *shell);
 t_bool	_wati_pipe_oper(t_btree *node, t_pipe *fd,
 			t_list **pids, t_shell *shell);
-char	*get_path(t_string cmd, t_list *env);
+t_bool	get_path(t_string *path, t_string cmd, t_list *env);
 
 #endif

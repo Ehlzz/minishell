@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:06:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 14:46:03 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:44:50 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,85 +14,110 @@
 
 #include "minishell.h"
 
-static char	*lf_path(t_string *paths, t_string cmd);
-static char	*lf_current(t_string cmd);
-int			is_builtin(char *path);
+int				is_builtin(char *path);
 
-t_string	*__get_path(t_string path, t_string *paths)
-{
-	if (path)
-	{
-		paths = wati_split(path, ':');
-		if (!paths)
-			return (NULL);
-	}
-	else
-	{
-		paths = malloc(sizeof(char *));
-		if (!paths)
-			return (NULL);
-		*paths = NULL;
-	}
-	free(path);
-	return (paths);
-}
+static t_bool	lf_current(t_string *path, t_string cmd);
+static t_bool	split_path(t_string **paths, t_list *env);
+static t_bool	lf_path(t_string *path, t_string *paths, t_string cmd);
 
-t_string	get_path(t_string cmd, t_list *env)
+static t_bool	get_path_return(t_string *path,
+					t_string value, t_bool r);
+
+t_bool	get_path(t_string *path, t_string cmd, t_list *env)
 {
+	t_bool		r;
 	t_string	*paths;
-	t_string	path;
 
 	if (is_builtin(cmd))
-		return (cmd);
-	path = lf_current(cmd);
-	paths = NULL;
-	if (path)
-		return (path);
-	path = env_search(env, "PATH");
-	paths = __get_path(path, paths);
-	if (!paths)
-		return (NULL);
-	path = lf_path(paths, cmd);
-	wati_free_tab(paths);
-	if (!path)
-		g_err = 127;
-	return (path);
-}
-
-static char	*lf_path(t_string *paths, t_string cmd)
-{
-	char	*str;
-
-	if (cmd && !*cmd)
-		return (NULL);
-	if (*cmd && !access(cmd, X_OK))
-		return (cmd);
-	while (*paths)
+		return (get_path_return(path, NULL, TRUE));
+	if (lf_current(path, cmd))
 	{
-		str = wati_joinf(3, *paths, "/", cmd);
-		if (!access(str, X_OK))
-			return (str);
-		free(str);
-		paths++;
+		if (!path)
+			return (FALSE);
+		return (TRUE);
 	}
-	wati_error("command not found: %s", cmd);
-	return (NULL);
+	paths = NULL;
+	split_path(&paths, env);
+	r = lf_path(path, paths, cmd);
+	wati_free_tab(paths);
+	if (!r)
+	{
+		*path = NULL;
+	}
+	return (r);
 }
 
-static char	*lf_current(t_string cmd)
+static t_bool	lf_current(t_string *path, t_string cmd)
 {
-	t_string	path;
 	t_string	str;
 
 	if (wati_strncmp(cmd, "./", 2)
 		&& wati_strncmp(cmd, "../", 3))
-		return (NULL);
-	path = getcwd(NULL, 0);
-	str = wati_joinf(3, path, "/", cmd);
-	free(path);
-	if (!access(str, X_OK))
-		return (str);
+		return (FALSE);
+	str = getcwd(NULL, 0);
+	*path = wati_joinf(3, str, "/", cmd);
+	free(str);
+	if (!access(*path, X_OK))
+		return (TRUE);
 	else
-		free(str);
-	return (NULL);
+	{
+		if (!access(*path, F_OK))
+			wati_error(126, "permission denied: %s", cmd);
+		else
+			wati_error(127, "no such file or directory: %s", cmd);
+		free(*path);
+		*path = NULL;
+		return (TRUE);
+	}
+	return (TRUE);
+}
+
+static t_bool	split_path(t_string **paths, t_list *env)
+{
+	t_string	path;
+
+	path = env_search(env, "PATH");
+	if (path)
+	{
+		*paths = wati_split(path, ':');
+		free(path);
+		if (!*paths)
+			return (FALSE);
+	}
+	else
+		*paths = NULL;
+	return (TRUE);
+}
+
+static t_bool	lf_path(t_string *path, t_string *paths, t_string cmd)
+{
+	t_bool	no_right;
+
+	if (!access(cmd, X_OK))
+		return (get_path_return(path, wati_strdup(cmd), TRUE));
+	no_right = FALSE;
+	if (!access(cmd, F_OK))
+		no_right = TRUE;
+	if (paths)
+	{
+		while (*paths)
+		{
+			*path = wati_joinf(3, *paths, "/", cmd);
+			if (!access(*path, X_OK))
+				return (TRUE);
+			if (!access(*path, F_OK))
+				no_right = TRUE;
+			free(*path);
+			paths++;
+		}
+	}
+	if (no_right)
+		return (wati_error(126, "permission denied: %s", cmd));
+	return (wati_error(127, "command not found: %s", cmd));
+}
+
+static t_bool	get_path_return(t_string *path, t_string value, t_bool r)
+{
+	*path = value;
+	return (r);
 }

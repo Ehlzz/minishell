@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:19:19 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 13:02:59 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:33:36 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	wati_echo(t_string *strs)
 		return ;
 	if (wati_strncmp(*strs, "echo", 5))
 	{
-		wati_error("echo: wrong command choice");
+		wati_error(1, "echo: wrong command choice");
 		return ;
 	}
 	strs++;

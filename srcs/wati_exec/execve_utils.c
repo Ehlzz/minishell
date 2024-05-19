@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 18:05:18 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/18 14:11:53 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/19 18:03:25 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_bool	exec_builtin(t_exec exec, t_list *env)
 	return (TRUE);
 }
 
-t_bool	_execve(char **argv, t_shell *shell)
+t_bool	_execve(char **argv, t_pipe *fd, t_list **pids, t_shell *shell)
 {
 	int	id;
 
@@ -75,6 +75,9 @@ t_bool	_execve(char **argv, t_shell *shell)
 		export(shell->env, argv);
 	else if (id == EXIT)
 	{
+		close_spipe(*fd);
+		if (*pids)
+			wati_lstclear(pids, free);
 		ft_exit(shell, argv);
 	}
 	else
