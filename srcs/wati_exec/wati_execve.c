@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_execve.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 14:36:50 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/19 16:03:17 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 		if (!pid)
 		{
 			exec.path = get_path(*exec.strs, shell->env);
-			if (exec.path && wati_dup_files(cmd->files, fd))
+			if (wati_dup_files(cmd->files, fd))
 				__wati_execve(exec, shell);
 			execve_free(exec, fd, pids, shell);
 		}
@@ -92,7 +92,7 @@ static void	execve_free(t_exec exec, t_pipe *fd, t_list **pids, t_shell *shell)
 {
 	if (!exec.path)
 		close_spipe(*fd);
-	if (g_err)
+	else
 		free(exec.path);
 	wati_free_tab(exec.strs);
 	wati_lstclear(&shell->env, free);

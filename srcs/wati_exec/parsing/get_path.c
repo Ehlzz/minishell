@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:06:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 14:46:03 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/19 16:03:30 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_string	get_path(t_string cmd, t_list *env)
 	t_string	path;
 
 	if (is_builtin(cmd))
-		return (cmd);
+		return (NULL);
 	path = lf_current(cmd);
 	paths = NULL;
 	if (path)
