@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 17:27:14 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:52:09 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_bool	wati_execve_pipe(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 		if (!_execve(exec.strs, shell))
 		{
 			if (get_path(&exec.path, *exec.strs, shell->env)
-				&& wati_dup_files(cmd->files, fd))
+				&& wati_dup_files(cmd->files, fd, shell->env))
 				__wati_execve(exec, shell);
 		}
 		execve_free(exec, fd, pids, shell);
@@ -76,7 +76,7 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 		if (!pid)
 		{
 			if (get_path(&exec.path, *exec.strs, shell->env)
-				&& wati_dup_files(cmd->files, fd))
+				&& wati_dup_files(cmd->files, fd, shell->env))
 				__wati_execve(exec, shell);
 			execve_free(exec, fd, pids, shell);
 		}

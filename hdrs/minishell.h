@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 17:32:38 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:49:49 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ t_bool	add_fd(t_list	**files, t_oper oper, t_fd fd);
 
 void	swap_spipe(t_pipe *fd);
 
-t_bool	wati_dup_files(t_list *files, t_pipe *fd);
+t_bool	wati_dup_files(t_list *files, t_pipe *fd, t_list *env);
 t_pipe	reset_pipe(void);
 
 t_list	*add_pid(t_list **list, pid_t pid);
