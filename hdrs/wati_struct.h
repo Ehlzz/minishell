@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/20 11:32:26 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:58:18 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_shell
 	t_list	*list;
 	t_list	*env;
 	char	**envp;
+	t_btree	**node;
 }	t_shell;
 
 typedef struct s_heredoc

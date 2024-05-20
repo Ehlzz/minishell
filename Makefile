@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/05/20 17:53:27 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/05/20 19:47:29 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ SRCS = \
 	wati_exec/wati_pipe.c \
 	wati_exec/wati_pipe_oper.c \
 	wati_exec/parsing/get_path.c wati_exec/parsing/get_path_utils.c \
-	main.c
+	main_debug.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 

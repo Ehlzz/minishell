@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:49:29 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 18:32:03 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 20:11:11 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_bool	_btree_build_pipe(t_btree **root, t_list **list, t_shell *shell)
 	t_btree	*node;
 
 	node = NULL;
+	shell->node = &node;
 	if (!*list)
 		return (TRUE);
 	token = (*list)->content;
