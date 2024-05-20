@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:44:31 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/20 18:30:14 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:04:07 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,3 @@ void	wati_chdir(t_list **env, const t_string dir_name)
 	}
 	free(new_dir);
 }
-	
