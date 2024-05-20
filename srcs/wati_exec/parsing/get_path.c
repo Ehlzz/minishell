@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:06:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/20 12:05:34 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:59:56 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,37 @@
 
 int				is_builtin(char *path);
 
+int				is_exec(t_string path);
+t_bool			path_error(int errr, t_string cmd);
+t_bool			paths_error(int errr, t_string path, t_string cmd);
+t_bool			lf_path_error(t_string *path,
+					int *last_errr, t_string *last_path);
+
 static t_bool	lf_current(t_string *path, t_string cmd);
+static t_bool	lf_relative(t_string *path, t_string cmd);
 static t_bool	split_path(t_string **paths, t_list *env);
 static t_bool	lf_path(t_string *path, t_string *paths, t_string cmd);
 
-static t_bool	get_path_return(t_string *path,
-					t_string value, t_bool r);
 
 t_bool	get_path(t_string *path, t_string cmd, t_list *env)
 {
 	t_bool		r;
 	t_string	*paths;
 
+	*path = NULL;
+	if (!wati_strncmp(cmd, "/", 1))
+		return (lf_relative(path, cmd));
+	if (!wati_strncmp(cmd, "./", 2)
+		|| !wati_strncmp(cmd, "../", 3))
+		return (lf_current(path, cmd));
 	if (is_builtin(cmd))
-		return (get_path_return(path, NULL, TRUE));
-	if (lf_current(path, cmd))
 	{
-		if (!*path)
-			return (FALSE);
+		*path = NULL;
 		return (TRUE);
 	}
-	paths = NULL;
 	split_path(&paths, env);
+	if (!paths)
+		return (wati_error(127, "command not found: %s", cmd));
 	r = lf_path(path, paths, cmd);
 	wati_free_tab(paths);
 	if (!r)
@@ -45,31 +54,31 @@ t_bool	get_path(t_string *path, t_string cmd, t_list *env)
 	return (r);
 }
 
+static t_bool	lf_relative(t_string *path, t_string cmd)
+{
+	int	errr;
+
+	errr = is_exec(cmd);
+	if (errr == GOOD)
+		*path = wati_strdup(cmd);
+	return (path_error(errr, cmd));
+}
+
 static t_bool	lf_current(t_string *path, t_string cmd)
 {
 	t_string	str;
+	int			errr;
 
-	if (wati_strncmp(cmd, "./", 2)
-		&& wati_strncmp(cmd, "../", 3))
-		return (FALSE);
 	str = getcwd(NULL, 0);
 	*path = wati_joinf(3, str, "/", cmd);
 	free(str);
-	if (!access(*path, X_OK) && is_directory(*path) < 0)
-		return (TRUE);
-	else
+	errr = is_exec(*path);
+	if (errr != GOOD)
 	{
-		if (is_directory(*path))
-			wati_error(126, "is a directory: %s", cmd);
-		else if (!access(*path, F_OK))
-			wati_error(126, "permission denied: %s", cmd);
-		else
-			wati_error(127, "no such file or directory: %s", cmd);
 		free(*path);
 		*path = NULL;
-		return (TRUE);
 	}
-	return (TRUE);
+	return (path_error(errr, cmd));
 }
 
 static t_bool	split_path(t_string **paths, t_list *env)
@@ -91,33 +100,17 @@ static t_bool	split_path(t_string **paths, t_list *env)
 
 static t_bool	lf_path(t_string *path, t_string *paths, t_string cmd)
 {
-	t_bool	no_right;
+	int			last_errr;
+	t_string	last_path;
 
-	if (!access(cmd, X_OK))
-		return (get_path_return(path, wati_strdup(cmd), TRUE));
-	no_right = FALSE;
-	if (!access(cmd, F_OK))
-		no_right = TRUE;
-	if (paths)
+	last_errr = NO_EXIST;
+	last_path = NULL;
+	while (*paths)
 	{
-		while (*paths)
-		{
-			*path = wati_joinf(3, *paths, "/", cmd);
-			if (!access(*path, X_OK))
-				return (TRUE);
-			if (!access(*path, F_OK))
-				no_right = TRUE;
-			free(*path);
-			paths++;
-		}
+		*path = wati_joinf(3, *paths, "/", cmd);
+		if (lf_path_error(path, &last_errr, &last_path))
+			return (TRUE);
+		paths++;
 	}
-	if (no_right)
-		return (wati_error(126, "permission denied: %s", cmd));
-	return (wati_error(127, "command not found: %s", cmd));
-}
-
-static t_bool	get_path_return(t_string *path, t_string value, t_bool r)
-{
-	*path = value;
-	return (r);
+	return (paths_error(last_errr, *path, cmd));
 }

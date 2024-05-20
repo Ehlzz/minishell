@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_typedef.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:28:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/16 17:42:24 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:04:18 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,13 @@ typedef enum s_oper
 	P_IN,
 	P_OUT,
 }	t_oper;
+
+typedef enum s_err_path
+{
+	GOOD,
+	NO_EXIST,
+	PERM_DENIED,
+	IS_DIR,
+}	t_err_path;
 
 #endif
