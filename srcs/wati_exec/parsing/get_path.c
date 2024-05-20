@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:06:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 19:11:16 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 12:05:34 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,13 @@ static t_bool	lf_current(t_string *path, t_string cmd)
 	str = getcwd(NULL, 0);
 	*path = wati_joinf(3, str, "/", cmd);
 	free(str);
-	if (!access(*path, X_OK))
+	if (!access(*path, X_OK) && is_directory(*path) < 0)
 		return (TRUE);
 	else
 	{
-		if (!access(*path, F_OK))
+		if (is_directory(*path))
+			wati_error(126, "is a directory: %s", cmd);
+		else if (!access(*path, F_OK))
 			wati_error(126, "permission denied: %s", cmd);
 		else
 			wati_error(127, "no such file or directory: %s", cmd);

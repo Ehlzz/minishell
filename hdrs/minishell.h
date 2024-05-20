@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 17:49:49 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 12:16:02 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_list	*env_getlist(t_string *envp);
 void	env_print(t_list *env);
 char	*env_search(t_list *env, t_string var);
 t_list	*env_add(t_list **env, t_string str);
-void	env_delete(t_list	**env, t_string find);
+void	env_delete(t_list	**env, t_string *finds);
 /*        Tools         */
 void	print_endl(void *ptr);
 t_list	*get_var(t_list *list, t_string var);
@@ -155,7 +155,7 @@ t_fd	open_read(t_string str, int flags);
 t_fd	open_write(t_string str, int flags);
 
 void	wati_close(t_fd fd);
-void	close_fds(t_fds fds);
+t_bool	close_fds(t_fds fds);
 void	close_pipe(int pipe[2]);
 void	close_spipe(t_pipe fd);
 
@@ -164,7 +164,8 @@ t_bool	add_fd(t_list	**files, t_oper oper, t_fd fd);
 
 void	swap_spipe(t_pipe *fd);
 
-t_bool	wati_dup_files(t_list *files, t_pipe *fd, t_list *env);
+t_bool	wati_dup_files(t_fds *fds, t_list *files, t_pipe *fd, t_list *env);
+t_bool	wati_dup_fds(t_fds fds);
 t_pipe	reset_pipe(void);
 
 t_list	*add_pid(t_list **list, pid_t pid);
@@ -179,5 +180,11 @@ t_bool	wati_pipe(t_btree *node, t_pipe fd, t_shell *shell);
 t_bool	_wati_pipe_oper(t_btree *node, t_pipe *fd,
 			t_list **pids, t_shell *shell);
 t_bool	get_path(t_string *path, t_string cmd, t_list *env);
+
+t_bool	_execve(char **argv, t_pipe *fd, t_list **pids, t_shell *shell);
+void	__execve(t_exec exec, t_list *env);
+t_bool	exec_builtin(t_exec exec, t_list *env);
+int		is_builtin(char *path);
+void	execve_free(t_exec exec, t_pipe *fd, t_list **pids, t_shell *shell);
 
 #endif
