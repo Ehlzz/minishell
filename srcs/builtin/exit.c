@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:21:56 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/19 18:47:53 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 12:23:37 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_number(char *str)
 	int	i;
 
 	i = 0;
-	if (*str == '-')
+	if (*str == '-' || *str == '+')
 		i++;
 	while (str[i])
 	{
@@ -78,5 +78,6 @@ void	ft_exit(t_shell *shell, char **strs)
 	}
 	status = wati_atoll(strs[1]);
 	ft_free_before_exit(shell, strs);
+	wati_putendl_fd("exit", 2);
 	exit(status % 256);
 }
