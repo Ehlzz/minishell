@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:44:31 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/16 18:04:31 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:39:09 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ void	wati_chdir(t_list **env, const t_string dir_name)
 		update_pwd(env);
 	}
 	else
+	{
+		g_err = 1;
 		wati_fprintf(2, "cd: %s: No such file or directory\n", dir_name);
+	}
 	free(new_dir);
 }
