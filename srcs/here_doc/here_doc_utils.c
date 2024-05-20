@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:59:28 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/20 13:41:33 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:07:48 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

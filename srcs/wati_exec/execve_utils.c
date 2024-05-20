@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 18:05:18 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/20 15:27:29 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:54:46 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,14 @@ t_bool	exec_builtin(t_exec exec, t_list *env)
 	else if (id == PWD)
 		print_pwd();
 	else if (id == ENV)
-		env_print(env);
+	{
+		if (*(exec.strs + 1))
+			wati_error(1, "minishell: cd: too many arguments", 2);
+		else
+			env_print(env);
+	}
 	else if (id == EXPORT)
-		export(env, exec.strs);
+		export(&env, exec.strs);
 	return (TRUE);
 }
 
@@ -61,11 +66,16 @@ t_bool	_execve(char **argv, t_pipe *fd, t_list **pids, t_shell *shell)
 
 	id = is_builtin(*argv);
 	if (id == CD)
-		wati_chdir(&shell->env, *(argv + 1));
+	{
+		if (*(argv + 1) && *(argv + 2))
+			wati_error(1, "minishell: cd: too many arguments", 2);
+		else
+			wati_chdir(&shell->env, *(argv + 1));
+	}
 	else if (id == UNSET)
 		env_delete(&shell->env, argv);
 	else if (id == EXPORT && *(argv + 1))
-		export(shell->env, argv);
+		export(&(shell->env), argv);
 	else if (id == EXIT)
 	{
 		close_spipe(*fd);

@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:39:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/20 12:17:22 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:43:35 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,20 @@ void	free_list(t_list *lst)
 	wati_lstclear(&lst0, free);
 }
 
+char	*convert_space(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] >= '\t' && line[i] <= 13)
+			line[i] = ' ';
+		i++;
+	}
+	return (line);
+}
+
 t_list	*init_parsing(t_string line)
 {
 	t_string	str;
@@ -74,6 +88,7 @@ t_list	*init_parsing(t_string line)
 	test.quote = false;
 	while (wati_isspace(*line))
 		line++;
+	line = convert_space(line);
 	while (*line)
 	{
 		str = get_next_token(&line, &test);

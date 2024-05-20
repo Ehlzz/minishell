@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/20 12:57:41 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:08:55 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*check_tild(char *dir, t_list *env);
 int		is_directory(const t_string dir_name);
 
 /* Builtin export */
-void	export(t_list *env, char **strs);
+void	export(t_list **env, char **strs);
 int		verif_identifier(char *str);
 void	export_concat(t_list *env, char *str);
 void	__export_concat(t_list *env, char *name, char *str);
