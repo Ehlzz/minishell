@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:22:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/18 16:14:29 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 11:32:26 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_exec
 {
 	t_string	path;
 	t_string	*strs;
+	t_fds		fds;
 }	t_exec;
 
 typedef struct s_pipe

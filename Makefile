@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/05/19 13:28:08 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/05/20 11:49:13 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,12 +56,12 @@ SRCS = \
 	wati_exec/wati_pipe.c \
 	wati_exec/wati_pipe_oper.c \
 	wati_exec/parsing/get_path.c \
-	main.c
+	main_debug.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 
 #################################### FLAGS #####################################
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra #-Werror
 LFLAGS := -L$(DIR_LIBS) -lreadline -lwati
 IFLAGS := -I$(DIR_HDRS)
 

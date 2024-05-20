@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:27:56 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 19:11:51 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 12:53:39 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,42 +18,46 @@
 static t_bool	wati_dup2(t_fd fd, t_fd std);
 static t_bool	open_file(t_file *file, t_fds *fds, t_list *env);
 
-void	__wati_dup_files(t_fds fds)
+t_bool	wati_dup_fds(t_fds fds)
 {
+	t_bool	r;
+
+	r = TRUE;
 	if (fds.in > 2)
 	{
-		wati_dup2(fds.in, STDIN_FILENO);
+		if (!wati_dup2(fds.in, STDIN_FILENO))
+			r = FALSE;
 		close(fds.in);
 	}
 	if (fds.out > 2)
 	{
-		wati_dup2(fds.out, STDOUT_FILENO);
-		close(fds.out);
+		if (r && !wati_dup2(fds.out, STDOUT_FILENO))
+			r = FALSE;
+		close(fds.in);
 	}
+	return (r);
 }
 
-t_bool	wati_dup_files(t_list *files, t_pipe *fd, t_list *env)
+t_bool	wati_dup_files(t_fds *fds, t_list *files, t_pipe *fd, t_list *env)
 {
-	t_fds	fds;
-
 	wati_close(fd->pipe[0]);
-	fds.in = 0;
-	fds.out = 1;
+	fds->in = 0;
+	fds->out = 1;
 	if (fd->in > 2)
-		fds.in = fd->in;
+		fds->in = fd->in;
 	if (fd->pipe[1] > 2)
-		fds.out = fd->pipe[1];
+		fds->out = fd->pipe[1];
 	while (files)
 	{
-		if (!open_file(files->content, &fds, env))
+		if (!open_file(files->content, fds, env))
 		{
-			wati_close(fds.in);
-			wati_close(fds.out);
+			wati_close(fds->in);
+			wati_close(fds->out);
 			return (FALSE);
 		}
 		files = files->next;
 	}
-	__wati_dup_files(fds);
+	//wati_fprintf(2, "%i %i\n", fds->in, fds->out);
 	return (TRUE);
 }
 
