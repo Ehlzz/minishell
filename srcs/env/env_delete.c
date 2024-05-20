@@ -3,37 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   env_delete.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 18:16:42 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/18 15:42:43 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 11:15:23 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	_env_delete(t_list	**env, t_string find);
+static void	_env_delete(t_list	**env, t_string find, t_string find_op);
 
-void	env_delete(t_list	**env, t_string find)
+void	env_delete(t_list	**env, t_string *finds)
 {
-	if (!env || !*env || !(*env)->content || !find || !*find)
-		return ;
-	_env_delete(env, find);
+	t_string	find_op;
+
+	finds++;
+	while (*finds)
+	{
+		find_op = wati_strjoin(*finds, "=");
+		_env_delete(env, *finds, find_op);
+		free(find_op);
+		finds++;
+	}
 }
 
-void	_env_delete(t_list	**env, t_string find)
+static void	_env_delete(t_list	**env, t_string find, t_string find_op)
 {
 	t_list	**prev;
 	t_list	*list;
-	int		size;
+	size_t	size;
+	size_t	size_op;
 
 	list = *env;
 	prev = env;
-	find = env_search(*env, find);
-	if (!find)
-		return ;
 	size = wati_strlen(find);
-	while (list && wati_strncmp(list->content, find, size))
+	size_op = wati_strlen(find_op);
+	while (list
+		&& wati_strncmp(list->content, find, wati_strlen(find))
+		&& wati_strncmp(list->content, find_op, wati_strlen(find_op)))
 	{
 		prev = &list->next;
 		list = list->next;
@@ -44,5 +52,4 @@ void	_env_delete(t_list	**env, t_string find)
 		free(list->content);
 		free(list);
 	}
-	free(find);
 }

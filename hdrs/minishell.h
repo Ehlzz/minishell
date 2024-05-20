@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 17:49:49 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 11:16:44 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_list	*env_getlist(t_string *envp);
 void	env_print(t_list *env);
 char	*env_search(t_list *env, t_string var);
 t_list	*env_add(t_list **env, t_string str);
-void	env_delete(t_list	**env, t_string find);
+void	env_delete(t_list	**env, t_string *finds);
 /*        Tools         */
 void	print_endl(void *ptr);
 t_list	*get_var(t_list *list, t_string var);
