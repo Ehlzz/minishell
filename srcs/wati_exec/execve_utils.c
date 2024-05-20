@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 18:05:18 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/20 17:07:39 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:09:37 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_bool	exec_builtin(t_exec exec, t_list *env)
 			env_print(env);
 	}
 	else if (id == EXPORT)
-		export(env, exec.strs);
+		export(&env, exec.strs);
 	return (TRUE);
 }
 
@@ -75,7 +75,7 @@ t_bool	_execve(char **argv, t_pipe *fd, t_list **pids, t_shell *shell)
 	else if (id == UNSET)
 		env_delete(&shell->env, argv);
 	else if (id == EXPORT && *(argv + 1))
-		export(shell->env, argv);
+		export(&(shell->env), argv);
 	else if (id == EXIT)
 	{
 		close_spipe(*fd);

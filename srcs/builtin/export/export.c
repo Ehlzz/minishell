@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 19:20:58 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/20 11:57:00 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:09:22 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,12 @@ void	export_getlist(t_list *env)
 	wati_lstclear(&export, free);
 }
 
-void	export(t_list *env, char **strs)
+void	export(t_list **env, char **strs)
 {
 	int	verif;
 
 	if (!strs[1])
-		return (export_getlist(env));
+		return (export_getlist(*env));
 	strs++;
 	g_err = 0;
 	while (*strs)
@@ -107,9 +107,9 @@ void	export(t_list *env, char **strs)
 			continue ;
 		}
 		if (!verif)
-			env_add(&env, verify_token(wati_strdup(*strs), env));
+			env_add(env, verify_token(wati_strdup(*strs), *env));
 		else
-			export_concat(env, *strs);
+			export_concat(*env, *strs);
 		strs++;
 	}
 }
