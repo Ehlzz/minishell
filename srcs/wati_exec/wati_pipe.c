@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:59:30 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 13:24:07 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:41:31 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_bool	wati_pipe(t_btree *node, t_pipe fd, t_shell *shell)
 	if (cmd->oper == NO)
 	{
 		wati_execve(cmd, &fd, &pids, shell);
-		close_spipe(fd);
 		return (wait_pids(pids));
 	}
 	else if (cmd->oper == PIPE)

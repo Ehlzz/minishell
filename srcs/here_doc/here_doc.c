@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:54:25 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/19 14:53:23 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:41:38 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*random_filename(void)
 	}
 	tmp = wati_strjoin("/tmp/", name);
 	free(name);
-	close(fd);
+	wati_close(fd);
 	return (tmp);
 }
 

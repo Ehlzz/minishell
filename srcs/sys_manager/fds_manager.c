@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:27:56 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/20 13:14:37 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:23:46 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ t_bool	wati_dup_fds(t_fds fds)
 	{
 		if (!wati_dup2(fds.in, STDIN_FILENO))
 			r = FALSE;
-		close(fds.in);
+		wati_close(fds.in);
 	}
 	if (fds.out > 2)
 	{
 		if (r && !wati_dup2(fds.out, STDOUT_FILENO))
 			r = FALSE;
-		close(fds.in);
+		wati_close(fds.in);
 	}
 	return (r);
 }
@@ -52,6 +52,8 @@ t_bool	wati_dup_files(t_fds *fds, t_list *files, t_pipe *fd, t_list *env)
 		{
 			wati_close(fds->in);
 			wati_close(fds->out);
+			fds->in = -1;
+			fds->out = -1;
 			return (FALSE);
 		}
 		files = files->next;

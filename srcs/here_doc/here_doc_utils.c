@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:59:28 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/19 14:54:13 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:41:33 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ void	close_free_utils(t_heredoc *heredoc, char *line, int fd)
 	free(heredoc->file);
 	free(heredoc->limiter);
 	free(line);
-	close(fd);
+	wati_close(fd);
 }

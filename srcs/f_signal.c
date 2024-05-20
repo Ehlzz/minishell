@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   f_signal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 14:04:23 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/18 16:26:05 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:41:19 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	sig_here_doc(int code)
 	{
 		g_err = 130;
 		printf("\n");
-		close(0);
+		wati_close(0);
 	}
 }
 

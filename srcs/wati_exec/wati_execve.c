@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/20 13:19:03 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:25:57 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 #include <unistd.h>
 
-void	execve_free(t_exec exec, t_pipe *fd, t_list **pids, t_shell *shell);
+void		execve_free(t_exec exec, t_pipe *fd, t_list **pids, t_shell *shell);
+static void	free_last(t_exec exec, t_pipe *fd);
 
 t_string	*get_strs(t_list *cmd, t_list *env)
 {
@@ -55,20 +56,20 @@ t_bool	wati_execve_pipe(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 		return (0);
 	pid = 0;
 	pid = fork();
+	exec.path = NULL;
+	exec.strs = NULL;
 	if (!pid)
 	{
-		if (!wati_dup_files(&exec.fds, cmd->files, fd, shell->env))
-			exit(g_err);
-		if (!cmd->strs || !cmd->strs->content)
+		if (wati_dup_files(&exec.fds, cmd->files, fd, shell->env))
 		{
-			close_fds(exec.fds);
-			exit(g_err);
+			if (cmd->strs && cmd->strs->content)
+			{
+				exec.path = NULL;
+				exec.strs = get_strs(cmd->strs, shell->env);
+				if (!_execve(exec.strs, fd, pids, shell))
+					__wati_execve(&exec, shell);
+			}
 		}
-		exec.path = NULL;
-		exec.strs = get_strs(cmd->strs, shell->env);
-		if (!_execve(exec.strs, fd, pids, shell))
-			__wati_execve(&exec, shell);
-		wati_fprintf(2, "%p\n", exec.path);
 		execve_free(exec, fd, pids, shell);
 	}
 	add_pid(pids, pid);
@@ -99,7 +100,15 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 		}
 		add_pid(pids, pid);
 	}
-	close_fds(exec.fds);
-	wati_free_tab(exec.strs);
+	free_last(exec, fd);
 	return (TRUE);
+}
+
+static void	free_last(t_exec exec, t_pipe *fd)
+{
+	if (exec.fds.in != fd->in)
+		wati_close(exec.fds.in);
+	if (exec.fds.out != fd->pipe[1])
+		wati_close(exec.fds.out);
+	wati_free_tab(exec.strs);
 }

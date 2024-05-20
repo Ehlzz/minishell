@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 18:05:18 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/20 13:18:18 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:27:29 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	__execve(t_exec exec, t_list *env)
 
 void	execve_free(t_exec exec, t_pipe *fd, t_list **pids, t_shell *shell)
 {
-	if (!exec.path)
-		close_spipe(*fd);
+	close_fds(exec.fds);
+	close_spipe(*fd);
 	if (exec.path)
 		free(exec.path);
 	wati_free_tab(exec.strs);
