@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:59:00 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/20 12:39:45 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:39:28 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ int	last_char_check(char *search, char *content)
 
 int	wildcard_checker(char *search, char *content)
 {
-	if (*search == '*' && wati_strlen(search) == 2)
-		return (last_char_check(search, content));
 	while (*search || *content)
 	{
 		if (*search == '*')
@@ -81,10 +79,19 @@ int	wildcard_checker(char *search, char *content)
 				search++;
 			if (!*search)
 				return (1);
-			content = get_pattern(content, search);
-		}
-		if (!content || !*content || (*search++ != *content++))
+			while (*content)
+			{
+				if (wildcard_checker(search, content))
+					return (1);
+				content++;
+			}
 			return (0);
+		}
+		if ((!*search && *content) || !*content || \
+			(*search && *search != *content))
+			return (0);
+		search++;
+		content++;
 	}
-	return (1);
+	return (!(*search || *content));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wati_prompt.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 13:25:38 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/04/10 16:56:38 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:39:05 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ static char	*get_format_pwd(t_list *env)
 		return (pwd);
 	len = wati_strlen(home);
 	if (wati_strncmp(home, pwd, len))
+	{
+		free(home);
 		return (pwd);
+	}
 	str = wati_strjoin("~", pwd + len);
 	free(pwd);
 	free(home);

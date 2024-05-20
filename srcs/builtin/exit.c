@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:21:56 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/20 12:23:37 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:49:38 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_exit(t_shell *shell, char **strs)
 	}
 	if (check_overflow(strs[1]))
 	{
-		wati_putstr_fd("minishell: exit: ", 2);
+		wati_putstr_fd("exit\nminishell: exit: ", 2);
 		wati_putstr_fd(strs[1], 2);
 		wati_putstr_fd(": numeric argument required\n", 2);
 		ft_free_before_exit(shell, strs);
