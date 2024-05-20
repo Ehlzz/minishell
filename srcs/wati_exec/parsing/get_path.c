@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:06:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 17:44:50 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/19 19:11:16 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_bool	get_path(t_string *path, t_string cmd, t_list *env)
 		return (get_path_return(path, NULL, TRUE));
 	if (lf_current(path, cmd))
 	{
-		if (!path)
+		if (!*path)
 			return (FALSE);
 		return (TRUE);
 	}
@@ -41,9 +41,7 @@ t_bool	get_path(t_string *path, t_string cmd, t_list *env)
 	r = lf_path(path, paths, cmd);
 	wati_free_tab(paths);
 	if (!r)
-	{
 		*path = NULL;
-	}
 	return (r);
 }
 
