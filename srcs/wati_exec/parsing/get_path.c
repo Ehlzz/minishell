@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:06:11 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/20 18:59:56 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 20:33:21 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static t_bool	lf_current(t_string *path, t_string cmd);
 static t_bool	lf_relative(t_string *path, t_string cmd);
 static t_bool	split_path(t_string **paths, t_list *env);
 static t_bool	lf_path(t_string *path, t_string *paths, t_string cmd);
-
 
 t_bool	get_path(t_string *path, t_string cmd, t_list *env)
 {
