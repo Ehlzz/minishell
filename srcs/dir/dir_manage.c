@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:02:06 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/18 15:31:06 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:55:51 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,13 @@ void	update_pwd(t_list **env)
 {
 	char	*path;
 	char	*var;
+	char	*oldpwd;
 
 	path = getcwd(NULL, 0);
+	oldpwd = env_search(*env, "PWD");
+	var = wati_strjoin("OLDPWD=", oldpwd);
+	free(oldpwd);
+	env_add(env, var);
 	var = wati_strjoin("PWD=", path);
 	env_add(env, var);
 	free(path);
