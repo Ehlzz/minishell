@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/20 12:34:26 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 21:21:44 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,43 +43,4 @@ int	is_star(char *str)
 		str++;
 	}
 	return (0);
-}
-
-void	__convert_strs(char *str, t_list **result)
-{
-	t_list	*lst0;
-	t_list	*wildcard;
-
-	wildcard = wildcard_search(str);
-	lst0 = wildcard;
-	while (wildcard)
-	{
-		wati_lstadd_back(result, wati_lstnew(wati_strdup(wildcard->content)));
-		wildcard = wildcard->next;
-	}
-	wati_lstclear(&lst0, free);
-}
-
-int	is_quoted(char *str);
-
-t_list	*convert_strs(t_list *strs, t_list *env)
-{
-	t_list	*result;
-	char	*str;
-
-	result = NULL;
-	while (strs)
-	{
-		str = (char *)strs->content;
-		if (is_star(str) && !is_quoted(str))
-		{
-			__convert_strs(str, &result);
-			strs = strs->next;
-			continue ;
-		}
-		wati_lstadd_back(&result, \
-		wati_lstnew(verify_token(wati_strdup(str), env)));
-		strs = strs->next;
-	}
-	return (result);
 }

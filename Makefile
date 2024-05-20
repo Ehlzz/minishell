@@ -6,7 +6,7 @@
 #    By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/05/20 20:31:57 by ehalliez         ###   ########.fr        #
+#    Updated: 2024/05/20 21:21:00 by ehalliez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRCS = \
 	set_signal.c f_signal.c \
 	here_doc/here_doc_utils.c here_doc/here_doc.c \
 	parse/parsing.c parse/parsing_utils.c parse/parsing_dollar_quote.c parse/parsing_get_words.c parse/parsing_dollar_utils.c \
-	environnement/variable.c environnement/manage_oper.c wildcard/wildcard.c wildcard/get_current_dir.c wildcard/wildcard_utils.c \
+	environnement/variable.c environnement/manage_oper.c wildcard/convert_strs.c wildcard/wildcard.c wildcard/get_current_dir.c wildcard/wildcard_utils.c \
 	token_cmd/token_manager.c token_cmd/cmd_manager.c token_cmd/print_manager.c \
 	redirect/open_read.c redirect/open_write.c \
 	sys_manager/fds_manager.c sys_manager/pid_manager.c \
