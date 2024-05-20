@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/20 18:08:55 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 22:41:13 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 
 extern t_gtype	g_err;
 
-char	*ft_join_args(t_string *argv);
 char	*skip_space(t_string *line);
 char	*get_word(t_string *line, t_test *test);
 char	*get_next_token(t_string *line, t_test *test);
@@ -38,7 +37,6 @@ void	print_token(void *ptr);
 // #### PARSING ### // 
 
 int		is_char_operator(char c);
-char	*ft_join_args(char **argv);
 char	*get_operator_line(char **line);
 char	*skip_space(char **line);
 char	*get_word(char **line, t_test *test);
