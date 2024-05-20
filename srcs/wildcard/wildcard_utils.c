@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:59:00 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/19 16:23:33 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 11:51:16 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ char	*get_pattern(char *content, char *search)
 
 	star_pattern = get_next_star(search - 1);
 	content = wati_strnstr(content, star_pattern, wati_strlen(content));
+	// check if its the last occurence of the pattern
+	if (content && !wati_strnstr(content + 1, star_pattern, wati_strlen(content)))
+		content = content + wati_strlen(content) - wati_strlen(star_pattern);
 	free(star_pattern);
 	return (content);
 }
@@ -68,7 +71,6 @@ int	last_char_check(char *search, char *content)
 		return (1);
 	return (0);
 }
-
 int	wildcard_checker(char *search, char *content)
 {
 	if (*search == '*' && wati_strlen(search) == 2)
@@ -81,18 +83,10 @@ int	wildcard_checker(char *search, char *content)
 				search++;
 			if (!*search)
 				return (1);
-			while (*content)
-			{
-				if (wildcard_checker(search, content))
-					return (1);
-				content++;
-			}
-			return (0);
+			content = get_pattern(content, search);
 		}
-		if (!*content || (*search && *search != *content))
+		if (!content || !*content || (*search++ != *content++))
 			return (0);
-		search++;
-		content++;
 	}
-	return (!(*search || *content));
+	return (1);
 }

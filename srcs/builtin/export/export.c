@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 19:20:58 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/19 13:01:56 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 11:57:00 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,9 @@ void	export(t_list *env, char **strs)
 		verif = is_char_before_char(*strs, '+', '=');
 		if (!verif_identifier(*strs))
 		{
-			printf("bash: export: `%s': not a valid identifier\n", *strs);
+			wati_putstr_fd("bash: export: '", 2);
+			wati_putstr_fd(*strs, 2);
+			wati_putstr_fd("': not a valid identifier\n", 2);
 			strs++;
 			g_err++;
 			continue ;
