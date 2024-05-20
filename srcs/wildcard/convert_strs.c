@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:18:25 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/20 21:23:45 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/20 21:56:58 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,11 @@ void	_convert_strs(t_list **result, t_list *env, char *str)
 			wati_lstnew(wati_strdup("")));
 		while (splitted[i])
 		{
-			wati_lstadd_back(result, \
-			wati_lstnew(wati_strdup(splitted[i])));
+			if (is_star(splitted[i]))
+				__convert_strs(splitted[i], result);
+			else
+				wati_lstadd_back(result, \
+				wati_lstnew(wati_strdup(splitted[i])));
 			i++;
 		}
 		wati_free_tab(splitted);
