@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
+/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:19:19 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 17:33:36 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:31:21 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,9 @@ void	wati_echo(t_string *strs)
 	t_bool	skip;
 	t_bool	is_bs;
 
-	if (!*strs)
-		return ;
-	if (wati_strncmp(*strs, "echo", 5))
-	{
-		wati_error(1, "echo: wrong command choice");
-		return ;
-	}
 	strs++;
 	if (!*strs)
-		return ;
+		return (wati_putchar_fd('\n', 1));
 	is_bs = TRUE;
 	skip = check_first_arg(*strs);
 	while (!skip)
