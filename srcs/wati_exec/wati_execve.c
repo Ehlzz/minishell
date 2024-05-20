@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/20 12:54:24 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:19:03 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,20 @@ t_string	*get_strs(t_list *cmd, t_list *env)
 	return (strs);
 }
 
-static void	__wati_execve(t_exec exec, t_shell *shell)
+static void	__wati_execve(t_exec *exec, t_shell *shell)
 {
-	if (get_path(&exec.path, *exec.strs, shell->env)
-		&& wati_dup_fds(exec.fds))
+	if (get_path(&exec->path, *exec->strs, shell->env))
 	{
-		if (is_builtin(*exec.strs))
-			exec_builtin(exec, shell->env);
-		else if (exec.path)
-			__execve(exec, shell->env);
+		if (is_builtin(*exec->strs))
+		{
+			if (wati_dup2(exec->fds.out, STDOUT_FILENO))
+				exec_builtin(*exec, shell->env);
+		}
+		else if (exec->path)
+		{
+			if (wati_dup_fds(exec->fds))
+				__execve(*exec, shell->env);
+		}
 		else
 			g_err = 127;
 	}
@@ -62,7 +67,8 @@ t_bool	wati_execve_pipe(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 		exec.path = NULL;
 		exec.strs = get_strs(cmd->strs, shell->env);
 		if (!_execve(exec.strs, fd, pids, shell))
-			__wati_execve(exec, shell);
+			__wati_execve(&exec, shell);
+		wati_fprintf(2, "%p\n", exec.path);
 		execve_free(exec, fd, pids, shell);
 	}
 	add_pid(pids, pid);
@@ -88,7 +94,7 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 		if (!pid)
 		{
 			exec.path = NULL;
-			__wati_execve(exec, shell);
+			__wati_execve(&exec, shell);
 			execve_free(exec, fd, pids, shell);
 		}
 		add_pid(pids, pid);

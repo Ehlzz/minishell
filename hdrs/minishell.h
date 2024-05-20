@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/20 12:16:02 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 12:57:41 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ t_bool	wati_pipe(t_btree *node, t_pipe fd, t_shell *shell);
 t_bool	_wati_pipe_oper(t_btree *node, t_pipe *fd,
 			t_list **pids, t_shell *shell);
 t_bool	get_path(t_string *path, t_string cmd, t_list *env);
+t_bool	wati_dup2(t_fd fd, t_fd std);
 
 t_bool	_execve(char **argv, t_pipe *fd, t_list **pids, t_shell *shell);
 void	__execve(t_exec exec, t_list *env);

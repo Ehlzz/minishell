@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:27:56 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/20 12:53:39 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:14:37 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-static t_bool	wati_dup2(t_fd fd, t_fd std);
 static t_bool	open_file(t_file *file, t_fds *fds, t_list *env);
 
 t_bool	wati_dup_fds(t_fds fds)
@@ -57,7 +56,6 @@ t_bool	wati_dup_files(t_fds *fds, t_list *files, t_pipe *fd, t_list *env)
 		}
 		files = files->next;
 	}
-	//wati_fprintf(2, "%i %i\n", fds->in, fds->out);
 	return (TRUE);
 }
 
@@ -90,7 +88,7 @@ static t_bool	open_file(t_file *file, t_fds *fds, t_list *env)
 	return (TRUE);
 }
 
-static t_bool	wati_dup2(t_fd fd, t_fd std)
+t_bool	wati_dup2(t_fd fd, t_fd std)
 {
 	if (dup2(fd, std) < 0
 		&& dup2(fd, std) < 0

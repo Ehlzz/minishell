@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 13:14:23 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/20 12:16:14 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:07:17 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,4 @@ void	close_spipe(t_pipe fd)
 {
 	wati_close(fd.in);
 	close_pipe(fd.pipe);
-}
-
-void	execve_free(t_exec exec, t_pipe *fd, t_list **pids, t_shell *shell)
-{
-	if (!exec.path)
-		close_spipe(*fd);
-	else
-		free(exec.path);
-	wati_free_tab(exec.strs);
-	wati_lstclear(&shell->env, free);
-	btree_clear(shell->root, free_cmd);
-	if (*pids)
-		wati_lstclear(pids, free);
-	exit(g_err);
 }
