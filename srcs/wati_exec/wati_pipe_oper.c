@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 16:16:31 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/18 14:11:53 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:51:09 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_bool	_wati_pipe_oper(t_btree *node, t_pipe *fd,
 		_wati_exec(node, pipe, shell);
 		wati_close(fd->in);
 		wati_lstclear(&shell->env, free);
-		btree_clear(shell->root, free_cmd);
+		btree_clear(&shell->root, free_cmd);
 		exit(g_err);
 	}
 	add_pid(pids, pid);

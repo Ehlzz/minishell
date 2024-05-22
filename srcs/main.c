@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/20 19:03:51 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:51:09 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static t_bool	shell_build(t_shell *shell)
 	if (is_work)
 	{
 		wati_exec(shell);
-		btree_clear(shell->root, free_cmd);
+		btree_clear(&shell->root, free_cmd);
 	}
 	return (TRUE);
 }

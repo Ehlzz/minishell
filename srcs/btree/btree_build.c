@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:08:21 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/19 17:36:03 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:51:09 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_bool	btree_build(t_btree **root, t_list *list, t_shell *shell)
 {
 	if (!_btree_build(root, &list, shell))
 	{
-		btree_clear(*root, free_cmd);
+		btree_clear(&*root, free_cmd);
 		wati_lstiter(list, free_token);
 		return (FALSE);
 	}

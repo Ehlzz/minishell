@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 09:28:49 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/20 13:41:54 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:51:09 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_bool	btree_par(t_btree **root, t_list **list, t_shell *shell)
 	if (!_btree_par(&node, list, shell))
 	{
 		if (node)
-			btree_clear(node, free_cmd);
+			btree_clear(&node, free_cmd);
 		return (FALSE);
 	}
 	if (get_token(*list)->oper == P_OUT)

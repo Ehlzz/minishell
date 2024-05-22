@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:52:03 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/18 14:12:36 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:51:09 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 			btree_apply_by_level(shell.root, print_cmd_by_level);
 			wati_printf("\n-----\n");
 			wati_exec(&shell);
-			btree_clear(shell.root, free_cmd);
+			btree_clear(&shell.root, free_cmd);
 		}
 		else
 			wati_fprintf(2, "EXEC_NOTHING\n");
@@ -71,7 +71,7 @@ int	main(int argc, char **argv, char **envp)
 			btree_apply_by_level(shell.root, print_cmd_by_level);
 			wati_printf("\n-----\n");
 			wati_exec(&shell);
-			btree_clear(shell.root, free_cmd);
+			btree_clear(&shell.root, free_cmd);
 		}
 		else
 			wati_fprintf(2, "EXEC_NOTHING\n");

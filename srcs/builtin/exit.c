@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:21:56 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/20 18:04:11 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:51:09 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	check_overflow(char *str)
 void	ft_free_before_exit(t_shell *shell, char **argv)
 {
 	wati_free_tab(argv);
-	btree_clear(shell->root, free_cmd);
+	btree_clear(&shell->root, free_cmd);
 	wati_lstclear(&shell->env, free);
 	wati_lstclear(&shell->list, free);
 }

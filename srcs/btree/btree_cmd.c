@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:58:14 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/20 19:32:06 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:42:51 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ t_bool	btree_cmd(t_btree **node, t_list **list, t_shell *shell)
 	cmd->oper = NO;
 	cmd->files = NULL;
 	if (!_btree_cmd(cmd, list, shell))
-	{
-		free(cmd);
 		return (FALSE);
-	}
 	*node = btree_create_node(cmd);
 	if (!*node)
 	{
@@ -53,11 +50,12 @@ static t_bool	_btree_cmd(t_cmd *cmd, t_list **list, t_shell *shell)
 	t_list		*new;
 
 	cmd->strs = NULL;
+	cmd->files = NULL;
 	while (*list && is_opercmd(get_token(*list)->oper))
 	{
 		if (!cmd_parse_token(cmd, list, &new, shell))
 		{
-			wati_lstclear(&cmd->strs, free);
+			free_cmd(cmd);
 			return (FALSE);
 		}
 		if (new)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 18:05:18 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/20 18:54:46 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:51:09 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	execve_free(t_exec exec, t_pipe *fd, t_list **pids, t_shell *shell)
 		free(exec.path);
 	wati_free_tab(exec.strs);
 	wati_lstclear(&shell->env, free);
-	btree_clear(shell->root, free_cmd);
+	btree_clear(&shell->root, free_cmd);
 	if (*pids)
 		wati_lstclear(pids, free);
 	exit(g_err);
