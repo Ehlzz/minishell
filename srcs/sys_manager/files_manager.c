@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:12:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/15 12:47:35 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:56:37 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_bool	add_fd(t_list	**files, t_oper oper, t_fd fd)
 	t_file	*file;
 	t_list	*new;
 
+	if (fd <= 2)
+		return (FALSE);
 	file = malloc(sizeof(t_file));
 	if (!file)
 		return (FALSE);

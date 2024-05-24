@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/20 22:41:13 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:34:30 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		count_available(char *str);
 char	*dollar_to_end(char *line, int i);
 char	*dollar_to_dollar(char *line, int i);
 char	*start_to_dollar(char *line, int i);
-int		here_doc(char *limiter, t_cmd *cmd, t_list **list, t_shell *shell);
+int		here_doc(char *limiter, t_shell *shell);
 
 // ### TRIE ### //
 

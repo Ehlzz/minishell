@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:49:29 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/22 12:51:09 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:52:13 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ t_bool	_btree_build_pipe(t_btree **root, t_list **list, t_shell *shell)
 	if (token->oper == PIPE)
 	{
 		if (!btree_pipe(&node, list, shell))
+		{
+			btree_clear(&node, free_cmd);
 			return (FALSE);
+		}
 	}
 	if (node)
 		add_root(root, node);
@@ -51,8 +54,6 @@ t_bool	btree_pipe(t_btree **root, t_list **list, t_shell *shell)
 	{
 		if (!(*list)->next || !is_opercmd(get_token((*list)->next)->oper))
 		{
-			if (*root)
-				btree_clear(&*root, free_cmd);
 			return (wati_error(2,
 					"parse error near '%s'", get_token(*list)->str));
 		}
@@ -74,14 +75,19 @@ static t_bool	_btree_pipe(t_btree **root, t_btree *node)
 
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
+	{
+		btree_clear(&node, free_cmd);
 		return (wati_error(3, "alloc fail"));
+	}
 	cmd->oper = PIPE;
 	cmd->strs = NULL;
 	cmd->files = NULL;
 	new = btree_create_node(cmd);
+	//new = NULL;
 	if (!new)
 	{
 		free(cmd);
+		btree_clear(&node, free_cmd);
 		return (wati_error(3, "alloc fail"));
 	}
 	new_root(root, new);
