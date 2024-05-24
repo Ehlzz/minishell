@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 19:20:58 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/20 18:09:22 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:13:26 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	export(t_list **env, char **strs)
 			continue ;
 		}
 		if (!verif)
-			env_add(env, verify_token(wati_strdup(*strs), *env));
+			env_add(env, wati_strdup(*strs));
 		else
 			export_concat(*env, *strs);
 		strs++;

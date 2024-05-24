@@ -6,7 +6,7 @@
 /*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:42:36 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/15 18:22:24 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:16:08 by ehalliez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	export_concat(t_list *env, char *str)
 		return (__export_concat(env, tmp, str));
 	free(tmp);
 	tmp = wati_substr(str, len + 2, wati_strlen(str) - len - 2);
-	to_concat = verify_token(tmp, env);
+	to_concat = wati_strdup(tmp);
+	free(tmp);
 	tmp = wati_strjoin(name->content, to_concat);
 	free(to_concat);
 	env_add(&env, tmp);
