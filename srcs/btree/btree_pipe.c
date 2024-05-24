@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:49:29 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/22 13:08:14 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:52:13 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_bool	_btree_build_pipe(t_btree **root, t_list **list, t_shell *shell)
 	{
 		if (!btree_pipe(&node, list, shell))
 		{
-			btree_clear(root, free_cmd);
+			btree_clear(&node, free_cmd);
 			return (FALSE);
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehalliez <ehalliez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:54:25 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/20 17:53:39 by ehalliez         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:57:59 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include "fcntl.h"
+
+int		wati_nothing(void);
 
 void	close_free_utils(t_heredoc *heredoc, char *line, int fd);
 void	free_in_fork(t_cmd *cmd, t_list **list, t_shell *shell);
@@ -70,8 +72,7 @@ char	*random_filename(void)
 	return (tmp);
 }
 
-void	__here_doc(t_heredoc *heredoc, t_cmd *cmd, \
-t_list **list, t_shell *shell)
+void	__here_doc(t_heredoc *heredoc, t_shell *shell)
 {
 	char	*line;
 	int		size_limiter;
@@ -93,33 +94,28 @@ t_list **list, t_shell *shell)
 		write(fd, line, size_line);
 		free(line);
 	}
-	free_in_fork(cmd, list, shell);
-	close_free_utils(heredoc, line, fd);
+	close(fd);
 }
 
-int	here_doc(char *limiter, t_cmd *cmd, t_list **list, t_shell *shell)
+int	here_doc(char *limiter, t_shell *shell)
 {
 	t_fd		fd;
-	int			r;
-	pid_t		pid;
 	t_heredoc	here_doc;
 
-	r = 0;
 	set_signal_ign();
 	here_doc.file = random_filename();
 	here_doc.limiter = limiter;
-	pid = fork();
-	if (!pid)
-	{
-		g_err = 0;
-		set_signal_here_doc();
-		__here_doc(&here_doc, cmd, list, shell);
-		exit(g_err);
-	}
-	waitpid(pid, &g_err, 0);
-	if (WEXITSTATUS(r))
-		g_err = WEXITSTATUS(r);
+	g_err = 0;
+	set_signal_here_doc();
+	rl_event_hook = &wati_nothing;
+	__here_doc(&here_doc, shell);
 	free(here_doc.limiter);
+	if (g_err != 0)
+	{
+		unlink(here_doc.file);
+		free(here_doc.file);
+		return (-1);
+	}
 	fd = open(here_doc.file, O_RDONLY);
 	unlink(here_doc.file);
 	free(here_doc.file);
