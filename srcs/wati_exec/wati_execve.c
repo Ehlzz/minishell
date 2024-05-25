@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/25 11:55:23 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/25 14:08:39 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,11 @@ t_bool	wati_execve_pipe(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 				if (exec.strs && !_execve(exec.strs, fd, pids, shell))
 					__wati_execve(&exec, shell);
 			}
+			else
+				btree_clear(&shell->root, free_cmd);
 		}
+		else
+			btree_clear(&shell->root, free_cmd);
 		execve_free(exec, fd, pids, shell);
 	}
 	add_pid(pids, pid);

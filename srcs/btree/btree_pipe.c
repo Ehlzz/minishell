@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:49:29 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/24 14:52:13 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/25 16:33:03 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ t_bool	_btree_build_pipe(t_btree **root, t_list **list, t_shell *shell)
 	t_token	*token;
 	t_btree	*node;
 
+	token = (*list)->content;
+	if (*root && ((*root)->right || is_opercmd(get_cmd(*root)->oper)))
+		return (wati_error(2,
+				"parse error near '%s'", token->str));
 	node = NULL;
 	shell->node = &node;
 	if (!*list)
 		return (TRUE);
-	token = (*list)->content;
 	if (is_opercmd(token->oper))
 	{
 		if (!btree_cmd(&node, list, shell))
@@ -83,7 +86,6 @@ static t_bool	_btree_pipe(t_btree **root, t_btree *node)
 	cmd->strs = NULL;
 	cmd->files = NULL;
 	new = btree_create_node(cmd);
-	//new = NULL;
 	if (!new)
 	{
 		free(cmd);

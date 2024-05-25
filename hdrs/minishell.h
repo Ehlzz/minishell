@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:30:42 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/24 15:34:30 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/25 16:18:23 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void	free_token(void *ptr);
 /*    Manage CMD    */
 t_cmd	*get_cmd(t_btree *node);
 void	print_cmd_by_level(void *ptr, int level, int is_first_elem);
+void	print_cmd(void *ptr);
 void	free_cmd(void *ptr);
 void	free_exec(void *ptr);
 
