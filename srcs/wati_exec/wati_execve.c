@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:54:32 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/22 13:14:28 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/25 11:55:23 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ t_bool	wati_execve_pipe(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 		{
 			if (cmd->strs && cmd->strs->content)
 			{
-				exec.path = NULL;
 				exec.strs = get_strs(cmd->strs, shell->env);
+				btree_clear(&shell->root, free_cmd);
 				if (exec.strs && !_execve(exec.strs, fd, pids, shell))
 					__wati_execve(&exec, shell);
 			}
@@ -94,6 +94,7 @@ t_bool	wati_execve(t_cmd *cmd, t_pipe *fd, t_list **pids, t_shell *shell)
 		pid = fork();
 		if (!pid)
 		{
+			btree_clear(&shell->root, free_cmd);
 			exec.path = NULL;
 			__wati_execve(&exec, shell);
 			execve_free(exec, fd, pids, shell);
