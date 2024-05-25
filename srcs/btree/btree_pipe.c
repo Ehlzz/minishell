@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:49:29 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/05/25 16:33:03 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/25 17:07:00 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,21 @@ t_bool	_btree_build_pipe(t_btree **root, t_list **list, t_shell *shell)
 	t_token	*token;
 	t_btree	*node;
 
+	if (!*list)
+		return (TRUE);
 	token = (*list)->content;
 	if (*root && ((*root)->right || is_opercmd(get_cmd(*root)->oper)))
 		return (wati_error(2,
 				"parse error near '%s'", token->str));
 	node = NULL;
-	shell->node = &node;
-	if (!*list)
-		return (TRUE);
-	if (is_opercmd(token->oper))
-	{
-		if (!btree_cmd(&node, list, shell))
-			return (FALSE);
-	}
+	if (is_opercmd(token->oper) && !btree_cmd(&node, list, shell))
+		return (FALSE);
 	if (*list)
 		token = (*list)->content;
-	if (token->oper == PIPE)
+	if (token->oper == PIPE && !btree_pipe(&node, list, shell))
 	{
-		if (!btree_pipe(&node, list, shell))
-		{
-			btree_clear(&node, free_cmd);
-			return (FALSE);
-		}
+		btree_clear(&node, free_cmd);
+		return (FALSE);
 	}
 	if (node)
 		add_root(root, node);
