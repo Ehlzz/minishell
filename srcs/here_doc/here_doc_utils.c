@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:59:28 by ehalliez          #+#    #+#             */
-/*   Updated: 2024/05/22 12:51:09 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/05/30 10:52:54 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,4 @@ char	*get_line(int verif_quote, t_list *env, t_heredoc *heredoc)
 	line = wati_strjoin(line, "\n");
 	free(tmp);
 	return (line);
-}
-
-void	free_in_fork(t_cmd *cmd, t_list **list, t_shell *shell)
-{
-	if (shell->node)
-		btree_clear(&*shell->node, free_cmd);
-	if (shell->root)
-		btree_clear(&shell->root, free_cmd);
-	wati_lstclear(&shell->env, free);
-	free_cmd(cmd);
-	wati_lstiter(*list, free_token);
-	wati_lstclear(&shell->list, free);
-}
-
-void	close_free_utils(t_heredoc *heredoc, char *line, int fd)
-{
-	free(heredoc->file);
-	free(heredoc->limiter);
-	free(line);
-	wati_close(fd);
 }

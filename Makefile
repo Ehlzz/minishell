@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42angouleme.fr> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/26 15:52:38 by ehalliez          #+#    #+#              #
-#    Updated: 2024/05/25 17:11:47 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/05/30 11:09:59 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,7 @@ fclean: $(WATI_RULES)fclean
 	@printf "$(RED)clean $(NAME)$(NC)\n"
 	@rm -rf $(DIR_OBJS)
 	@rm -f $(NAME)
-	@rm -f $(DIR_LIBS)$(WATI_NAME)
+	@rm -rf $(DIR_LIBS)
 
 re: fclean debug
 
